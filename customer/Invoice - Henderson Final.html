@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f5f1e6" />
+<title>Invoice INV-0226 · Rawlings Builds · Henderson Loft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<template id="__bundler_thumbnail" data-bg-color="#f5f1e6">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#f5f1e6"/>
+    <rect x="60" y="40" width="280" height="320" rx="4" fill="#fffbf0" stroke="#0e0e0c" stroke-width="2"/>
+    <rect x="80" y="40" width="240" height="4" fill="#b8881e"/>
+    <text x="200" y="120" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7a7468" letter-spacing="3">INVOICE INV-0226</text>
+    <text x="200" y="180" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="48" fill="#0e0e0c" letter-spacing="-1">£14,325</text>
+    <text x="200" y="210" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7a7468" letter-spacing="2">FINAL BALANCE DUE</text>
+    <g transform="translate(200 290) rotate(-12)">
+      <rect x="-58" y="-22" width="116" height="44" fill="none" stroke="#2d7a3e" stroke-width="4"/>
+      <text x="0" y="6" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="26" fill="#2d7a3e" letter-spacing="2">PAID</text>
+    </g>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --bone: #f5f1e6;
+    --paper: #fffbf0;
+    --ink: #0e0e0c;
+    --ink-soft: #2a261f;
+    --ink-mute: #6b6457;
+    --ink-faint: #a39c8d;
+    --hairline: #d8cfb8;
+    --hairline-soft: #e8e0c8;
+    --gold: #b8881e;
+    --gold-bright: #e8b84b;
+    --gold-soft: rgba(184,136,30,0.08);
+    --green: #2d7a3e;
+    --green-soft: rgba(45,122,62,0.08);
+    --red: #b8281a;
+    --red-soft: rgba(184,40,26,0.06);
+    --shadow: 0 1px 0 rgba(0,0,0,0.04), 0 12px 32px rgba(40,30,10,0.08);
+    --font-display: 'Archivo Narrow', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bone); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  body {
+    background-image:
+      radial-gradient(rgba(120,90,30,0.04) 1px, transparent 1.5px),
+      radial-gradient(rgba(180,150,60,0.025) 1px, transparent 1.5px);
+    background-size: 4px 4px, 9px 9px;
+    background-position: 0 0, 2px 2px;
+  }
+  button { font-family: inherit; cursor: pointer; }
+
+  .stencil { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .stencil.mute { color: var(--ink-mute); }
+
+  /* Top action bar */
+  .action-bar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--ink); color: var(--bone);
+    padding: 10px 20px;
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+  }
+  .action-bar .left { display: flex; align-items: center; gap: 10px; flex: 1; }
+  .action-bar .logo-mark {
+    width: 22px; height: 22px; background: var(--gold-bright); color: var(--ink);
+    display: flex; align-items: center; justify-content: center; border-radius: 3px;
+    font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: -0.04em;
+  }
+  .action-bar .title { font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .action-bar .actions { display: flex; gap: 8px; }
+  .action-bar button {
+    background: transparent; border: 1px solid rgba(245,241,230,0.18);
+    color: var(--bone); padding: 6px 10px; border-radius: 3px;
+    font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .action-bar button:hover { border-color: var(--gold-bright); color: var(--gold-bright); }
+
+  /* Doc shell — feels like A4 paper */
+  .doc {
+    max-width: 880px; margin: 32px auto; background: var(--paper);
+    border: 1px solid var(--hairline); border-radius: 4px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .doc::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: repeating-linear-gradient(135deg, var(--gold) 0 12px, var(--ink) 12px 24px);
+  }
+
+  /* Doc header */
+  .doc-head { padding: 40px 48px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 640px) { .doc-head { grid-template-columns: 1fr; padding: 30px 24px 20px; } }
+  .doc-head .from .name { font-family: var(--font-display); font-weight: 800; font-size: 28px; line-height: 1.05; letter-spacing: -0.01em; }
+  .doc-head .from .meta { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.04em; margin-top: 6px; line-height: 1.7; }
+  .doc-head .doc-id { text-align: right; }
+  @media (max-width: 640px) { .doc-head .doc-id { text-align: left; } }
+  .doc-head .doc-id .kind { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.18em; text-transform: uppercase; }
+  .doc-head .doc-id .ref { font-family: var(--font-display); font-weight: 800; font-size: 36px; letter-spacing: -0.02em; line-height: 1; margin-top: 4px; }
+  .doc-head .doc-id .dates { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.04em; margin-top: 10px; line-height: 1.7; }
+  .doc-head .doc-id .dates strong { color: var(--ink); }
+
+  /* Bill to / for grid */
+  .bill {
+    margin: 0 48px; padding: 18px 0; border-top: 1px dashed var(--hairline); border-bottom: 1px dashed var(--hairline);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px;
+  }
+  @media (max-width: 640px) { .bill { margin: 0 24px; grid-template-columns: 1fr 1fr; } }
+  .bill .lbl { font-family: var(--font-mono); font-size: 9px; color: var(--ink-mute); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 5px; }
+  .bill .val { font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; }
+  .bill .val small { display: block; font-family: var(--font-body); font-size: 12px; font-weight: 400; color: var(--ink-mute); margin-top: 3px; letter-spacing: 0; }
+
+  /* Summary stripe — the headline number */
+  .summary {
+    margin: 28px 48px; padding: 24px 26px;
+    background: var(--ink); color: var(--paper); border-radius: 6px;
+    display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 640px) { .summary { margin: 22px 24px; grid-template-columns: 1fr; padding: 20px 22px; } }
+  .summary .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--gold-bright); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; }
+  .summary .big {
+    font-family: var(--font-display); font-weight: 800; font-size: 56px; letter-spacing: -0.02em; line-height: 1;
+    color: var(--paper);
+  }
+  .summary .due-by { font-family: var(--font-mono); font-size: 11px; color: rgba(245,241,230,0.7); letter-spacing: 0.06em; margin-top: 8px; }
+  .summary .due-by strong { color: var(--gold-bright); }
+  .summary .pay-btn {
+    background: var(--gold-bright); color: var(--ink); border: 0;
+    padding: 18px 26px; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase;
+    box-shadow: 0 8px 24px rgba(232,184,75,0.32);
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform 80ms;
+    white-space: nowrap;
+  }
+  .summary .pay-btn:hover { background: #ffd054; }
+  .summary .pay-btn:active { transform: scale(0.98); }
+
+  /* Section title */
+  .section { margin: 0 48px; padding: 22px 0 8px; }
+  @media (max-width: 640px) { .section { margin: 0 24px; } }
+  .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .section-title hr { flex: 1; height: 1px; background: var(--hairline); border: 0; margin: 0; }
+  .section-title .right { color: var(--ink-mute); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* Line items table */
+  .lines { border-top: 1px solid var(--hairline-soft); }
+  .line {
+    display: grid; grid-template-columns: 36px 1fr 70px 90px 100px; gap: 14px; align-items: flex-start;
+    padding: 16px 0; border-bottom: 1px solid var(--hairline-soft);
+  }
+  @media (max-width: 640px) {
+    .line { grid-template-columns: 28px 1fr auto; }
+    .line .qty, .line .rate { display: none; }
+  }
+  .line .num { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); padding-top: 4px; letter-spacing: 0.06em; }
+  .line .what { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
+  .line .desc { font-size: 13px; color: var(--ink-mute); margin-top: 4px; line-height: 1.45; }
+  .line .qty, .line .rate { font-family: var(--font-mono); font-size: 12px; color: var(--ink-mute); padding-top: 4px; text-align: right; letter-spacing: 0.04em; }
+  .line .amt { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; text-align: right; padding-top: 2px; white-space: nowrap; }
+
+  .totals {
+    padding: 18px 0 6px;
+    display: grid; grid-template-columns: 1fr 200px; gap: 18px;
+  }
+  @media (max-width: 640px) { .totals { grid-template-columns: 1fr; } }
+  .totals .note { font-size: 13px; color: var(--ink-mute); line-height: 1.55; font-style: italic; }
+  .totals .stack {
+    display: flex; flex-direction: column; gap: 6px;
+    font-family: var(--font-mono); font-size: 13px;
+  }
+  .totals .row { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 4px 0; }
+  .totals .row.divider { border-top: 1px dashed var(--hairline); padding-top: 10px; margin-top: 4px; }
+  .totals .row .lbl { color: var(--ink-mute); letter-spacing: 0.04em; }
+  .totals .row .val { color: var(--ink-soft); }
+  .totals .row.grand .lbl { font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); }
+  .totals .row.grand .val { font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: -0.01em; color: var(--ink); }
+  .totals .row.paid .val { color: var(--green); }
+  .totals .row.due .lbl, .totals .row.due .val { color: var(--red); font-weight: 700; }
+
+  /* Payments timeline */
+  .pay-history { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .pay-history li {
+    display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center;
+    padding: 12px 14px; background: var(--bone); border: 1px solid var(--hairline-soft); border-radius: 4px;
+  }
+  .pay-history li .icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--green); color: var(--paper); font-weight: 700; font-size: 14px;
+  }
+  .pay-history li.pending .icon { background: var(--bone); border: 1.5px dashed var(--red); color: var(--red); }
+  .pay-history li .what { font-family: var(--font-display); font-weight: 700; font-size: 14px; line-height: 1.2; }
+  .pay-history li .when { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.06em; margin-top: 3px; }
+  .pay-history li .amt { font-family: var(--font-display); font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
+  .pay-history li.pending .amt { color: var(--red); }
+
+  /* Variations callout */
+  .variations {
+    margin: 10px 0 18px; padding: 14px 16px;
+    border-left: 3px solid var(--gold); background: var(--gold-soft); border-radius: 0 4px 4px 0;
+  }
+  .variations .lbl { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .variations p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+  .variations p strong { color: var(--ink); }
+
+  /* Pay options card */
+  .pay-options {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+    margin: 12px 0 4px;
+  }
+  @media (max-width: 640px) { .pay-options { grid-template-columns: 1fr; } }
+  .pay-card {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 4px; padding: 14px;
+  }
+  .pay-card .name { font-family: var(--font-display); font-weight: 700; font-size: 14px; }
+  .pay-card .detail { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.04em; margin-top: 6px; line-height: 1.6; }
+  .pay-card .detail strong { color: var(--ink); }
+  .pay-card.featured { border-color: var(--ink); }
+  .pay-card.featured .name { color: var(--gold); }
+
+  /* Doc footer */
+  .doc-foot {
+    padding: 24px 48px 36px;
+    border-top: 1px dashed var(--hairline);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: end;
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.06em;
+    margin-top: 20px;
+  }
+  @media (max-width: 640px) { .doc-foot { padding: 20px 24px; grid-template-columns: 1fr; } }
+  .doc-foot .via { display: flex; align-items: center; gap: 8px; }
+  .doc-foot .via .logo-mark {
+    width: 24px; height: 24px; background: var(--ink); color: var(--gold-bright);
+    display: flex; align-items: center; justify-content: center; border-radius: 3px;
+    font-family: var(--font-display); font-weight: 800; font-size: 14px;
+  }
+  .doc-foot .via .txt strong { font-family: var(--font-display); font-weight: 800; font-size: 13px; color: var(--ink); letter-spacing: 0; }
+  .doc-foot .via .txt { line-height: 1.4; }
+  .doc-foot .legal { text-align: right; line-height: 1.7; }
+  @media (max-width: 640px) { .doc-foot .legal { text-align: left; } }
+
+  /* PAID stamp on header when paid */
+  .stamp {
+    position: absolute; top: 60px; right: 60px;
+    font-family: var(--font-display); font-weight: 800; font-size: 56px;
+    color: var(--green); border: 6px solid var(--green); padding: 6px 18px;
+    transform: rotate(-12deg); letter-spacing: 0.04em;
+    pointer-events: none; z-index: 10;
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  body.paid .stamp { opacity: 0.92; }
+  body.paid .summary { display: none; }
+  body.paid .paid-banner { display: grid !important; }
+  body.paid .pay-options { display: none; }
+
+  .paid-banner {
+    display: none;
+    margin: 28px 48px; padding: 24px 26px;
+    background: var(--green-soft); color: var(--ink); border: 1px solid var(--green); border-radius: 6px;
+    grid-template-columns: 1fr auto; gap: 18px; align-items: center;
+  }
+  @media (max-width: 640px) { .paid-banner { margin: 22px 24px; grid-template-columns: 1fr; padding: 20px 22px; } }
+  .paid-banner .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--green); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
+  .paid-banner .msg { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; line-height: 1.15; }
+  .paid-banner .when { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em; margin-top: 6px; }
+  .paid-banner .review-btn {
+    background: var(--ink); color: var(--gold-bright); border: 0;
+    padding: 14px 20px; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white !important; }
+    .action-bar { display: none; }
+    .doc { box-shadow: none; border: 0; margin: 0; max-width: 100%; }
+    .summary .pay-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="action-bar">
+  <div class="left">
+    <div class="logo-mark">G</div>
+    <span class="title">Invoice · INV-0226 · Henderson Loft</span>
+  </div>
+  <div class="actions">
+    <button onclick="window.print()">↓ Save PDF</button>
+    <button onclick="navigator.share ? navigator.share({title:'Invoice',url:location.href}) : alert('Link copied')">↗ Share</button>
+    <button onclick="togglePaid()" title="demo only">⤺ Toggle paid</button>
+  </div>
+</div>
+
+<div class="doc">
+  <div class="stamp">PAID</div>
+
+  <!-- HEADER -->
+  <div class="doc-head">
+    <div class="from">
+      <div class="stencil" style="margin-bottom: 8px;">// From</div>
+      <div class="name">Rawlings Builds Ltd</div>
+      <div class="meta">
+        47 Hornsey Rise · London N19 3SB<br/>
+        VAT 287 4422 18 · Co. 09823144<br/>
+        dave@rawlingsbuilds.co.uk · 07712 884 109
+      </div>
+    </div>
+    <div class="doc-id">
+      <div class="kind">// Invoice · Final</div>
+      <div class="ref">INV-0226</div>
+      <div class="dates">
+        Issued <strong>27 May 2026</strong><br/>
+        Due <strong>03 Jun 2026</strong><br/>
+        Job ref <strong>QR-0226</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- BILL TO -->
+  <div class="bill">
+    <div>
+      <div class="lbl">// Bill to</div>
+      <div class="val">Tom &amp; Anna Henderson<small>14 Mountview Rd<br/>Crouch End N8 4SH</small></div>
+    </div>
+    <div>
+      <div class="lbl">// For</div>
+      <div class="val">Loft conversion<small>8 working days · 2-bed dormer<br/>Mon 18 → Wed 27 May '26</small></div>
+    </div>
+    <div>
+      <div class="lbl">// Status</div>
+      <div class="val" id="statusVal" style="color: var(--red);">Awaiting final<small>£14,325 outstanding · due in 7 days</small></div>
+    </div>
+  </div>
+
+  <!-- SUMMARY: due now -->
+  <div class="summary">
+    <div>
+      <div class="lbl">// Final balance due</div>
+      <div class="big">£14,325.00</div>
+      <div class="due-by">DUE BY <strong>WED 03 JUN '26</strong> · 7 DAYS REMAINING</div>
+    </div>
+    <button class="pay-btn" onclick="payNow()">Pay £14,325 now →</button>
+  </div>
+
+  <!-- PAID banner replaces summary when paid -->
+  <div class="paid-banner">
+    <div>
+      <div class="lbl">// Paid in full</div>
+      <div class="msg">Cheers Tom — that's the lot. Job's all squared.</div>
+      <div class="when">PAID 27 MAY '26 · 18:12 · VISA •• 4242 · RCP-INV-0226-F</div>
+    </div>
+    <button class="review-btn" onclick="alert('Opening review request →')">★ Leave Dave a review</button>
+  </div>
+
+  <!-- LINE ITEMS -->
+  <div class="section">
+    <div class="section-title">
+      <span class="stencil">// Scope of works · as delivered</span>
+      <hr/>
+      <span class="right">6 items · 8 days</span>
+    </div>
+
+    <div class="lines">
+      <div class="line">
+        <div class="num">01</div>
+        <div>
+          <div class="what">Strip-out · waste removal</div>
+          <div class="desc">2 skips · 3 tip runs · existing insulation cleared</div>
+        </div>
+        <div class="qty">1 day</div>
+        <div class="rate">£1,650 / d</div>
+        <div class="amt">£1,650</div>
+      </div>
+      <div class="line">
+        <div class="num">02</div>
+        <div>
+          <div class="what">Structural · dormer build &amp; steels</div>
+          <div class="desc">South dormer · 2 RSJs · joists doubled · BC sign-off attached</div>
+        </div>
+        <div class="qty">2 days</div>
+        <div class="rate">£3,710 / d</div>
+        <div class="amt">£7,420</div>
+      </div>
+      <div class="line">
+        <div class="num">03</div>
+        <div>
+          <div class="what">First fix · plumbing &amp; sparks</div>
+          <div class="desc">12 sockets · 6 spots · ensuite plumbing · EICR + Gas Safe certs attached</div>
+        </div>
+        <div class="qty">1.5 days</div>
+        <div class="rate">£2,840 / d</div>
+        <div class="amt">£4,260</div>
+      </div>
+      <div class="line">
+        <div class="num">04</div>
+        <div>
+          <div class="what">Plasterboard &amp; skim · 52 m²</div>
+          <div class="desc">Walls + ceiling · drying day · finished smooth</div>
+        </div>
+        <div class="qty">2 days</div>
+        <div class="rate">£1,784 / d</div>
+        <div class="amt">£3,568</div>
+      </div>
+      <div class="line">
+        <div class="num">05</div>
+        <div>
+          <div class="what">Joinery · oak staircase &amp; doors</div>
+          <div class="desc">Bespoke oak stair · 2 FD30 doors · skirting + architrave</div>
+        </div>
+        <div class="qty">1 day</div>
+        <div class="rate">£6,400 / d</div>
+        <div class="amt">£6,400</div>
+      </div>
+      <div class="line">
+        <div class="num">06</div>
+        <div>
+          <div class="what">Second fix &amp; finish</div>
+          <div class="desc">Spotlights · ensuite suite fitted · 2 mist + topcoats · snagged 27/05</div>
+        </div>
+        <div class="qty">1 day</div>
+        <div class="rate">£5,352 / d</div>
+        <div class="amt">£5,352</div>
+      </div>
+    </div>
+
+    <!-- Variations -->
+    <div class="variations">
+      <div class="lbl">// 1 variation · agreed mid-job</div>
+      <p><strong>VAR-01 · Roof rot found above bedroom 2.</strong> Replaced 4 rafter ends + 2 m² felt &amp; batten. Signed off by Tom on WhatsApp 21 May.</p>
+    </div>
+    <div class="line" style="border-bottom: 0; padding-top: 4px;">
+      <div class="num">V1</div>
+      <div>
+        <div class="what">Roof rot remediation</div>
+        <div class="desc">Added per VAR-01 · materials at cost · labour 0.5d</div>
+      </div>
+      <div class="qty">0.5 d</div>
+      <div class="rate">+ materials</div>
+      <div class="amt">£725</div>
+    </div>
+
+    <!-- Totals -->
+    <div class="totals">
+      <div class="note">All work warranted for 10 years · TrustMark backed. Documents attached: BC sign-off, EICR cert, Gas Safe cert, FENSA, 10-yr guarantee.</div>
+      <div class="stack">
+        <div class="row"><span class="lbl">Subtotal</span><span class="val">£29,375.00</span></div>
+        <div class="row"><span class="lbl">VAT · 20%</span><span class="val">£5,875.00</span></div>
+        <div class="row divider grand"><span class="lbl">Total · all in</span><span class="val">£35,250.00</span></div>
+        <div class="row paid"><span class="lbl">Paid · deposit (14 May)</span><span class="val">− £5,730.00</span></div>
+        <div class="row paid"><span class="lbl">Paid · structural (21 May)</span><span class="val">− £15,195.00</span></div>
+        <div class="row due divider" id="dueRow"><span class="lbl">Due now</span><span class="val">£14,325.00</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT HISTORY -->
+  <div class="section">
+    <div class="section-title">
+      <span class="stencil">// Payment history</span>
+      <hr/>
+    </div>
+    <ul class="pay-history" id="payHistory">
+      <li>
+        <span class="icon">✓</span>
+        <div>
+          <div class="what">Deposit · 20%</div>
+          <div class="when">PAID 14 MAY '26 · VISA •• 4242 · RCP-QR-0226-D1</div>
+        </div>
+        <div class="amt">£5,730.00</div>
+      </li>
+      <li>
+        <span class="icon">✓</span>
+        <div>
+          <div class="what">Structural milestone · 43%</div>
+          <div class="when">PAID 21 MAY '26 · BACS · RCP-QR-0226-M1</div>
+        </div>
+        <div class="amt">£15,195.00</div>
+      </li>
+      <li class="pending" id="finalRow">
+        <span class="icon">3</span>
+        <div>
+          <div class="what">Final balance · on practical completion</div>
+          <div class="when">DUE BY WED 03 JUN '26 · 7 DAYS</div>
+        </div>
+        <div class="amt">£14,325.00</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- HOW TO PAY -->
+  <div class="section" id="howToPay">
+    <div class="section-title">
+      <span class="stencil">// How to pay · pick what suits</span>
+      <hr/>
+    </div>
+    <div class="pay-options">
+      <div class="pay-card featured">
+        <div class="stencil mute" style="margin-bottom: 6px;">// FASTEST</div>
+        <div class="name">Card via Graftr</div>
+        <div class="detail">Tap <strong>Pay £14,325 now</strong> above.<br/>Apple Pay, Google Pay, all cards. Instant receipt.</div>
+      </div>
+      <div class="pay-card">
+        <div class="stencil mute" style="margin-bottom: 6px;">// BANK</div>
+        <div class="name">BACS / Faster Payments</div>
+        <div class="detail">
+          <strong>Rawlings Builds Ltd</strong><br/>
+          Sort: <strong>09-01-29</strong><br/>
+          Acc: <strong>1188 4221</strong><br/>
+          Ref: <strong>INV-0226</strong>
+        </div>
+      </div>
+      <div class="pay-card">
+        <div class="stencil mute" style="margin-bottom: 6px;">// PLAN</div>
+        <div class="name">Split it over 3 months</div>
+        <div class="detail">£4,775/mo · 0% via Graftr Flex. <strong>Soft credit check.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-foot">
+    <div class="via">
+      <div class="logo-mark">G</div>
+      <div class="txt">
+        <strong>Invoice issued via Graftr</strong><br/>
+        GRAFTR.APP/I/INV-0226 · DOC HASH 7B4F·E102·QR
+      </div>
+    </div>
+    <div class="legal">
+      RAWLINGS BUILDS LTD · CO. 09823144 · VAT 287 4422 18<br/>
+      LATE PAYMENT INT. 8% + BANK BASE · STATUTORY INT. ACT 1998<br/>
+      DISPUTE? CONTACT DAVE FIRST · THEN FMB ARBITRATION
+    </div>
+  </div>
+</div>
+
+<script>
+function payNow() {
+  // simulate redirect to Stripe / pay
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => {
+    document.body.classList.add('paid');
+    document.getElementById('statusVal').innerHTML = 'Paid in full<small style="color: var(--green);">Settled 27 May · cheers Tom</small>';
+    document.getElementById('statusVal').style.color = 'var(--green)';
+    document.getElementById('dueRow').classList.remove('due');
+    document.getElementById('dueRow').classList.add('paid');
+    document.getElementById('dueRow').querySelector('.lbl').textContent = 'Paid · final (27 May)';
+    document.getElementById('dueRow').querySelector('.val').textContent = '− £14,325.00';
+    const finalRow = document.getElementById('finalRow');
+    finalRow.classList.remove('pending');
+    finalRow.querySelector('.icon').textContent = '✓';
+    finalRow.querySelector('.when').textContent = "PAID 27 MAY '26 · VISA •• 4242 · RCP-INV-0226-F";
+  }, 700);
+}
+function togglePaid() {
+  document.body.classList.toggle('paid');
+}
+</script>
+
+</body>
+</html>

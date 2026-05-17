@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f5f1e6" />
+<title>Your loft is done · Handover pack · Rawlings Builds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<template id="__bundler_thumbnail" data-bg-color="#f5f1e6">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#f5f1e6"/>
+    <rect x="40" y="60" width="320" height="180" rx="6" fill="#0e0e0c"/>
+    <polygon points="40,160 200,80 360,160 360,240 40,240" fill="#3a2f20"/>
+    <rect x="160" y="170" width="30" height="40" fill="#e8b84b"/>
+    <rect x="210" y="170" width="30" height="40" fill="#e8b84b"/>
+    <text x="200" y="290" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="40" fill="#0e0e0c" letter-spacing="-1">ALL DONE</text>
+    <text x="200" y="320" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7a7468" letter-spacing="3">HANDOVER PACK</text>
+    <g transform="translate(330 60)">
+      <rect x="-20" y="-10" width="40" height="20" fill="#2d7a3e"/>
+      <text x="0" y="4" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#fff" letter-spacing="1" font-weight="800">✓ COMPLETE</text>
+    </g>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --bone: #f5f1e6;
+    --paper: #fffbf0;
+    --ink: #0e0e0c;
+    --ink-soft: #2a261f;
+    --ink-mute: #6b6457;
+    --ink-faint: #a39c8d;
+    --hairline: #d8cfb8;
+    --hairline-soft: #e8e0c8;
+    --gold: #b8881e;
+    --gold-bright: #e8b84b;
+    --gold-soft: rgba(184,136,30,0.08);
+    --green: #2d7a3e;
+    --green-bright: #4aa15c;
+    --green-soft: rgba(45,122,62,0.08);
+    --red: #b8281a;
+    --shadow: 0 1px 0 rgba(0,0,0,0.04), 0 12px 32px rgba(40,30,10,0.08);
+    --font-display: 'Archivo Narrow', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bone); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  body {
+    background-image:
+      radial-gradient(rgba(120,90,30,0.04) 1px, transparent 1.5px),
+      radial-gradient(rgba(180,150,60,0.025) 1px, transparent 1.5px);
+    background-size: 4px 4px, 9px 9px;
+    background-position: 0 0, 2px 2px;
+  }
+  button, a { font-family: inherit; }
+  a { color: inherit; }
+  button { cursor: pointer; }
+  .stencil { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .stencil.mute { color: var(--ink-mute); }
+  .stencil.green { color: var(--green); }
+  .mono { font-family: var(--font-mono); }
+
+  /* Top tape strip — clear "job complete" celebration */
+  .notice {
+    background: var(--ink); color: var(--bone);
+    padding: 10px 16px;
+    display: flex; gap: 10px; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .notice .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-bright); box-shadow: 0 0 8px var(--green-bright); }
+
+  .top-bar { border-bottom: 1px solid var(--hairline); background: var(--paper); }
+  .top-bar-inner { max-width: 1180px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo-mark {
+    width: 32px; height: 32px; background: var(--ink); color: var(--gold-bright);
+    display: flex; align-items: center; justify-content: center; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: -0.04em;
+  }
+  .logo-text { font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
+  .logo-text .mute { color: var(--ink-mute); font-weight: 600; font-size: 12px; letter-spacing: 0; }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 9px; font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1px solid var(--hairline);
+    background: var(--bone); border-radius: 3px;
+  }
+  .pill.green { background: var(--green-soft); color: var(--green); border-color: var(--green); }
+  .pill.gold { background: var(--gold-bright); color: var(--ink); border-color: var(--gold-bright); }
+
+  /* HERO */
+  .hero { max-width: 1180px; margin: 0 auto; padding: 40px 24px 0; }
+  .hero-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 28px; align-items: start; }
+  @media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  .hero-eyebrow { color: var(--ink-mute); font-size: 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .hero-eyebrow strong { color: var(--ink); font-weight: 700; }
+  .hero-title {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(42px, 6vw, 72px); line-height: 1.0; letter-spacing: -0.025em;
+    margin: 0 0 18px;
+  }
+  .hero-title em { font-style: normal; color: var(--green); position: relative; }
+  .hero-title em::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 4px;
+    height: 8px; background: var(--green-soft);
+    z-index: -1;
+  }
+  .hero-lede { color: var(--ink-soft); font-size: 17px; line-height: 1.55; margin: 0 0 22px; max-width: 540px; }
+  .hero-lede strong { color: var(--ink); font-weight: 700; }
+
+  /* Stats row */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    overflow: hidden; box-shadow: var(--shadow);
+  }
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr 1fr; } }
+  .stat-cell { padding: 18px 20px; border-right: 1px solid var(--hairline); }
+  .stat-cell:last-child { border-right: 0; }
+  @media (max-width: 640px) {
+    .stat-cell { border-right: 0; border-bottom: 1px solid var(--hairline); }
+    .stat-cell:nth-child(odd) { border-right: 1px solid var(--hairline); }
+    .stat-cell:nth-last-child(-n+2) { border-bottom: 0; }
+  }
+  .stat-cell .v { font-family: var(--font-display); font-weight: 800; font-size: 30px; letter-spacing: -0.02em; line-height: 1; }
+  .stat-cell .l { font-family: var(--font-mono); font-size: 9px; color: var(--ink-mute); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 6px; }
+
+  /* Hero side card — payment status */
+  .pay-status {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 22px; box-shadow: var(--shadow); position: relative;
+  }
+  .pay-status::before {
+    content: ''; position: absolute; top: 0; left: 16px; right: 16px; height: 4px;
+    background: repeating-linear-gradient(135deg, var(--gold) 0 10px, var(--ink) 10px 20px);
+    opacity: 0.85;
+  }
+  .pay-status .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .pay-status .head .stencil { margin: 0; }
+  .pay-status .amount {
+    font-family: var(--font-display); font-weight: 800; font-size: 44px; letter-spacing: -0.02em; line-height: 1; margin: 4px 0 4px;
+  }
+  .pay-status .sub { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em; }
+  .pay-status .sub strong { color: var(--red); }
+  .pay-progress { margin: 16px 0; }
+  .pay-progress .bar { height: 8px; background: var(--hairline-soft); border-radius: 4px; overflow: hidden; position: relative; }
+  .pay-progress .bar > div { height: 100%; background: var(--gold); border-radius: 4px; transition: width 300ms; }
+  .pay-progress .labels { display: flex; justify-content: space-between; margin-top: 6px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.04em; }
+  .pay-cta {
+    width: 100%; padding: 14px; background: var(--ink); color: var(--paper); border: 0; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .pay-cta:hover { background: #1c1a14; }
+
+  /* Section frame */
+  .section { max-width: 1180px; margin: 0 auto; padding: 36px 24px 0; }
+  .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .section-title hr { flex: 1; height: 1px; background: var(--hairline); border: 0; }
+  .section-title .right { color: var(--ink-mute); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* Before / after */
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .ba { grid-template-columns: 1fr; } }
+  .ba-card { background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow); position: relative; }
+  .ba-card .label-strip {
+    position: absolute; top: 14px; left: 14px; z-index: 2;
+    padding: 5px 10px; font-family: var(--font-display); font-weight: 800; font-size: 12px; letter-spacing: 0.1em;
+    background: var(--ink); color: var(--bone);
+  }
+  .ba-card.after .label-strip { background: var(--gold-bright); color: var(--ink); }
+  .ba-card .img { aspect-ratio: 4 / 3; }
+  .ba-card .img svg { width: 100%; height: 100%; display: block; }
+  .ba-card .meta { padding: 14px 18px; border-top: 1px solid var(--hairline-soft); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em; }
+  .ba-card .meta strong { font-family: var(--font-display); font-weight: 700; font-size: 13px; color: var(--ink); letter-spacing: 0; }
+
+  /* Phase timeline */
+  .timeline {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px; box-shadow: var(--shadow);
+    padding: 8px 0; overflow: hidden;
+  }
+  .phase {
+    display: grid; grid-template-columns: 64px 1fr 200px; gap: 18px; align-items: flex-start;
+    padding: 18px 24px; border-bottom: 1px solid var(--hairline-soft); position: relative;
+  }
+  .phase:last-child { border-bottom: 0; }
+  @media (max-width: 720px) {
+    .phase { grid-template-columns: 56px 1fr; padding: 16px 18px; }
+    .phase .photos { grid-column: 1 / -1; margin-top: 12px; }
+  }
+  .phase .dt {
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.06em;
+    text-align: center;
+    padding-top: 6px;
+  }
+  .phase .dt .day { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); display: block; line-height: 1; }
+  .phase .dt .mo { display: block; margin-top: 2px; }
+  .phase .dt .wd { display: block; margin-top: 4px; font-weight: 700; }
+  .phase .body .name { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+  .phase .body .what { font-size: 13.5px; color: var(--ink-mute); margin-top: 4px; line-height: 1.5; }
+  .phase .body .meta { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.06em; }
+  .phase .body .meta > span { display: inline-flex; align-items: center; gap: 4px; }
+  .phase .photos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; }
+  .phase .photos .ph {
+    aspect-ratio: 1 / 1; border-radius: 3px; overflow: hidden; background: var(--hairline-soft); border: 1px solid var(--hairline);
+  }
+  .phase .photos .ph svg { width: 100%; height: 100%; display: block; }
+
+  /* Snag list */
+  .snags {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px; box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .snag-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--green-soft); border-bottom: 1px solid var(--hairline); }
+  .snag-head .ttl { display: flex; align-items: center; gap: 10px; }
+  .snag-head .ttl .tick { width: 24px; height: 24px; border-radius: 50%; background: var(--green); color: var(--paper); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+  .snag-head .ttl strong { font-family: var(--font-display); font-weight: 800; font-size: 16px; }
+  .snag-head .count { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em; }
+  .snag-list { list-style: none; margin: 0; padding: 0; }
+  .snag-list li {
+    display: grid; grid-template-columns: 24px 1fr 100px; gap: 12px; align-items: flex-start;
+    padding: 14px 20px; border-bottom: 1px solid var(--hairline-soft);
+  }
+  .snag-list li:last-child { border-bottom: 0; }
+  .snag-list li .box {
+    width: 18px; height: 18px; border: 1.5px solid var(--green); border-radius: 3px; background: var(--green);
+    color: var(--paper); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+    margin-top: 2px;
+  }
+  .snag-list li .what .ttl { font-family: var(--font-display); font-weight: 700; font-size: 14px; }
+  .snag-list li .what .desc { font-size: 12.5px; color: var(--ink-mute); margin-top: 3px; line-height: 1.45; }
+  .snag-list li .when { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); text-align: right; letter-spacing: 0.06em; padding-top: 4px; }
+  .snag-list li .when strong { color: var(--green); display: block; }
+
+  /* Documents grid */
+  .docs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 880px) { .docs { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .docs { grid-template-columns: 1fr; } }
+  .doc-card {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 18px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 14px;
+    text-decoration: none; color: var(--ink);
+    transition: transform 120ms, border-color 120ms;
+    position: relative; overflow: hidden;
+  }
+  .doc-card:hover { transform: translateY(-2px); border-color: var(--gold); }
+  .doc-card .ic {
+    width: 44px; height: 56px; background: var(--bone); border: 1px solid var(--hairline); border-radius: 3px;
+    position: relative; align-self: flex-start;
+    box-shadow: 2px 2px 0 var(--hairline-soft);
+  }
+  .doc-card .ic::before {
+    content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px;
+    background: linear-gradient(225deg, var(--paper) 50%, var(--hairline) 50%);
+  }
+  .doc-card .ic::after {
+    content: attr(data-ext); position: absolute; bottom: 6px; left: 0; right: 0; text-align: center;
+    font-family: var(--font-mono); font-size: 8px; font-weight: 800; letter-spacing: 0.12em; color: var(--gold);
+  }
+  .doc-card .ttl { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; line-height: 1.2; }
+  .doc-card .meta { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.06em; margin-top: 4px; }
+  .doc-card .dl { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 0.12em; margin-top: auto; }
+
+  /* Guarantee certificate */
+  .cert {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 36px 36px; box-shadow: var(--shadow);
+    position: relative; overflow: hidden;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 20px, rgba(184,136,30,0.04) 20px 21px),
+      repeating-linear-gradient(-45deg, transparent 0 20px, rgba(184,136,30,0.04) 20px 21px);
+    text-align: center;
+  }
+  .cert::before {
+    content: ''; position: absolute; inset: 8px; border: 1px solid var(--gold); border-radius: 4px;
+    pointer-events: none;
+  }
+  .cert-eyebrow { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.24em; text-transform: uppercase; }
+  .cert h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(34px, 4vw, 50px); letter-spacing: -0.02em; margin: 10px 0 8px; line-height: 1.05; }
+  .cert .ten {
+    font-family: var(--font-display); font-weight: 800; font-size: 86px; line-height: 1; color: var(--gold); letter-spacing: -0.04em;
+    margin: 14px 0 6px;
+  }
+  .cert .ten small { font-family: var(--font-mono); font-size: 14px; font-weight: 700; letter-spacing: 0.18em; color: var(--ink); display: block; margin-top: -8px; }
+  .cert p { max-width: 540px; margin: 14px auto 0; color: var(--ink-soft); font-size: 14.5px; line-height: 1.55; }
+  .cert .sig {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 540px; margin: 28px auto 0;
+    align-items: end;
+  }
+  @media (max-width: 480px) { .cert .sig { grid-template-columns: 1fr; } }
+  .cert .sig-block { text-align: left; }
+  .cert .sig-block .name { font-family: 'Brush Script MT', cursive; font-size: 28px; color: var(--ink); transform: rotate(-3deg); display: inline-block; }
+  .cert .sig-block .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.14em; text-transform: uppercase; border-top: 1px solid var(--ink); padding-top: 6px; margin-top: 4px; }
+  .cert .seal {
+    position: absolute; bottom: 24px; right: 28px;
+    width: 90px; height: 90px; border-radius: 50%; border: 3px solid var(--gold); color: var(--gold);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    font-family: var(--font-display); font-weight: 800; font-size: 11px; letter-spacing: 0.1em; text-align: center;
+    transform: rotate(-12deg);
+    background: var(--paper);
+  }
+  .cert .seal .star { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+  .cert .seal-num { font-family: var(--font-mono); font-size: 8px; font-weight: 700; margin-top: 2px; }
+
+  /* Review CTA — big closing block */
+  .review-cta {
+    background: var(--ink); color: var(--bone); border-radius: 6px;
+    padding: 44px 36px; margin: 36px 24px 0;
+    max-width: calc(1180px - 48px); margin-left: auto; margin-right: auto;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 36px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  @media (max-width: 880px) { .review-cta { grid-template-columns: 1fr; padding: 30px 24px; } }
+  .review-cta::before {
+    content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 4px;
+    background: repeating-linear-gradient(135deg, var(--gold-bright) 0 10px, var(--ink) 10px 20px);
+  }
+  .review-cta h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.02em; line-height: 1.05; margin: 0 0 12px; max-width: 480px; }
+  .review-cta h2 em { font-style: normal; color: var(--gold-bright); }
+  .review-cta p { font-size: 15px; color: rgba(245,241,230,0.78); line-height: 1.55; margin: 0 0 18px; max-width: 460px; }
+  .review-cta .stars-row { display: flex; gap: 8px; margin-bottom: 18px; }
+  .review-cta .stars-row .star {
+    width: 44px; height: 44px; border: 1.5px solid rgba(245,241,230,0.18); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: rgba(245,241,230,0.3); cursor: pointer;
+    transition: all 120ms;
+  }
+  .review-cta .stars-row .star:hover, .review-cta .stars-row .star.on { color: var(--gold-bright); border-color: var(--gold-bright); background: rgba(232,184,75,0.08); }
+  .review-cta .open {
+    background: var(--gold-bright); color: var(--ink); border: 0; padding: 18px 26px; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase;
+    box-shadow: 0 8px 24px rgba(232,184,75,0.25);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .review-cta .open:hover { background: #ffd054; }
+  .review-cta .side { text-align: center; }
+  .review-cta .side-stat { font-family: var(--font-display); font-weight: 800; font-size: 80px; letter-spacing: -0.04em; color: var(--gold-bright); line-height: 1; }
+  .review-cta .side-lbl { font-family: var(--font-mono); font-size: 10px; color: rgba(245,241,230,0.7); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 6px; }
+
+  footer {
+    background: var(--bone); padding: 36px 24px;
+    margin-top: 40px;
+    border-top: 1px solid var(--hairline);
+  }
+  .foot-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .foot-meta { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.12em; }
+</style>
+</head>
+<body>
+
+<div class="notice">
+  <span class="dot"></span>
+  <span>Job complete · Practical completion signed off Wed 27 May '26</span>
+</div>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <div class="logo">
+      <div class="logo-mark">G</div>
+      <div class="logo-text">Rawlings Builds <span class="mute">· handover pack · via Graftr</span></div>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <span class="pill green">✓ SIGNED OFF</span>
+      <button class="pill" style="background: var(--paper); cursor: pointer;" onclick="window.print()">↓ Save as PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">
+        <span>QR-0226 · 14 Mountview Rd · Crouch End</span>
+        <span style="color: var(--hairline);">·</span>
+        <span>8 days · on time</span>
+      </div>
+      <h1 class="hero-title">Your loft<br/>conversion is <em>all done</em>.</h1>
+      <p class="hero-lede">
+        Cheers Tom — practical completion was signed off at <strong>11:42 this morning</strong>. Below you'll find every photo from the eight days on site, the snag list (all closed), every cert &amp; sign-off doc you need for your records, and a 10-year workmanship guarantee in your name. Drop me a line any time if anything needs a look.
+      </p>
+
+      <div class="stats">
+        <div class="stat-cell"><div class="v">8</div><div class="l">DAYS ON SITE</div></div>
+        <div class="stat-cell"><div class="v">186</div><div class="l">PHOTOS LOGGED</div></div>
+        <div class="stat-cell"><div class="v">1</div><div class="l">VARIATION · AGREED</div></div>
+        <div class="stat-cell"><div class="v">0</div><div class="l">OPEN SNAGS</div></div>
+      </div>
+    </div>
+
+    <aside class="pay-status">
+      <div class="head">
+        <span class="stencil">// Payments</span>
+        <span class="pill">QR-0226</span>
+      </div>
+      <div class="stencil mute" style="margin-bottom: 6px;">// Final balance due</div>
+      <div class="amount">£14,325</div>
+      <div class="sub"><strong>OF £35,250</strong> · DUE WED 03 JUN '26</div>
+
+      <div class="pay-progress">
+        <div class="bar"><div style="width: 59%;"></div></div>
+        <div class="labels">
+          <span>£20,925 PAID</span>
+          <span>£14,325 LEFT</span>
+        </div>
+      </div>
+
+      <a class="pay-cta" href="Invoice - Henderson Final.html" style="display: block; text-align: center; text-decoration: none;">
+        Pay final balance →
+      </a>
+
+      <hr style="border: 0; border-top: 1px dashed var(--hairline); margin: 16px 0;" />
+
+      <div style="display: flex; flex-direction: column; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute);">
+        <div style="display: flex; justify-content: space-between;"><span>✓ DEPOSIT</span><span>14 MAY · £5,730</span></div>
+        <div style="display: flex; justify-content: space-between;"><span>✓ STRUCTURAL</span><span>21 MAY · £15,195</span></div>
+        <div style="display: flex; justify-content: space-between; color: var(--red); font-weight: 700;"><span>3 FINAL</span><span>DUE · £14,325</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="section">
+  <div class="section-title">
+    <span class="stencil">// Before &amp; after</span>
+    <hr/>
+    <span class="right">Day 0 · Day 8</span>
+  </div>
+  <div class="ba">
+    <div class="ba-card">
+      <div class="label-strip">BEFORE · 13 MAY</div>
+      <div class="img">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a4a38"/><stop offset="1" stop-color="#2a221a"/></linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#b1)"/>
+          <polygon points="0,60 400,60 200,0" fill="#1a1410"/>
+          <g stroke="#0a0805" stroke-width="6" fill="none">
+            <line x1="40" y1="60" x2="40" y2="300"/>
+            <line x1="110" y1="60" x2="110" y2="300"/>
+            <line x1="180" y1="60" x2="180" y2="300"/>
+            <line x1="250" y1="60" x2="250" y2="300"/>
+            <line x1="320" y1="60" x2="320" y2="300"/>
+          </g>
+          <rect x="120" y="140" width="60" height="100" fill="#0a0805"/>
+          <g opacity="0.4"><rect x="220" y="180" width="120" height="40" fill="#a09078"/></g>
+          <text x="200" y="280" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#9a8868" letter-spacing="2">BARE JOISTS · LOOSE INSULATION</text>
+        </svg>
+      </div>
+      <div class="meta">
+        <span>Empty loft · south-facing eaves</span>
+        <strong>5.4 × 3.8m</strong>
+      </div>
+    </div>
+    <div class="ba-card after">
+      <div class="label-strip">AFTER · 27 MAY</div>
+      <div class="img">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="a1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e8d8"/><stop offset="1" stop-color="#c4b89e"/></linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#a1)"/>
+          <polygon points="0,60 400,60 200,0" fill="#e0d4b8"/>
+          <!-- dormer window -->
+          <rect x="130" y="80" width="140" height="100" fill="#1a1410"/>
+          <g stroke="#e8b84b" stroke-width="2.5" fill="none">
+            <rect x="135" y="85" width="65" height="90"/>
+            <rect x="205" y="85" width="60" height="90"/>
+          </g>
+          <!-- view through window -->
+          <rect x="138" y="88" width="59" height="85" fill="#a8c8d8"/>
+          <rect x="208" y="88" width="54" height="85" fill="#a8c8d8"/>
+          <!-- oak floor -->
+          <rect x="0" y="220" width="400" height="80" fill="#8a6a3a"/>
+          <g stroke="#5a4220" stroke-width="0.6" opacity="0.7">
+            <line x1="0" y1="240" x2="400" y2="240"/>
+            <line x1="0" y1="260" x2="400" y2="260"/>
+            <line x1="60" y1="220" x2="60" y2="300"/>
+            <line x1="160" y1="220" x2="160" y2="300"/>
+            <line x1="240" y1="220" x2="240" y2="300"/>
+            <line x1="340" y1="220" x2="340" y2="300"/>
+          </g>
+          <!-- spotlights -->
+          <circle cx="80" cy="40" r="6" fill="#e8b84b"/>
+          <circle cx="320" cy="40" r="6" fill="#e8b84b"/>
+          <!-- skylight glow -->
+          <rect x="138" y="88" width="124" height="20" fill="url(#a1)" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="meta">
+        <span>Finished room · dormer + ensuite</span>
+        <strong>+18 m² living</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO LOG / PHASE TIMELINE -->
+<section class="section">
+  <div class="section-title">
+    <span class="stencil">// Photo log · day by day</span>
+    <hr/>
+    <span class="right">8 phases · 186 photos · all timestamped</span>
+  </div>
+  <div class="timeline">
+    <div class="phase">
+      <div class="dt"><span class="day">18</span><span class="mo">MAY</span><span class="wd">MON</span></div>
+      <div class="body">
+        <div class="name">Strip-out · skips arrive</div>
+        <div class="what">Old insulation removed, two skips placed kerbside (permit on file). Joists checked — rot found in 4 rafter ends above bedroom 2.</div>
+        <div class="meta">
+          <span>● 21 photos</span><span>● Dave + 1</span><span>● 08:00 – 16:30</span><span style="color: var(--gold);">▲ VAR-01 RAISED</span>
+        </div>
+      </div>
+      <div class="photos">
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3a2f20"/><rect x="20" y="60" width="60" height="40" fill="#1a1410"/><rect x="10" y="20" width="80" height="40" fill="#7a6a4a"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#8a7a5a"/><polygon points="0,30 100,30 100,100 0,100" fill="#3a2f20"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#c8b894"/><rect x="20" y="20" width="60" height="60" fill="#b8281a"/><text x="50" y="55" text-anchor="middle" font-family="monospace" font-size="10" fill="#fff" font-weight="800">SKIP</text></svg></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="dt"><span class="day">19</span><span class="mo">MAY</span><span class="wd">TUE</span></div>
+      <div class="body">
+        <div class="name">Steels in · dormer framed</div>
+        <div class="what">Two RSJs craned in early. Mariusz on board cutting joists, Dave framing dormer carcass. BC inspector on site 14:00 — passed.</div>
+        <div class="meta">
+          <span>● 28 photos</span><span>● Dave + 2</span><span>● BC inspection passed</span>
+        </div>
+      </div>
+      <div class="photos">
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#a09078"/><rect x="10" y="30" width="80" height="14" fill="#5a5550"/><rect x="10" y="60" width="80" height="14" fill="#5a5550"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#c8b894"/><polygon points="20,80 50,30 80,80" fill="none" stroke="#5a4a30" stroke-width="3"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#7a8a8c"/><polygon points="0,0 100,0 100,30 50,12 0,30" fill="#3a4042"/></svg></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="dt"><span class="day">21</span><span class="mo">MAY</span><span class="wd">THU</span></div>
+      <div class="body">
+        <div class="name">First fix · sparks &amp; plumb</div>
+        <div class="what">Marek wired 12 sockets, 6 spots, ensuite ring. Plumbing run for ensuite shower + sink + WC. Pressure-tested overnight.</div>
+        <div class="meta">
+          <span>● 33 photos</span><span>● Dave + 2</span><span>● ● Mid-payment due · paid same day</span>
+        </div>
+      </div>
+      <div class="photos">
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#d8c89e"/><g stroke="#b8281a" stroke-width="1.5" fill="none"><path d="M10 30 L 30 30 L 30 50 L 70 50 L 70 30 L 90 30"/></g><g stroke="#2451a4" stroke-width="1.5" fill="none"><path d="M10 60 L 50 60 L 50 80 L 90 80"/></g></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#a09078"/><rect x="20" y="20" width="20" height="20" fill="#1a1410"/><rect x="60" y="60" width="20" height="20" fill="#1a1410"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#7a6a4a"/><circle cx="30" cy="30" r="6" fill="#e8b84b"/><circle cx="70" cy="30" r="6" fill="#e8b84b"/><circle cx="50" cy="60" r="6" fill="#e8b84b"/></svg></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="dt"><span class="day">23</span><span class="mo">MAY</span><span class="wd">SAT</span></div>
+      <div class="body">
+        <div class="name">Plasterboard &amp; skim</div>
+        <div class="what">52m² boarded and skimmed by Mariusz. Drying day Sunday (no work). Topcoat on Monday.</div>
+        <div class="meta">
+          <span>● 24 photos</span><span>● Mariusz solo</span><span>● 52 m² covered</span>
+        </div>
+      </div>
+      <div class="photos">
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#f0e8d8"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#e0d4b8"/><rect x="0" y="0" width="100" height="60" fill="#f0e8d8"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#f5f0e0"/><circle cx="50" cy="50" r="20" fill="#e0d4b8" opacity="0.5"/></svg></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="dt"><span class="day">26</span><span class="mo">MAY</span><span class="wd">TUE</span></div>
+      <div class="body">
+        <div class="name">Joinery · oak stair lands</div>
+        <div class="what">Bespoke oak staircase craned through dormer at 07:30. Two FD30 doors hung. Skirting + architrave throughout. A long day, this one.</div>
+        <div class="meta">
+          <span>● 41 photos</span><span>● Dave + Mariusz</span><span>● 07:30 – 19:00</span>
+        </div>
+      </div>
+      <div class="photos">
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#c8a878"/><g stroke="#5a4220" stroke-width="2" fill="#a08858"><polygon points="20,80 35,80 35,70 50,70 50,60 65,60 65,50 80,50 80,40 80,40"/></g></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#a08868"/><rect x="30" y="20" width="40" height="60" fill="#5a4220" stroke="#3a2820" stroke-width="2"/><circle cx="64" cy="50" r="2" fill="#e8b84b"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#d8c89e"/><rect x="0" y="80" width="100" height="20" fill="#8a6a3a"/></svg></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="dt"><span class="day">27</span><span class="mo">MAY</span><span class="wd">WED</span></div>
+      <div class="body">
+        <div class="name">Second fix · finish · sign-off</div>
+        <div class="what">Ensuite suite fitted, spotlights wired and tested, mist + topcoat done. BC final inspection 11:00 — passed. Tom signed off practical completion 11:42.</div>
+        <div class="meta">
+          <span>● 39 photos</span><span>● Dave + 2</span><span style="color: var(--green);">✓ BC FINAL · PRACTICAL COMPLETION</span>
+        </div>
+      </div>
+      <div class="photos">
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#f0e8d8"/><rect x="20" y="40" width="60" height="50" fill="#fff"/><rect x="30" y="20" width="40" height="20" fill="#a8c8d8"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3a3530"/><circle cx="25" cy="25" r="8" fill="#fff5d0"/><circle cx="75" cy="25" r="8" fill="#fff5d0"/><circle cx="50" cy="60" r="8" fill="#fff5d0"/></svg></div>
+        <div class="ph"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#e8b84b"/><text x="50" y="58" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="22" fill="#0e0e0c">DONE</text></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SNAGS -->
+<section class="section">
+  <div class="section-title">
+    <span class="stencil green">// Snag list · ALL CLOSED</span>
+    <hr/>
+    <span class="right">5 items raised · 5 closed</span>
+  </div>
+  <div class="snags">
+    <div class="snag-head">
+      <div class="ttl"><span class="tick">✓</span> <strong>All 5 snags closed before sign-off</strong></div>
+      <div class="count">5 / 5 · 100%</div>
+    </div>
+    <ul class="snag-list">
+      <li>
+        <span class="box">✓</span>
+        <div class="what">
+          <div class="ttl">Skirting return · NE corner</div>
+          <div class="desc">12mm gap behind radiator. Mitre re-cut and refitted, caulked.</div>
+        </div>
+        <div class="when">RAISED 26 MAY<strong>CLOSED 27 MAY</strong></div>
+      </li>
+      <li>
+        <span class="box">✓</span>
+        <div class="what">
+          <div class="ttl">Spotlight · bathroom (rear)</div>
+          <div class="desc">Flickered on test. Driver swapped — Marek (sparky).</div>
+        </div>
+        <div class="when">RAISED 26 MAY<strong>CLOSED 27 MAY</strong></div>
+      </li>
+      <li>
+        <span class="box">✓</span>
+        <div class="what">
+          <div class="ttl">Door catch · ensuite</div>
+          <div class="desc">Latch sticking. Strike plate adjusted.</div>
+        </div>
+        <div class="when">RAISED 27 MAY<strong>CLOSED 27 MAY</strong></div>
+      </li>
+      <li>
+        <span class="box">✓</span>
+        <div class="what">
+          <div class="ttl">Touch-up paint · stair stringer</div>
+          <div class="desc">Light scuff where stair handed up. Two coats applied.</div>
+        </div>
+        <div class="when">RAISED 27 MAY<strong>CLOSED 27 MAY</strong></div>
+      </li>
+      <li>
+        <span class="box">✓</span>
+        <div class="what">
+          <div class="ttl">Silicone bead · shower tray</div>
+          <div class="desc">Slight gap front-left. Re-run and tooled.</div>
+        </div>
+        <div class="when">RAISED 27 MAY<strong>CLOSED 27 MAY</strong></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section class="section">
+  <div class="section-title">
+    <span class="stencil">// Your documents · for your records</span>
+    <hr/>
+    <span class="right">Keep these · insurance + resale</span>
+  </div>
+  <div class="docs">
+    <a class="doc-card" href="#" onclick="event.preventDefault(); alert('Downloading...');">
+      <div class="ic" data-ext="PDF"></div>
+      <div>
+        <div class="ttl">Building Control · Final certificate</div>
+        <div class="meta">HARINGEY BC · REF BC-2026-1144</div>
+      </div>
+      <div class="dl">↓ DOWNLOAD · 1.2 MB</div>
+    </a>
+    <a class="doc-card" href="#" onclick="event.preventDefault(); alert('Downloading...');">
+      <div class="ic" data-ext="PDF"></div>
+      <div>
+        <div class="ttl">EICR · Electrical installation</div>
+        <div class="meta">MAREK ŻAK · NICEIC 88-2014</div>
+      </div>
+      <div class="dl">↓ DOWNLOAD · 840 KB</div>
+    </a>
+    <a class="doc-card" href="#" onclick="event.preventDefault(); alert('Downloading...');">
+      <div class="ic" data-ext="PDF"></div>
+      <div>
+        <div class="ttl">Gas Safe · Combi run</div>
+        <div class="meta">GS REG 661488 · 26 MAY '26</div>
+      </div>
+      <div class="dl">↓ DOWNLOAD · 620 KB</div>
+    </a>
+    <a class="doc-card" href="#" onclick="event.preventDefault(); alert('Downloading...');">
+      <div class="ic" data-ext="PDF"></div>
+      <div>
+        <div class="ttl">FENSA · Dormer glazing</div>
+        <div class="meta">FENSA CERT 9988-441</div>
+      </div>
+      <div class="dl">↓ DOWNLOAD · 480 KB</div>
+    </a>
+    <a class="doc-card" href="#" onclick="event.preventDefault(); alert('Downloading...');">
+      <div class="ic" data-ext="ZIP"></div>
+      <div>
+        <div class="ttl">All 186 site photos</div>
+        <div class="meta">FULL RES · ORGANISED BY DAY</div>
+      </div>
+      <div class="dl">↓ DOWNLOAD · 318 MB</div>
+    </a>
+    <a class="doc-card" href="#" onclick="event.preventDefault(); alert('Downloading...');">
+      <div class="ic" data-ext="PDF"></div>
+      <div>
+        <div class="ttl">As-built drawings · floor plan</div>
+        <div class="meta">A3 · 1:50 · DWG ALSO AVAILABLE</div>
+      </div>
+      <div class="dl">↓ DOWNLOAD · 1.8 MB</div>
+    </a>
+    <a class="doc-card" href="Invoice - Henderson Final.html">
+      <div class="ic" data-ext="INV"></div>
+      <div>
+        <div class="ttl">Final invoice · INV-0226</div>
+        <div class="meta">£14,325 OUTSTANDING</div>
+      </div>
+      <div class="dl">↓ VIEW INVOICE →</div>
+    </a>
+    <a class="doc-card" href="#" onclick="event.preventDefault(); alert('Downloading...');">
+      <div class="ic" data-ext="PDF"></div>
+      <div>
+        <div class="ttl">10-year guarantee · this work</div>
+        <div class="meta">TRUSTMARK BACKED · GR-QR-0226</div>
+      </div>
+      <div class="dl">↓ DOWNLOAD · 320 KB</div>
+    </a>
+  </div>
+</section>
+
+<!-- GUARANTEE CERT -->
+<section class="section">
+  <div class="cert">
+    <div class="cert-eyebrow">// Workmanship Guarantee</div>
+    <h2>This work is guaranteed</h2>
+    <div class="ten">10<small>YEARS · TRUSTMARK BACKED</small></div>
+    <p>Rawlings Builds Ltd guarantee the workmanship of every element of this loft conversion against defect, failure, or fault for ten full years from the date of practical completion. If anything goes wrong — anything at all — message Dave and he'll come back and put it right, no charge. Backed by TrustMark's underwriter for the rare case it's needed.</p>
+    <div class="sig">
+      <div class="sig-block">
+        <div class="name">Dave Rawlings</div>
+        <div class="lbl">Dave Rawlings · for Rawlings Builds Ltd</div>
+      </div>
+      <div class="sig-block">
+        <div class="name" style="font-family: var(--font-mono); font-size: 14px; transform: none; letter-spacing: 0.1em;">27 / 05 / 2026 · GR-QR-0226</div>
+        <div class="lbl">Issued · Guarantee ref</div>
+      </div>
+    </div>
+    <div class="seal">
+      <span class="star">★</span>
+      TRUSTMARK<br/>BACKED
+      <span class="seal-num">GR-QR-0226</span>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEW CTA -->
+<div class="review-cta">
+  <div>
+    <div class="stencil" style="color: var(--gold-bright); margin-bottom: 12px;">// One last thing</div>
+    <h2>How was working with <em>Dave</em>?</h2>
+    <p>A 30-second review on Dave's Graftr profile means the world — it's how the next family finds him. Pop a couple of words, tap stars, done. We'll never publish without your OK.</p>
+    <div class="stars-row" id="stars">
+      <div class="star" data-n="1">★</div>
+      <div class="star" data-n="2">★</div>
+      <div class="star" data-n="3">★</div>
+      <div class="star" data-n="4">★</div>
+      <div class="star" data-n="5">★</div>
+    </div>
+    <a class="open" href="Review Request - Henderson.html">
+      Write Dave a review →
+    </a>
+  </div>
+  <div class="side">
+    <div class="side-stat">4.9</div>
+    <div class="side-lbl">DAVE'S RATING · 37 REVIEWS</div>
+    <div style="margin-top: 18px; font-family: var(--font-mono); font-size: 11px; color: rgba(245,241,230,0.5); letter-spacing: 0.06em; line-height: 1.5;">
+      Top-rated builder in N7 / N8.<br/>100% on-time over 142 jobs.
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="logo">
+      <div class="logo-mark">G</div>
+      <div class="logo-text">Graftr <span class="mute">· quoting &amp; jobs tool for UK trades</span></div>
+    </div>
+    <div class="foot-meta">
+      QR-0226 · HANDOVER PACK · RAWLINGS BUILDS LTD<br/>
+      GRAFTR.APP/H/QR-0226 · DOC HASH 9F8E·B411
+    </div>
+  </div>
+</footer>
+
+<script>
+// Stars interaction — link straight through with rating
+document.querySelectorAll('#stars .star').forEach(s => {
+  s.addEventListener('click', () => {
+    const n = parseInt(s.dataset.n, 10);
+    document.querySelectorAll('#stars .star').forEach((s2, i) => {
+      s2.classList.toggle('on', i < n);
+    });
+    setTimeout(() => {
+      window.location.href = 'Review Request - Henderson.html?stars=' + n;
+    }, 400);
+  });
+  s.addEventListener('mouseenter', () => {
+    const n = parseInt(s.dataset.n, 10);
+    document.querySelectorAll('#stars .star').forEach((s2, i) => {
+      s2.classList.toggle('on', i < n);
+    });
+  });
+});
+document.getElementById('stars').addEventListener('mouseleave', () => {
+  document.querySelectorAll('#stars .star').forEach(s => s.classList.remove('on'));
+});
+</script>
+
+</body>
+</html>

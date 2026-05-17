@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#f0eee9" />
+<title>Graftr · States &amp; notifications · polish pack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<template id="__bundler_thumbnail" data-bg-color="#f0eee9">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#f0eee9"/>
+    <text x="200" y="90" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#b8881e" letter-spacing="3">STATES + PUSH</text>
+    <g transform="translate(70 120)">
+      <rect width="80" height="160" rx="12" fill="#0e0e0c"/>
+      <rect x="14" y="50" width="52" height="6" rx="2" fill="#34302a"/>
+      <rect x="14" y="65" width="40" height="6" rx="2" fill="#34302a"/>
+    </g>
+    <g transform="translate(160 120)">
+      <rect width="80" height="160" rx="12" fill="#0e0e0c"/>
+      <text x="40" y="80" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="36" fill="#e8b84b">○</text>
+      <text x="40" y="110" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#7a7468">EMPTY</text>
+    </g>
+    <g transform="translate(250 120)">
+      <rect width="80" height="160" rx="12" fill="#0e0e0c"/>
+      <rect x="14" y="50" width="52" height="20" rx="4" fill="#191815"/>
+      <rect x="20" y="55" width="20" height="3" fill="#e8b84b"/>
+    </g>
+    <text x="200" y="340" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="20" fill="#0e0e0c">EMPTY · LOADING · OFFLINE · PUSH</text>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --bg: #f0eee9;
+    --grid: rgba(0,0,0,0.06);
+    --warm-ink: #2a2620;
+    --warm-mute: #6b6457;
+    --warm-faint: #a39c8d;
+    --hairline: #d8cfb8;
+
+    --g-bg: #0e0e0c;
+    --g-bg-deep: #080807;
+    --g-surface: #191815;
+    --g-surface2: #23211d;
+    --g-surface-hi: #2c2924;
+    --g-hairline: #34302a;
+    --g-bone: #f5f1e6;
+    --g-bone-dim: #bdb7a8;
+    --g-muted: #7a7468;
+    --g-muted-deep: #4a4640;
+    --g-gold: #e8b84b;
+    --g-gold-deep: #b8881e;
+    --g-red: #ff5a3c;
+    --g-green: #7dd87f;
+
+    --font-display: 'Archivo Narrow', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--warm-ink); font-family: var(--font-body);
+    min-height: 100vh;
+  }
+  .canvas { padding: 56px 48px; max-width: 1600px; margin: 0 auto; }
+  @media (max-width: 760px) { .canvas { padding: 32px 20px; } }
+
+  .cv-head { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+  .cv-head .logo-mark {
+    width: 40px; height: 40px; background: var(--g-bg); color: var(--g-gold);
+    display: flex; align-items: center; justify-content: center; border-radius: 5px;
+    font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.04em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .cv-head .ttls .one { font-family: var(--font-display); font-weight: 800; font-size: 32px; letter-spacing: -0.02em; line-height: 1; }
+  .cv-head .ttls .two { font-family: var(--font-mono); font-size: 11px; color: var(--warm-mute); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 4px; }
+  .cv-lede { color: var(--warm-mute); font-size: 15px; line-height: 1.55; max-width: 760px; margin: 14px 0 40px; }
+  .cv-lede strong { color: var(--warm-ink); }
+
+  .section { margin-bottom: 70px; }
+  .section-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 22px; flex-wrap: wrap; }
+  .section-head .num { font-family: var(--font-mono); font-weight: 700; font-size: 12px; color: var(--g-gold-deep); letter-spacing: 0.2em; text-transform: uppercase; }
+  .section-head h2 { font-family: var(--font-display); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; margin: 0; line-height: 1; }
+  .section-head p { color: var(--warm-mute); font-size: 14px; margin: 0; max-width: 600px; }
+  .section-head .sep { flex: 1; height: 1px; background: var(--hairline); align-self: center; min-width: 40px; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start; }
+  .ab { display: flex; flex-direction: column; gap: 10px; }
+  .ab-label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--warm-ink); letter-spacing: 0.04em; }
+  .ab-label .sub { color: var(--warm-faint); font-weight: 600; margin-left: 6px; }
+  .ab-cap { font-family: var(--font-mono); font-size: 10px; color: var(--warm-mute); letter-spacing: 0.04em; max-width: 280px; line-height: 1.6; }
+
+  /* Phone — 280×600 */
+  .phone {
+    width: 280px; height: 600px;
+    background: var(--g-bg);
+    border-radius: 34px;
+    border: 8px solid #2a2620;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.18), inset 0 0 0 1px rgba(255,255,255,0.04);
+    overflow: hidden;
+    position: relative;
+    color: var(--g-bone);
+    font-family: var(--font-body);
+    display: flex; flex-direction: column;
+  }
+  .phone::before {
+    content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+    width: 90px; height: 22px; background: #000; border-radius: 12px; z-index: 10;
+  }
+  .ph-status { padding: 12px 22px 0; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; z-index: 5; position: relative; }
+  .ph-status .battery { width: 22px; height: 11px; border: 1px solid var(--g-bone); border-radius: 2px; position: relative; }
+  .ph-status .battery::after { content: ''; position: absolute; left: 1px; top: 1px; bottom: 1px; width: 80%; background: var(--g-bone); border-radius: 1px; }
+  .ph-body { padding: 36px 16px 20px; flex: 1; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+
+  .stencil { font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--g-gold); }
+  .stencil.mute { color: var(--g-muted); }
+  .stencil.red { color: var(--g-red); }
+
+  .ttl { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; line-height: 1.05; }
+  .ttl-mid { font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; line-height: 1.1; }
+  .sub-row { font-family: var(--font-mono); font-size: 9px; color: var(--g-muted); letter-spacing: 0.04em; }
+  .body-row { font-size: 11px; color: var(--g-bone-dim); line-height: 1.4; }
+
+  .ph-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--g-hairline); margin-bottom: 4px; }
+  .ph-top .left { display: flex; gap: 8px; align-items: center; }
+  .ph-top .av { width: 24px; height: 24px; background: var(--g-bg); color: var(--g-gold); border: 1px solid var(--g-hairline); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 11px; }
+  .ph-top .name { font-family: var(--font-display); font-weight: 800; font-size: 12px; }
+  .ph-top .bell { font-size: 14px; color: var(--g-bone-dim); }
+
+  .card { background: var(--g-surface); border: 1px solid var(--g-hairline); border-radius: 6px; padding: 10px 12px; }
+  .card.gold { background: var(--g-gold); color: var(--g-bg); border-color: var(--g-gold); }
+  .chip { padding: 3px 5px; font-family: var(--font-mono); font-size: 8px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; background: var(--g-surface2); color: var(--g-bone); border-radius: 2px; }
+  .chip.gold { background: var(--g-gold); color: var(--g-bg); }
+  .chip.red { background: var(--g-red); color: var(--g-bg); }
+  .chip.green { background: var(--g-green); color: var(--g-bg); }
+
+  .ph-nav { background: var(--g-bg-deep); margin: 0 -16px -20px; padding: 10px 16px 22px; display: flex; justify-content: space-between; border-top: 1px solid var(--g-hairline); }
+  .ph-nav .navi { font-family: var(--font-mono); font-size: 8px; color: var(--g-muted); letter-spacing: 0.12em; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 2px 4px; }
+  .ph-nav .navi .ic { font-size: 14px; }
+  .ph-nav .navi.on { color: var(--g-gold); }
+  .ph-nav .navi.plus { background: var(--g-gold); color: var(--g-bg); padding: 6px; border-radius: 50%; font-size: 16px; margin-top: -10px; }
+
+  /* Empty state hero */
+  .empty {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px;
+    padding: 30px 16px; color: var(--g-bone-dim);
+  }
+  .empty .ic {
+    width: 90px; height: 90px; border: 2.5px dashed var(--g-hairline); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 38px;
+    color: var(--g-gold); position: relative;
+  }
+  .empty .ic::after {
+    content: ''; position: absolute; bottom: -6px; right: -6px;
+    width: 28px; height: 28px; background: var(--g-gold); border-radius: 50%;
+    color: var(--g-bg); font-size: 18px; font-family: var(--font-display); font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .empty .ic.plus::after { content: '+'; }
+  .empty .ic.tick::after { content: '✓'; }
+  .empty .ic.no::after { content: '0'; }
+  .empty h3 { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; line-height: 1.1; color: var(--g-bone); margin: 0; }
+  .empty p { font-size: 13px; line-height: 1.55; color: var(--g-bone-dim); margin: 0; max-width: 220px; }
+  .empty .cta {
+    background: var(--g-gold); color: var(--g-bg);
+    padding: 12px 20px; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    box-shadow: 0 6px 16px rgba(232,184,75,0.32);
+    margin-top: 8px;
+  }
+  .empty .hint {
+    font-family: var(--font-mono); font-size: 9px; color: var(--g-muted-deep); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* Skeleton — animated shimmer */
+  @keyframes skel { 0%{background-position: -200% 0;} 100%{background-position: 200% 0;} }
+  .sk {
+    background: linear-gradient(90deg, var(--g-surface) 0%, var(--g-surface-hi) 50%, var(--g-surface) 100%);
+    background-size: 200% 100%;
+    animation: skel 1.4s linear infinite;
+    border-radius: 4px;
+  }
+  .sk.line { height: 12px; }
+  .sk.line.short { width: 60%; }
+  .sk.line.tiny { width: 30%; height: 8px; }
+  .sk.box { height: 60px; border-radius: 6px; }
+  .sk.dot { width: 24px; height: 24px; border-radius: 50%; }
+  .sk.tall { height: 92px; border-radius: 6px; }
+
+  /* Offline banner */
+  .offline-banner {
+    background: rgba(255,90,60,0.12); border: 1px solid var(--g-red); border-radius: 6px;
+    padding: 8px 12px; display: flex; gap: 8px; align-items: center;
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: var(--g-red); letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .offline-banner .dot { width: 6px; height: 6px; background: var(--g-red); border-radius: 50%; }
+
+  /* Permission ask sheet (modal) */
+  .ph-overlay {
+    position: absolute; inset: 0;
+    background: rgba(8,8,7,0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 26px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-top: 60px;
+  }
+  .ph-sheet {
+    background: var(--g-surface); border-radius: 18px 18px 0 0;
+    padding: 18px 18px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+    border-top: 1px solid var(--g-hairline);
+    flex: 1;
+  }
+  .ph-sheet .handle { width: 36px; height: 4px; background: var(--g-hairline); border-radius: 2px; margin: 0 auto 8px; }
+
+  /* Celebration confetti background */
+  .celebrate {
+    position: relative; overflow: hidden;
+  }
+  .celebrate::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 20% 15%, var(--g-gold) 2px, transparent 3px),
+      radial-gradient(circle at 80% 20%, var(--g-green) 2px, transparent 3px),
+      radial-gradient(circle at 35% 45%, var(--g-red) 2px, transparent 3px),
+      radial-gradient(circle at 70% 50%, var(--g-gold) 1.5px, transparent 2.5px),
+      radial-gradient(circle at 15% 75%, var(--g-green) 2px, transparent 3px),
+      radial-gradient(circle at 85% 80%, var(--g-gold) 1.5px, transparent 2.5px),
+      radial-gradient(circle at 50% 30%, var(--g-red) 1px, transparent 2px),
+      radial-gradient(circle at 40% 90%, var(--g-gold) 1.5px, transparent 2.5px);
+  }
+
+  /* ── PUSH NOTIFICATION GALLERY ─────────────────────────── */
+  .push-rail {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    width: 100%;
+  }
+  @media (max-width: 720px) { .push-rail { grid-template-columns: 1fr; } }
+  .notif {
+    background: rgba(40,30,20,0.88);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    border-radius: 16px; padding: 12px 14px;
+    display: grid; grid-template-columns: 40px 1fr auto; gap: 12px; align-items: flex-start;
+    color: var(--g-bone);
+  }
+  .notif .app-ic {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: var(--g-bg); color: var(--g-gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.04em;
+  }
+  .notif .meta { font-size: 12.5px; line-height: 1.35; min-width: 0; }
+  .notif .meta .head { display: flex; gap: 6px; align-items: baseline; font-weight: 600; opacity: 0.9; }
+  .notif .meta .head .name { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--g-bone); font-weight: 700; }
+  .notif .meta .head .name.gold { color: var(--g-gold); }
+  .notif .meta .head .name.green { color: var(--g-green); }
+  .notif .meta .head .name.red { color: var(--g-red); }
+  .notif .meta .title { font-weight: 700; font-size: 13.5px; line-height: 1.3; margin-top: 4px; color: var(--g-bone); }
+  .notif .meta .body { color: var(--g-bone-dim); font-size: 12.5px; line-height: 1.4; margin-top: 3px; }
+  .notif .time { font-family: var(--font-mono); font-size: 10px; opacity: 0.55; white-space: nowrap; color: var(--g-bone); letter-spacing: 0.04em; }
+
+  /* Notification gallery wrapper with a soft "iOS background" */
+  .gallery-bg {
+    padding: 28px 22px;
+    background: linear-gradient(180deg, #1a1612 0%, #0e0e0c 100%);
+    border-radius: 22px;
+    width: 480px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+  }
+  .gallery-bg .gallery-eyebrow {
+    font-family: var(--font-mono); font-size: 10px; color: var(--g-gold); letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--g-hairline);
+    text-align: center;
+  }
+  .gallery-bg .day-divider {
+    font-family: var(--font-mono); font-size: 10px; color: var(--g-muted); letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;
+    text-align: center; margin: 14px 0 8px; padding-top: 14px; border-top: 1px dashed var(--g-hairline);
+  }
+  .gallery-bg .day-divider:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+
+  .foot-note { border-top: 1px dashed var(--hairline); padding-top: 18px; font-family: var(--font-mono); font-size: 11px; color: var(--warm-mute); letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+
+  <!-- HEADER -->
+  <div class="cv-head">
+    <div class="logo-mark">G</div>
+    <div class="ttls">
+      <div class="one">Graftr · Polish</div>
+      <div class="two">// EMPTY · LOADING · OFFLINE · CELEBRATIONS · PUSH GALLERY</div>
+    </div>
+  </div>
+  <p class="cv-lede">
+    The states between the screens. <strong>Empty states</strong> that nudge new users toward their first quote, <strong>skeleton loaders</strong> that don't blanche to white, <strong>offline banners</strong> for the loft with no signal, <strong>celebration moments</strong> that make wins feel like wins — and the full <strong>push notification gallery</strong> showing every type of alert Graftr fires across a working day.
+  </p>
+
+  <!-- ── EMPTY STATES ─────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 01</span>
+      <h2>Empty states · the first day</h2>
+      <p>Day one as a new Graftr user. Each empty surface explains itself, has one clear next action, and disappears the moment there's anything real to show.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+
+      <div class="ab">
+        <div class="ab-label">Quotes · empty <span class="sub">first-run</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Quotes</div>
+                  <div class="sub-row">0 OPEN · 0 SIGNED</div>
+                </div>
+              </div>
+              <div class="bell">⏷</div>
+            </div>
+            <div class="stencil">// PIPELINE · YOUR FIRST QUOTE</div>
+            <div class="empty">
+              <div class="ic plus">📋</div>
+              <h3>No quotes yet</h3>
+              <p>Your pipeline lives here. Most trades draft their first one in under 90 seconds — give the voice flow a go.</p>
+              <div class="cta">+ Start your first quote</div>
+              <div class="hint">// OR PRESS THE + BUTTON BELOW</div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi"><div class="ic">⌂</div>YARD</div>
+            <div class="navi on"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">Push toward the voice flow — fastest path to "I get it." Disappears the moment quote #1 exists.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Cash · all paid <span class="sub">happy empty</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Cash</div>
+                  <div class="sub-row">EVERYTHING SETTLED</div>
+                </div>
+              </div>
+              <div class="bell">⏷</div>
+            </div>
+            <div class="stencil">// OVERDUE</div>
+            <div class="empty">
+              <div class="ic tick" style="border-color: var(--g-green); color: var(--g-green);">£</div>
+              <h3>You're all squared.</h3>
+              <p>Zero invoices over 14 days. <span style="color: var(--g-green); font-weight: 700;">Nice work, Dave</span> — your last chase paid off £4.8k this week.</p>
+              <div class="hint" style="color: var(--g-green); margin-top: 4px;">// CELEBRATING IS PART OF THE BRIEF</div>
+            </div>
+            <div class="stencil mute" style="margin-top: 4px;">// THIS WEEK</div>
+            <div class="card" style="text-align: center; padding: 14px;">
+              <div class="ttl" style="color: var(--g-green); font-size: 28px;">+£20,925</div>
+              <div class="sub-row" style="margin-top: 4px;">2 PAYMENTS LANDED</div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi"><div class="ic">⌂</div>YARD</div>
+            <div class="navi"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi on"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">"Empty" doesn't have to feel empty. The happy version — green tick, gentle celebration, this-week summary still useful.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Diary · no jobs <span class="sub">slow week</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Diary</div>
+                  <div class="sub-row">WEEK 21 · MAY 18</div>
+                </div>
+              </div>
+              <div class="bell">⏷</div>
+            </div>
+            <div class="stencil">// THIS WEEK</div>
+            <div class="empty">
+              <div class="ic no">○</div>
+              <h3>Quiet week.</h3>
+              <p>No jobs in the diary. You've 3 quotes still out — chasing one or two might fill it.</p>
+              <div class="cta" style="background: transparent; color: var(--g-gold); border: 1px solid var(--g-gold); box-shadow: none;">Chase 3 open quotes →</div>
+              <div class="hint">// AI WILL DRAFT THE MESSAGES</div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi on"><div class="ic">⌂</div>YARD</div>
+            <div class="navi"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">A slow week is a real state. Don't fake busy — surface the chase pipeline that fills it.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">AI · welcome <span class="sub">first chat</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Graftr AI</div>
+                  <div class="sub-row">0 CHATS · LEARNING YOUR JOBS</div>
+                </div>
+              </div>
+              <div class="bell">⏷</div>
+            </div>
+            <div class="empty" style="padding: 20px 12px;">
+              <div class="ic" style="background: var(--g-gold); color: var(--g-bg); border: 0;">G</div>
+              <h3>Ask anything, Dave.</h3>
+              <p>I'm trained on UK trade prices and your past 200 jobs. The more you ask, the better I get at quoting like you would.</p>
+            </div>
+            <div class="stencil mute">// TRY ASKING…</div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div class="card" style="padding: 10px 12px; cursor: pointer;">
+                <div class="ttl-mid" style="font-size: 12px;">"Going rate for RSJs in N7?"</div>
+              </div>
+              <div class="card" style="padding: 10px 12px;">
+                <div class="ttl-mid" style="font-size: 12px;">"Draft a chase for Patel — friendly but firm."</div>
+              </div>
+              <div class="card" style="padding: 10px 12px;">
+                <div class="ttl-mid" style="font-size: 12px;">"What did I charge last year for a wet room?"</div>
+              </div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi"><div class="ic">⌂</div>YARD</div>
+            <div class="navi"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus on"><div class="ic">✦</div></div>
+            <div class="navi"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">Three prompts to break the blank-page paralysis. Tappable. The first chat almost always leads to a draft.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── LOADING + OFFLINE ─────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 02</span>
+      <h2>Loading &amp; offline · the loft test</h2>
+      <p>Dave's in a loft, two bars of signal, the photo log isn't loading. Graftr tells him exactly what's happening and keeps the timer running locally — nothing's lost.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+
+      <div class="ab">
+        <div class="ab-label">Quotes · loading skeleton <span class="sub">never blank-white</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="sk dot"></div>
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                  <div class="sk line" style="width: 80px;"></div>
+                  <div class="sk line tiny"></div>
+                </div>
+              </div>
+              <div class="bell" style="opacity: 0.3;">⏷</div>
+            </div>
+            <div class="stencil mute" style="opacity: 0.6;">// PIPELINE · LOADING</div>
+            <div class="sk tall"></div>
+            <div class="sk tall"></div>
+            <div class="sk tall"></div>
+            <div class="sk box"></div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi"><div class="ic">⌂</div>YARD</div>
+            <div class="navi on"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">Skeleton shapes mirror the real content. ~340ms shimmer; gives way to data as it streams in.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Job site · 2 bars · queued <span class="sub">graceful offline</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Henderson · D4</div>
+                  <div class="sub-row">ON SITE · TIMER 3:24</div>
+                </div>
+              </div>
+              <div class="bell">⏷</div>
+            </div>
+
+            <div class="offline-banner">
+              <span class="dot"></span>
+              <span style="flex: 1;">OFFLINE · WORKING LOCALLY</span>
+              <span style="color: var(--g-bone-dim);">3 QUEUED ▴</span>
+            </div>
+
+            <div class="stencil">// TODAY · 33 PHOTOS</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;">
+              <div style="aspect-ratio: 1; background: #5a4a38; border-radius: 2px;"></div>
+              <div style="aspect-ratio: 1; background: #d8c89e; border-radius: 2px; position: relative;">
+                <div style="position: absolute; bottom: 2px; right: 2px; font-family: var(--font-mono); font-size: 6px; font-weight: 800; color: var(--g-bg); background: var(--g-gold); padding: 1px 3px;">QUEUED</div>
+              </div>
+              <div style="aspect-ratio: 1; background: #7a8a8c; border-radius: 2px;"></div>
+              <div style="aspect-ratio: 1; background: #a09078; border-radius: 2px; position: relative;">
+                <div style="position: absolute; bottom: 2px; right: 2px; font-family: var(--font-mono); font-size: 6px; font-weight: 800; color: var(--g-bg); background: var(--g-gold); padding: 1px 3px;">QUEUED</div>
+              </div>
+              <div style="aspect-ratio: 1; background: #c8b894; border-radius: 2px;"></div>
+              <div style="aspect-ratio: 1; background: #4a3a28; border-radius: 2px;"></div>
+            </div>
+
+            <div class="card" style="background: var(--g-bg-deep); border: 1px dashed var(--g-hairline);">
+              <div class="ttl-mid" style="font-size: 14px;">+ Photo · still saves</div>
+              <div class="sub-row" style="margin-top: 4px;">UPLOADS THE MOMENT SIGNAL'S BACK</div>
+            </div>
+
+            <div class="card gold" style="text-align: center; padding: 12px;">
+              <div style="font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: rgba(0,0,0,0.7); letter-spacing: 0.14em;">▶ ON TIMER · LOCAL</div>
+              <div style="font-family: var(--font-display); font-weight: 800; font-size: 20px; margin-top: 2px;">3:24:18</div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi on"><div class="ic">⌂</div>YARD</div>
+            <div class="navi"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">No "sorry, no internet" wall. Photos stamp as queued, timer keeps counting — everything syncs the moment signal returns.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Sync recovered <span class="sub">~600ms after signal</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Henderson · D4</div>
+                  <div class="sub-row">SYNCED · 3:24 ON CLOCK</div>
+                </div>
+              </div>
+              <div class="bell">⏷</div>
+            </div>
+
+            <div class="offline-banner" style="background: rgba(125,216,127,0.12); border-color: var(--g-green); color: var(--g-green);">
+              <span class="dot" style="background: var(--g-green);"></span>
+              <span style="flex: 1;">✓ SYNCED · 3 PHOTOS + 14 MIN UP</span>
+            </div>
+
+            <div class="stencil">// SYNC SUMMARY</div>
+            <div class="card" style="display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center;">
+              <div style="width: 18px; height: 18px; background: var(--g-green); color: var(--g-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">✓</div>
+              <div>
+                <div class="ttl-mid" style="font-size: 12px;">3 photos uploaded</div>
+                <div class="sub-row">PLASTERBOARD · SOUTH WALL</div>
+              </div>
+              <div class="chip green">DONE</div>
+            </div>
+            <div class="card" style="display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center;">
+              <div style="width: 18px; height: 18px; background: var(--g-green); color: var(--g-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">✓</div>
+              <div>
+                <div class="ttl-mid" style="font-size: 12px;">14 min timer pushed</div>
+                <div class="sub-row">OFFLINE WORK SECONDED INTO CIS</div>
+              </div>
+              <div class="chip green">DONE</div>
+            </div>
+            <div class="card" style="display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center;">
+              <div style="width: 18px; height: 18px; background: var(--g-green); color: var(--g-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">✓</div>
+              <div>
+                <div class="ttl-mid" style="font-size: 12px;">Tom's feed updated</div>
+                <div class="sub-row">CUSTOMER NOTIFIED · 1 TAP</div>
+              </div>
+              <div class="chip green">DONE</div>
+            </div>
+            <div class="sub-row" style="text-align: center; margin-top: auto; padding: 8px;">DISMISS AUTOMATICALLY IN 5S ▴</div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi on"><div class="ic">⌂</div>YARD</div>
+            <div class="navi"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">When signal returns, a small confirmation moment. Auto-dismisses in 5 seconds — no badge to swat away.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CELEBRATIONS + PERMISSION ─────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 03</span>
+      <h2>Celebrations &amp; permission asks</h2>
+      <p>The moments that make Graftr feel like the app's on your side: deposit landed, first quote sent, asking for notifications at exactly the right moment.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+
+      <div class="ab">
+        <div class="ab-label">First quote sent <span class="sub">moment of pride</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body celebrate">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Quote sent</div>
+                  <div class="sub-row">QR-0226 · TO TOM HENDERSON</div>
+                </div>
+              </div>
+            </div>
+            <div class="empty" style="padding: 28px 12px;">
+              <div class="ic" style="background: var(--g-green); color: var(--g-bg); border: 0; box-shadow: 0 0 0 8px rgba(125,216,127,0.16);">✓</div>
+              <h3 style="font-size: 26px;">First one's out the door, Dave.</h3>
+              <p>£28,650 for Tom Henderson. He'll get a text in 30 seconds.</p>
+            </div>
+            <div class="stencil mute">// WHILE YOU WAIT</div>
+            <div class="card" style="border-left: 3px solid var(--g-gold);">
+              <div class="ttl-mid" style="font-size: 13px;">Turn on notifications →</div>
+              <div class="body-row" style="margin-top: 4px;">We'll ping you the moment Tom opens, signs, or pays.</div>
+            </div>
+            <div class="card" style="background: var(--g-bg-deep); border: 1px dashed var(--g-hairline);">
+              <div class="ttl-mid" style="font-size: 13px;">Make this quote sing →</div>
+              <div class="body-row" style="margin-top: 4px;">Add 2 site photos so Tom sees the homework.</div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi"><div class="ic">⌂</div>YARD</div>
+            <div class="navi on"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">Confetti dots subtle. Next-step nudges thoughtful — turn on notifications, attach photos. Earns the moment.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Notifications · permission <span class="sub">asked at the right moment</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body" style="opacity: 0.3; pointer-events: none;">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Quote sent</div>
+                  <div class="sub-row">QR-0226 · TO TOM HENDERSON</div>
+                </div>
+              </div>
+            </div>
+            <div class="empty"><div class="ic" style="background: var(--g-green);">✓</div></div>
+          </div>
+          <div class="ph-overlay">
+            <div class="ph-sheet">
+              <div class="handle"></div>
+              <div class="stencil">// AFTER YOUR FIRST QUOTE</div>
+              <div class="ttl" style="font-size: 22px;">Let us tell you when Tom signs?</div>
+              <div class="body-row" style="color: var(--g-bone-dim);">Three things only — quote signed, payment landed, customer message. We promise we won't be annoying. Hit Settings to turn any off later.</div>
+
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
+                <div class="card" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: center; padding: 10px 12px;">
+                  <div style="width: 16px; height: 16px; background: var(--g-gold); border-radius: 3px; color: var(--g-bg); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</div>
+                  <div>
+                    <div class="ttl-mid" style="font-size: 12px;">Quote signed</div>
+                    <div class="sub-row">1–2 PER WEEK</div>
+                  </div>
+                </div>
+                <div class="card" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: center; padding: 10px 12px;">
+                  <div style="width: 16px; height: 16px; background: var(--g-gold); border-radius: 3px; color: var(--g-bg); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</div>
+                  <div>
+                    <div class="ttl-mid" style="font-size: 12px;">Payment landed</div>
+                    <div class="sub-row">3–4 PER WEEK</div>
+                  </div>
+                </div>
+                <div class="card" style="display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: center; padding: 10px 12px;">
+                  <div style="width: 16px; height: 16px; background: var(--g-gold); border-radius: 3px; color: var(--g-bg); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800;">✓</div>
+                  <div>
+                    <div class="ttl-mid" style="font-size: 12px;">Customer reply</div>
+                    <div class="sub-row">AS THEY HAPPEN</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card gold" style="text-align: center; padding: 14px; margin-top: 4px;">
+                <div class="ttl-mid" style="color: var(--g-bg); font-size: 13px;">YES, TURN ON →</div>
+              </div>
+              <div style="text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--g-muted); letter-spacing: 0.06em; padding: 4px;">NOT NOW</div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">Asked after the first quote (high intent), not at app launch. Three named promises. Frequency expectations up-front.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Big deposit landed <span class="sub">celebrate properly</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body celebrate">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Cash</div>
+                  <div class="sub-row">PAYMENT LANDED · JUST NOW</div>
+                </div>
+              </div>
+            </div>
+            <div class="empty" style="padding: 14px 12px;">
+              <div class="ic" style="background: var(--g-gold); color: var(--g-bg); border: 0; box-shadow: 0 0 0 10px var(--gold-glow);">£</div>
+              <h3 style="font-size: 22px;">Tom paid the deposit.</h3>
+              <div style="font-family: var(--font-display); font-weight: 800; font-size: 44px; color: var(--g-green); letter-spacing: -0.03em; line-height: 1; margin: 4px 0;">+£5,730</div>
+              <p style="font-size: 12px;">Cleared 19:42 · Visa •• 4242. Receipt sent to your email.</p>
+            </div>
+
+            <div class="stencil mute">// THAT'S A NEW WEEK BEST</div>
+            <div class="card" style="text-align: center;">
+              <div class="sub-row">YOUR PREVIOUS BEST</div>
+              <div class="ttl-mid" style="margin: 2px 0;">£4,200 · WK 18</div>
+              <div class="sub-row" style="color: var(--g-green);">▲ +£1,530 · 36% MORE</div>
+            </div>
+
+            <div class="card gold" style="text-align: center; padding: 12px;">
+              <div class="ttl-mid" style="color: var(--g-bg); font-size: 13px;">Job site · let's get it built →</div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi"><div class="ic">⌂</div>YARD</div>
+            <div class="navi"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi on"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">Big payment = full celebration. Contextual stat ("new week best"). Push toward next action, not just a pat on the back.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Error · payment failed <span class="sub">honest + fixable</span></div>
+        <div class="phone">
+          <div class="ph-status"><span>9:14</span><span class="battery"></span></div>
+          <div class="ph-body">
+            <div class="ph-top">
+              <div class="left">
+                <div class="av">DR</div>
+                <div>
+                  <div class="name">Patel chase</div>
+                  <div class="sub-row">CARD DECLINED · 19:42</div>
+                </div>
+              </div>
+              <div class="bell">⏷</div>
+            </div>
+
+            <div class="card" style="border-left: 3px solid var(--g-red); background: rgba(255,90,60,0.04);">
+              <div class="stencil red">// CARD DECLINED · INSUF. FUNDS</div>
+              <div class="ttl" style="font-size: 18px; margin-top: 6px;">Sanjay's card was declined.</div>
+              <div class="body-row" style="margin-top: 4px;">We've not charged anything. The chase is queued to re-send Tuesday — or we can try a different route now.</div>
+            </div>
+
+            <div class="stencil mute">// TRY ANOTHER WAY</div>
+            <div class="card" style="display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center;">
+              <div style="font-size: 14px;">↗</div>
+              <div>
+                <div class="ttl-mid" style="font-size: 12px;">Send WhatsApp · BACS details</div>
+                <div class="sub-row">DRAFTED · TAP TO REVIEW</div>
+              </div>
+              <div class="chip gold">SEND</div>
+            </div>
+            <div class="card" style="display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center;">
+              <div style="font-size: 14px;">☏</div>
+              <div>
+                <div class="ttl-mid" style="font-size: 12px;">Call Sanjay · 2 min</div>
+                <div class="sub-row">USUALLY ANSWERS BEFORE LUNCH</div>
+              </div>
+              <div class="chip dot" style="background: transparent; border: 1px solid var(--g-hairline); color: var(--g-bone-dim);">CALL</div>
+            </div>
+            <div class="card" style="display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center;">
+              <div style="font-size: 14px;">⏸</div>
+              <div>
+                <div class="ttl-mid" style="font-size: 12px;">Hold off · re-try Tuesday</div>
+                <div class="sub-row">PAY-DAY · 73% RECOVER RATE</div>
+              </div>
+              <div class="chip" style="background: transparent; border: 1px solid var(--g-hairline); color: var(--g-bone-dim);">WAIT</div>
+            </div>
+          </div>
+          <div class="ph-nav">
+            <div class="navi"><div class="ic">⌂</div>YARD</div>
+            <div class="navi"><div class="ic">⊟</div>QUOTES</div>
+            <div class="navi plus"><div class="ic">+</div></div>
+            <div class="navi on"><div class="ic">£</div>CASH</div>
+            <div class="navi"><div class="ic">⚙</div>SETTINGS</div>
+          </div>
+        </div>
+        <div class="ab-cap">Errors should be opportunities — never dead-ends. Three real next actions, with a smart default (re-try at pay-day).</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PUSH NOTIFICATION GALLERY ─────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 04</span>
+      <h2>Push notifications · the whole working day</h2>
+      <p>Every type of push Graftr fires, written like a human, organised by intent. Three rails (Money / Site / Coach) each with a cap so they never pile up.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+
+      <div class="ab">
+        <div class="ab-label">A day in the lock screen <span class="sub">Mon 18 May</span></div>
+        <div class="gallery-bg">
+          <div class="gallery-eyebrow">// EVERY TYPE · ONE DAY</div>
+
+          <div class="day-divider">— EARLY · 07:50–09:00 —</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name">GRAFTR · DIARY</span></div>
+                <div class="title">Day 4 of Henderson — plasterboard &amp; skim</div>
+                <div class="body">Mariusz expected 9:30. Materials delivered last night. Forecast dry.</div>
+              </div>
+              <span class="time">7:50</span>
+            </div>
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name gold">GRAFTR · AI</span></div>
+                <div class="title">3 chases ready to send (£4.8k)</div>
+                <div class="body">Patel · Murray · Cole. Drafted in your voice. Tap to approve all.</div>
+              </div>
+              <span class="time">8:32</span>
+            </div>
+          </div>
+
+          <div class="day-divider">— MIDDAY · 11:30–14:30 —</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name green">GRAFTR · CASH</span></div>
+                <div class="title">Tom paid the structural milestone</div>
+                <div class="body">£15,195 cleared · Visa •• 4242 · receipt to your email.</div>
+              </div>
+              <span class="time">11:42</span>
+            </div>
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name">GRAFTR · CUSTOMER</span></div>
+                <div class="title">Anna H replied to your quote</div>
+                <div class="body">"Can we use Velux instead of dormer for the cost difference?"</div>
+              </div>
+              <span class="time">13:05</span>
+            </div>
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name green">GRAFTR · CASH</span></div>
+                <div class="title">Murray's final balance landed</div>
+                <div class="body">£4,200 · BACS · clearing 13:54. Job marked paid + closed.</div>
+              </div>
+              <span class="time">13:54</span>
+            </div>
+          </div>
+
+          <div class="day-divider">— AFTERNOON · 14:30–17:00 —</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name">GRAFTR · SITE</span></div>
+                <div class="title">VAR-01 ready to sign · roof rot</div>
+                <div class="body">Drafted variation: +£725 · 0.5d. Tap to send to Tom for sign-off.</div>
+              </div>
+              <span class="time">14:22</span>
+            </div>
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name red">GRAFTR · CASH</span></div>
+                <div class="title">Patel · 25 days late · £1,840</div>
+                <div class="body">Auto-chase #3 fired. WhatsApp delivered ✓. Read 14:08.</div>
+              </div>
+              <span class="time">14:30</span>
+            </div>
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name gold">GRAFTR · AI</span></div>
+                <div class="title">Quoted £28k vs my comp · running £1.2k under</div>
+                <div class="body">Last 5 similar lofts averaged £29.8k. You may have under-priced. Tap to see.</div>
+              </div>
+              <span class="time">15:14</span>
+            </div>
+          </div>
+
+          <div class="day-divider">— END OF DAY · 17:00–20:00 —</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name">GRAFTR · CREW</span></div>
+                <div class="title">Mariusz logged off · 8.2 hrs · £213</div>
+                <div class="body">CIS held £43 · net to bank Friday. Photos uploaded ✓</div>
+              </div>
+              <span class="time">17:18</span>
+            </div>
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name green">GRAFTR · WEEK</span></div>
+                <div class="title">Best week of the year · £20,925 in</div>
+                <div class="body">+£3.2k on last week. Cashflow forecast looks healthy.</div>
+              </div>
+              <span class="time">18:00</span>
+            </div>
+            <div class="notif">
+              <div class="app-ic">G</div>
+              <div class="meta">
+                <div class="head"><span class="name">GRAFTR · REVIEW</span></div>
+                <div class="title">★★★★★ from Lou · Bristol</div>
+                <div class="body">"Set up auto-chase on a Friday — £14k in the bank by the next." Tap to thank.</div>
+              </div>
+              <span class="time">19:42</span>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">3 rails: Money (urgent · always permitted) · Site (high-signal) · Coach (AI insights, can mute). Hard daily cap of 6.</div>
+      </div>
+
+      <!-- Push design system -->
+      <div class="ab" style="flex: 1; min-width: 380px;">
+        <div class="ab-label">Push system · rules <span class="sub">how we don't annoy</span></div>
+        <div style="background: white; border-radius: 8px; padding: 28px 30px; box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 12px 28px rgba(40,30,10,0.06); width: 100%; max-width: 460px;">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--g-gold-deep); letter-spacing: 0.2em; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">// THE THREE RAILS</div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="border-left: 3px solid var(--g-green); padding-left: 14px;">
+              <div style="font-family: var(--font-display); font-weight: 800; font-size: 18px;">Money · always-on</div>
+              <div style="font-size: 13.5px; color: var(--warm-mute); line-height: 1.45; margin-top: 3px;">Payment landed, payment failed, deposit cleared, chase delivered. Unmuteable — these are why Graftr exists.</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--g-gold-deep); letter-spacing: 0.1em; margin-top: 6px;">CAP · 8/DAY · MEDIAN 2</div>
+            </div>
+            <div style="border-left: 3px solid var(--g-gold); padding-left: 14px;">
+              <div style="font-family: var(--font-display); font-weight: 800; font-size: 18px;">Site · high-signal</div>
+              <div style="font-size: 13.5px; color: var(--warm-mute); line-height: 1.45; margin-top: 3px;">Customer replied, variation needs sign-off, daily site brief, crew clocked off. Muteable individually.</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--g-gold-deep); letter-spacing: 0.1em; margin-top: 6px;">CAP · 4/DAY · MEDIAN 2</div>
+            </div>
+            <div style="border-left: 3px solid var(--warm-faint); padding-left: 14px;">
+              <div style="font-family: var(--font-display); font-weight: 800; font-size: 18px;">Coach · AI insights</div>
+              <div style="font-size: 13.5px; color: var(--warm-mute); line-height: 1.45; margin-top: 3px;">"You're under-pricing", "your best week", "3 chases ready". Off by default after first 4 weeks if untapped.</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--g-gold-deep); letter-spacing: 0.1em; margin-top: 6px;">CAP · 2/DAY · OPT-OUT AT WK 4</div>
+            </div>
+          </div>
+
+          <div style="border-top: 1px dashed var(--hairline); margin-top: 22px; padding-top: 18px;">
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--g-gold-deep); letter-spacing: 0.2em; font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">// FORMAT RULES</div>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+              <li style="display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 13.5px; color: var(--warm-ink); line-height: 1.45;"><span style="color: var(--g-gold-deep); font-weight: 800;">✓</span> Title says <em>what happened</em>, body says <em>so what</em>.</li>
+              <li style="display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 13.5px; color: var(--warm-ink); line-height: 1.45;"><span style="color: var(--g-gold-deep); font-weight: 800;">✓</span> Names not pronouns ("Tom", not "your customer").</li>
+              <li style="display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 13.5px; color: var(--warm-ink); line-height: 1.45;"><span style="color: var(--g-gold-deep); font-weight: 800;">✓</span> Numbers up-front (£15,195, not "a payment").</li>
+              <li style="display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 13.5px; color: var(--warm-ink); line-height: 1.45;"><span style="color: var(--g-gold-deep); font-weight: 800;">✓</span> Quiet hours · 21:00–07:00 (override only for Money).</li>
+              <li style="display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 13.5px; color: var(--warm-ink); line-height: 1.45;"><span style="color: var(--g-gold-deep); font-weight: 800;">✓</span> Saturday → Coach off · Sunday → all off (unless overridden).</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ab-cap">Tradespeople hate being spammed by the boring office app. These rules keep us welcome on the lock screen.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="foot-note">
+    <span>// GRAFTR · POLISH PACK · STATES + NOTIFICATIONS</span>
+    <span>NEXT: HAPTICS · SOUNDS · DARK MODE TWEAKS</span>
+  </div>
+
+</div>
+</body>
+</html>

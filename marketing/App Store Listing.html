@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#000000" />
+<title>Graftr · App Store · Quotes &amp; invoices for UK trades</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<template id="__bundler_thumbnail" data-bg-color="#0e0e0c">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#0e0e0c"/>
+    <rect x="130" y="60" width="140" height="280" rx="32" fill="#191815" stroke="#34302a" stroke-width="2"/>
+    <text x="200" y="180" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="44" fill="#e8b84b" letter-spacing="-1">GRAFTR</text>
+    <text x="200" y="210" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#7a7468" letter-spacing="3">FOR UK TRADES</text>
+    <rect x="160" y="240" width="80" height="32" rx="16" fill="#0080ff"/>
+    <text x="200" y="261" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="12" fill="#fff" letter-spacing="1">GET</text>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --ink: #1d1d1f;
+    --ink-soft: #424245;
+    --ink-mute: #86868b;
+    --ink-faint: #c7c7cc;
+    --hairline: #d2d2d7;
+    --hairline-soft: #e5e5e7;
+    --blue: #0071e3;
+    --blue-hover: #0077ed;
+
+    /* Graftr brand for hero shots */
+    --g-bg: #0e0e0c;
+    --g-bg-deep: #080807;
+    --g-surface: #191815;
+    --g-surface2: #23211d;
+    --g-hairline: #34302a;
+    --g-bone: #f5f1e6;
+    --g-bone-dim: #bdb7a8;
+    --g-muted: #7a7468;
+    --g-muted-deep: #4a4640;
+    --g-gold: #e8b84b;
+    --g-gold-deep: #b8881e;
+    --g-red: #ff5a3c;
+    --g-green: #7dd87f;
+
+    --font-display: 'Archivo Narrow', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  button { font-family: inherit; cursor: pointer; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── App Store status / nav chrome ─────────────────────── */
+  .status {
+    height: 44px; padding: 0 20px;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: -apple-system, 'SF Pro Text', var(--font-body);
+    font-weight: 600; font-size: 14px;
+  }
+  .status .time { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+  .status .right { display: flex; align-items: center; gap: 6px; color: var(--ink); }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 16px 10px;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--hairline-soft);
+    position: sticky; top: 0; z-index: 20;
+    backdrop-filter: blur(20px);
+    background: rgba(245,245,247,0.85);
+  }
+  .nav .back { color: var(--blue); font-size: 17px; font-weight: 400; display: flex; align-items: center; gap: 2px; }
+  .nav .back::before { content: '‹'; font-size: 28px; line-height: 1; margin-right: 2px; }
+  .nav .right { display: flex; gap: 16px; font-size: 17px; color: var(--blue); }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── App header ────────────────────────────────────────── */
+  .app-head {
+    display: grid; grid-template-columns: 120px 1fr; gap: 18px;
+    padding: 20px 0 24px;
+  }
+  @media (max-width: 480px) { .app-head { grid-template-columns: 90px 1fr; gap: 14px; } }
+
+  .app-icon {
+    width: 120px; height: 120px; border-radius: 28px;
+    background: var(--g-bg);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 480px) { .app-icon { width: 90px; height: 90px; border-radius: 22px; } }
+  .app-icon::before {
+    content: ''; position: absolute; top: 10%; left: 10%; right: 10%; bottom: 10%;
+    border: 2px solid var(--g-gold); border-radius: 16%;
+    background: var(--g-surface);
+  }
+  .app-icon span {
+    position: relative; z-index: 1;
+    font-family: var(--font-display); font-weight: 800; font-size: 78px; color: var(--g-gold);
+    line-height: 1; letter-spacing: -0.04em;
+  }
+  @media (max-width: 480px) { .app-icon span { font-size: 58px; } }
+
+  .app-meta .name { font-size: 22px; font-weight: 700; line-height: 1.1; margin: 0 0 4px; letter-spacing: -0.02em; }
+  .app-meta .tagline { color: var(--ink-mute); font-size: 14px; line-height: 1.3; margin: 0 0 14px; }
+  .app-cta { display: flex; align-items: center; gap: 12px; }
+  .get-btn {
+    background: var(--blue); color: white; border: 0;
+    padding: 6px 24px; border-radius: 100px;
+    font-family: -apple-system, 'SF Pro Text', var(--font-body);
+    font-weight: 700; font-size: 15px;
+    cursor: pointer; min-width: 86px;
+  }
+  .get-btn:hover { background: var(--blue-hover); }
+  .iap { font-size: 11px; color: var(--ink-mute); }
+  .share-ic {
+    margin-left: auto; width: 18px; height: 18px;
+    color: var(--blue);
+  }
+  .share-ic svg { width: 100%; height: 100%; display: block; }
+
+  /* App highlights row */
+  .highlights {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 0.5px solid var(--hairline-soft); border-bottom: 0.5px solid var(--hairline-soft);
+    padding: 18px 0;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 640px) { .highlights { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 18px 0; } }
+  .hl {
+    text-align: center; padding: 0 14px; border-right: 0.5px solid var(--hairline-soft);
+    display: flex; flex-direction: column; justify-content: center; gap: 2px;
+  }
+  .hl:last-child { border-right: 0; }
+  .hl .v { font-weight: 700; font-size: 16px; color: var(--ink); letter-spacing: -0.01em; line-height: 1.1; }
+  .hl .v .stars { color: var(--ink); }
+  .hl .l { font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.04em; }
+  .hl .l-ic { font-size: 22px; line-height: 1; color: var(--ink-soft); margin-bottom: 4px; }
+
+  /* What's new */
+  h2.sect {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px;
+  }
+  .sect-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .sect-row .ver { font-size: 13px; color: var(--ink-mute); }
+  .sect-meta { font-size: 13px; color: var(--ink-mute); margin-bottom: 12px; display: flex; justify-content: space-between; }
+  .whats-new { padding: 0 0 24px; border-bottom: 0.5px solid var(--hairline-soft); }
+  .whats-new p { font-size: 15px; color: var(--ink); line-height: 1.5; margin: 0; }
+
+  /* ── Screenshot strip (the marketing money shot) ────────── */
+  .shots-section { padding: 22px 0 0; border-bottom: 0.5px solid var(--hairline-soft); }
+  .shots-strip {
+    display: flex; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    padding: 4px 20px 28px;
+    margin: 0 -20px;
+    scrollbar-width: none;
+  }
+  .shots-strip::-webkit-scrollbar { display: none; }
+
+  /* The phone screenshot card */
+  .shot {
+    flex: 0 0 auto;
+    width: 270px; height: 580px;
+    border-radius: 32px;
+    background: var(--g-bg);
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: flex; flex-direction: column;
+  }
+  /* Status bar inside shot */
+  .shot::before {
+    content: ''; position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 90px; height: 24px; background: #000; border-radius: 14px; z-index: 5;
+  }
+  .shot-time { position: absolute; top: 18px; left: 22px; color: white; font-size: 12px; font-weight: 700; z-index: 4; }
+  .shot-signal { position: absolute; top: 19px; right: 22px; z-index: 4; display: flex; gap: 3px; align-items: center; }
+  .shot-signal span { display: inline-block; }
+  .shot-signal .bars { color: white; font-size: 10px; }
+  .shot-signal .batt {
+    width: 22px; height: 11px; border: 1px solid white; border-radius: 3px; position: relative;
+  }
+  .shot-signal .batt::after { content: ''; position: absolute; left: 1px; top: 1px; bottom: 1px; width: 80%; background: white; border-radius: 2px; }
+
+  /* Overlay copy at top of phone shot */
+  .shot-copy {
+    position: relative;
+    padding: 64px 22px 22px;
+    color: var(--g-bone);
+    flex-shrink: 0;
+  }
+  .shot-copy .kicker {
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+    color: var(--g-gold); letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .shot-copy h3 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 30px; line-height: 1.0; letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .shot-copy h3 em { font-style: normal; color: var(--g-gold); }
+  .shot-copy .sub {
+    font-size: 12.5px; line-height: 1.45; color: var(--g-bone-dim);
+    margin: 8px 0 0; max-width: 220px;
+  }
+
+  /* The "screen" — a stylized inner UI mock */
+  .screen-mock {
+    flex: 1;
+    background: var(--g-bg);
+    margin: 0 14px 16px;
+    border-radius: 18px;
+    border: 1px solid var(--g-hairline);
+    padding: 14px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    gap: 8px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .screen-mock .row { display: flex; align-items: center; gap: 8px; }
+  .screen-mock .row.split { justify-content: space-between; }
+  .screen-mock .stencil {
+    font-family: var(--font-mono); font-size: 8px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--g-gold);
+  }
+  .screen-mock .stencil.mute { color: var(--g-muted); }
+  .screen-mock .chip {
+    padding: 3px 6px;
+    font-family: var(--font-mono); font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--g-surface2); color: var(--g-bone);
+  }
+  .screen-mock .chip.gold { background: var(--g-gold); color: var(--g-bg); }
+  .screen-mock .chip.red { background: var(--g-red); color: var(--g-bg); }
+  .screen-mock .chip.green { background: var(--g-green); color: var(--g-bg); }
+  .screen-mock .card-row {
+    background: var(--g-surface); border: 1px solid var(--g-hairline);
+    border-radius: 6px; padding: 10px 12px;
+  }
+  .screen-mock .label-tiny { font-family: var(--font-mono); font-size: 8px; color: var(--g-muted); letter-spacing: 0.14em; text-transform: uppercase; }
+  .screen-mock .ttl { font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; color: var(--g-bone); }
+  .screen-mock .ttl-big { font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.02em; color: var(--g-bone); line-height: 1; }
+  .screen-mock .ttl-huge { font-family: var(--font-display); font-weight: 800; font-size: 42px; letter-spacing: -0.03em; color: var(--g-gold); line-height: 1; }
+  .screen-mock .sub-row { font-family: var(--font-mono); font-size: 9px; color: var(--g-muted); letter-spacing: 0.04em; }
+  .screen-mock .body-row { font-size: 11px; color: var(--g-bone-dim); line-height: 1.35; }
+  .hr-tape { height: 4px; background: repeating-linear-gradient(135deg, var(--g-gold) 0 6px, var(--g-bg-deep) 6px 12px); margin: 4px -14px; }
+
+  /* PROMOTIONAL CARDS ROW */
+  .promo {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    padding: 24px 0; border-bottom: 0.5px solid var(--hairline-soft);
+  }
+  @media (max-width: 640px) { .promo { grid-template-columns: 1fr; } }
+  .promo-card {
+    background: var(--card); border-radius: 16px; padding: 18px 20px;
+    border: 0.5px solid var(--hairline-soft);
+    display: flex; flex-direction: column; gap: 8px;
+    min-height: 130px;
+  }
+  .promo-card .head { display: flex; align-items: center; gap: 8px; }
+  .promo-card .head .badge {
+    width: 18px; height: 18px; border-radius: 4px;
+    background: var(--g-bg); color: var(--g-gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 11px; letter-spacing: -0.05em;
+  }
+  .promo-card .eyebrow { font-size: 11px; color: var(--ink-mute); letter-spacing: 0.04em; text-transform: uppercase; font-weight: 600; }
+  .promo-card .h { font-family: var(--font-display); font-weight: 800; font-size: 22px; line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin: 4px 0; }
+  .promo-card p { margin: 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.45; }
+
+  /* Description */
+  .desc { padding: 24px 0; border-bottom: 0.5px solid var(--hairline-soft); }
+  .desc p { font-size: 15px; color: var(--ink); line-height: 1.55; margin: 0 0 12px; max-width: 720px; }
+  .desc .more { color: var(--blue); cursor: pointer; font-size: 15px; font-weight: 500; }
+  .desc-bullets { margin: 10px 0 14px; padding: 0; list-style: none; }
+  .desc-bullets li { padding-left: 22px; position: relative; margin-bottom: 4px; font-size: 14.5px; color: var(--ink-soft); }
+  .desc-bullets li::before { content: '·'; position: absolute; left: 8px; color: var(--g-gold-deep); font-weight: 800; font-size: 22px; line-height: 14px; }
+
+  /* Developer card */
+  .dev-card {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 16px 0;
+    border-bottom: 0.5px solid var(--hairline-soft);
+  }
+  .dev-card .left { display: flex; align-items: center; gap: 12px; }
+  .dev-card .ic {
+    width: 48px; height: 48px; border-radius: 12px; background: var(--g-bg); color: var(--g-gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 24px;
+  }
+  .dev-card .name { font-weight: 600; font-size: 15px; }
+  .dev-card .sub { font-size: 12px; color: var(--ink-mute); }
+  .dev-card .arrow { color: var(--ink-faint); font-size: 18px; }
+
+  /* Ratings */
+  .ratings { padding: 22px 0; border-bottom: 0.5px solid var(--hairline-soft); }
+  .ratings-top { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; margin-bottom: 18px; }
+  @media (max-width: 480px) { .ratings-top { grid-template-columns: 1fr; gap: 14px; } }
+  .ratings-num { font-size: 56px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+  .ratings-num small { font-size: 24px; color: var(--ink-mute); font-weight: 400; }
+  .ratings-num + .lbl { font-size: 11px; color: var(--ink-mute); }
+  .ratings-bars { display: flex; flex-direction: column; gap: 4px; }
+  .rating-bar { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 10px; }
+  .rating-bar .stars { font-size: 11px; color: var(--ink-mute); }
+  .rating-bar .stars .filled { color: var(--ink); }
+  .rating-bar .bar { height: 6px; background: var(--hairline-soft); border-radius: 3px; overflow: hidden; }
+  .rating-bar .bar > div { height: 100%; background: var(--ink-soft); border-radius: 3px; }
+  .rating-bar .pct { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); margin-left: 6px; min-width: 30px; text-align: right; }
+
+  .review-card {
+    background: var(--card); border-radius: 14px; padding: 16px 18px;
+    border: 0.5px solid var(--hairline-soft);
+    margin-bottom: 10px;
+  }
+  .review-card .head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .review-card .stars { color: var(--ink); font-size: 13px; letter-spacing: 1px; }
+  .review-card .title { font-weight: 700; font-size: 15px; flex: 1; min-width: 0; }
+  .review-card .by { font-size: 12px; color: var(--ink-mute); }
+  .review-card .body { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* Information rows */
+  .info { padding: 22px 0 44px; }
+  .info h2 { margin-bottom: 4px; }
+  .info-row {
+    display: grid; grid-template-columns: 140px 1fr;
+    padding: 14px 0;
+    border-bottom: 0.5px solid var(--hairline-soft);
+    font-size: 14px;
+  }
+  .info-row .l { color: var(--ink-mute); }
+  .info-row .v { color: var(--ink); text-align: right; }
+
+  /* Tab bar at bottom — App Store mimic */
+  .tabbar {
+    position: sticky; bottom: 0; z-index: 30;
+    background: rgba(245,245,247,0.94);
+    backdrop-filter: blur(20px);
+    border-top: 0.5px solid var(--hairline-soft);
+    padding: 6px 0 18px;
+    display: flex; justify-content: space-around;
+  }
+  .tab { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--ink-mute); padding: 4px 0; }
+  .tab.active { color: var(--blue); }
+  .tab .ic { font-size: 22px; line-height: 1; }
+  .tab .lbl { font-size: 10px; font-weight: 500; }
+
+  .gh { color: var(--ink-mute); font-size: 12px; padding: 18px 0; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- iOS status bar -->
+<div class="status">
+  <div class="time">19:42</div>
+  <div class="right">
+    <span>●●●</span>
+    <span>Wi-Fi</span>
+    <span>92%</span>
+  </div>
+</div>
+
+<!-- App Store nav -->
+<div class="nav">
+  <div class="back">Today</div>
+  <div class="right">
+    <span>↑</span>
+    <span style="background: var(--ink-faint); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">T</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- APP HEADER -->
+  <div class="app-head">
+    <div class="app-icon"><span>G</span></div>
+    <div class="app-meta">
+      <h1 class="name">Graftr</h1>
+      <p class="tagline">Quotes &amp; invoices · for UK trades</p>
+      <div class="app-cta">
+        <button class="get-btn">GET</button>
+        <span class="iap">In-App Purchases</span>
+        <span class="share-ic" style="margin-left: auto;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Highlights row -->
+  <div class="highlights">
+    <div class="hl">
+      <div class="v">4.9 <span class="stars">★★★★★</span></div>
+      <div class="l">8.2K Ratings</div>
+    </div>
+    <div class="hl">
+      <div class="v">#2</div>
+      <div class="l">Business</div>
+    </div>
+    <div class="hl">
+      <div class="l-ic">4+</div>
+      <div class="l">Age</div>
+    </div>
+    <div class="hl">
+      <div class="v">🇬🇧</div>
+      <div class="l">London, UK</div>
+    </div>
+  </div>
+
+  <!-- WHAT'S NEW -->
+  <section class="whats-new">
+    <div class="sect-row">
+      <h2 class="sect">What's New</h2>
+      <span class="ver">Version History</span>
+    </div>
+    <div class="sect-meta">
+      <span>Version 2.4.1</span>
+      <span>2d ago</span>
+    </div>
+    <p>Photo Quote: tap a snap of the job, get a draft quote with line items and a price in 8 seconds. Trained on 240k UK quotes. Plus: WhatsApp chase templates, Subbie mode (early access), and a faster Diary.</p>
+  </section>
+
+  <!-- PREVIEW SCREENSHOTS — the marketing money shot -->
+  <section class="shots-section">
+    <div class="sect-row" style="padding-top: 18px;">
+      <h2 class="sect">Preview</h2>
+    </div>
+  </section>
+  <div class="shots-strip">
+
+    <!-- Shot 1: voice quoting -->
+    <div class="shot">
+      <div class="shot-time">9:41</div>
+      <div class="shot-signal"><span class="bars">●●●●</span><span class="batt"></span></div>
+      <div class="shot-copy">
+        <div class="kicker">// 01 · QUOTE</div>
+        <h3>Quote a job in <em>90 seconds.</em></h3>
+        <p class="sub">Speak the brief. Graftr writes the line items, prices each, lands a sign-off link.</p>
+      </div>
+      <div class="screen-mock">
+        <div class="row split"><span class="stencil">// NEW QUOTE · VOICE</span><span class="chip gold">REC</span></div>
+        <div style="display: flex; align-items: end; gap: 2px; height: 28px; padding: 6px 0;">
+          <span style="display:inline-block; width: 3px; height: 14px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 22px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 8px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 26px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 16px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 22px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 10px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 20px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 28px; background: var(--g-gold);"></span>
+          <span style="display:inline-block; width: 3px; height: 14px; background: var(--g-gold-deep);"></span>
+          <span style="display:inline-block; width: 3px; height: 18px; background: var(--g-gold-deep);"></span>
+          <span style="display:inline-block; width: 3px; height: 8px; background: var(--g-gold-deep);"></span>
+          <span style="display:inline-block; width: 3px; height: 22px; background: var(--g-gold-deep);"></span>
+          <span style="display:inline-block; width: 3px; height: 12px; background: var(--g-gold-deep);"></span>
+          <span style="display:inline-block; width: 3px; height: 20px; background: var(--g-gold-deep);"></span>
+          <span style="display:inline-block; width: 3px; height: 6px; background: var(--g-gold-deep);"></span>
+        </div>
+        <div class="body-row" style="color: var(--g-bone); font-style: italic;">"Henderson loft, 8-day dormer, oak stair, ensuite, two RSJs…"</div>
+        <div class="hr-tape"></div>
+        <div class="stencil mute">// DRAFTED 6 LINE ITEMS</div>
+        <div class="card-row">
+          <div class="row split"><span class="ttl">Structural · dormer</span><span class="ttl" style="font-size: 13px;">£7,420</span></div>
+          <div class="sub-row">2 RSJs · 2 days</div>
+        </div>
+        <div class="card-row">
+          <div class="row split"><span class="ttl">Joinery · oak stair</span><span class="ttl" style="font-size: 13px;">£6,400</span></div>
+        </div>
+        <div class="card-row" style="background: var(--g-bone); color: var(--g-bg);">
+          <div class="row split"><span class="ttl" style="color: var(--g-bg);">TOTAL · ALL IN</span><span class="ttl-big" style="color: var(--g-bg);">£28,650</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot 2: photo quote -->
+    <div class="shot">
+      <div class="shot-time">9:41</div>
+      <div class="shot-signal"><span class="bars">●●●●</span><span class="batt"></span></div>
+      <div class="shot-copy">
+        <div class="kicker">// 02 · PHOTO QUOTE</div>
+        <h3>Tap a photo. <em>Get a quote.</em></h3>
+        <p class="sub">Photo of the job → drafted scope &amp; price in 8 seconds. Trained on 240k UK jobs.</p>
+      </div>
+      <div class="screen-mock">
+        <div class="row split"><span class="stencil">// SNAP THE JOB</span><span class="chip">8s</span></div>
+        <div style="aspect-ratio: 16/10; background: linear-gradient(180deg, #5a4a38 0%, #2a221a 100%); border-radius: 4px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 30%; background: #1a1410; clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
+          <div style="position: absolute; top: 35%; left: 25%; right: 25%; bottom: 0; background: rgba(232,184,75,0.16); border: 1.5px dashed var(--g-gold);"></div>
+          <div style="position: absolute; top: 8px; left: 8px; font-family: var(--font-mono); font-size: 7px; color: var(--g-gold); letter-spacing: 0.16em; font-weight: 700;">AI DETECTED ▸ LOFT CONVERSION</div>
+        </div>
+        <div class="stencil mute" style="margin-top: 6px;">// SUGGESTED · 6 ITEMS</div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div class="row" style="font-size: 10px; color: var(--g-bone);">✓ Structural · dormer build &amp; steels</div>
+          <div class="row" style="font-size: 10px; color: var(--g-bone);">✓ First fix · plumbing &amp; sparks</div>
+          <div class="row" style="font-size: 10px; color: var(--g-bone);">✓ Plasterboard &amp; skim · 52 m²</div>
+          <div class="row" style="font-size: 10px; color: var(--g-bone);">✓ Joinery · oak stair &amp; doors</div>
+        </div>
+        <div class="hr-tape"></div>
+        <div class="row split">
+          <div>
+            <div class="label-tiny">// ESTIMATE</div>
+            <div class="ttl-huge">£28k</div>
+          </div>
+          <div class="chip gold" style="font-size: 9px; padding: 6px 10px;">USE THIS →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot 3: cash -->
+    <div class="shot">
+      <div class="shot-time">9:41</div>
+      <div class="shot-signal"><span class="bars">●●●●</span><span class="batt"></span></div>
+      <div class="shot-copy">
+        <div class="kicker">// 03 · CASH</div>
+        <h3>Cash <em>today</em>. Not next month.</h3>
+        <p class="sub">Stripe links on every invoice. Auto-chase overdue. Cashflow forecast you can trust.</p>
+      </div>
+      <div class="screen-mock">
+        <div class="stencil mute">// THIS WEEK</div>
+        <div>
+          <div class="ttl-huge">£18,420</div>
+          <div class="sub-row" style="color: var(--g-green);">+£3,200 VS LAST WEEK</div>
+        </div>
+        <div class="hr-tape"></div>
+        <div class="stencil">// LANDED</div>
+        <div class="card-row">
+          <div class="row split"><span class="ttl">Henderson · deposit</span><span class="ttl" style="color: var(--g-green); font-size: 13px;">+£5,730</span></div>
+          <div class="sub-row">VISA · 19:42 today · Stripe</div>
+        </div>
+        <div class="card-row">
+          <div class="row split"><span class="ttl">Murray · final</span><span class="ttl" style="color: var(--g-green); font-size: 13px;">+£4,200</span></div>
+          <div class="sub-row">BACS · YESTERDAY</div>
+        </div>
+        <div class="stencil" style="margin-top: 4px;">// OVERDUE · 1</div>
+        <div class="card-row" style="border-left: 3px solid var(--g-red);">
+          <div class="row split"><span class="ttl">Patel · 24d late</span><span class="chip red">CHASE</span></div>
+          <div class="sub-row" style="color: var(--g-red);">£1,840 · NEXT AUTO-CHASE TUE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot 4: AI copilot -->
+    <div class="shot">
+      <div class="shot-time">9:41</div>
+      <div class="shot-signal"><span class="bars">●●●●</span><span class="batt"></span></div>
+      <div class="shot-copy">
+        <div class="kicker">// 04 · GRAFTR AI</div>
+        <h3>AI built for <em>your trade.</em></h3>
+        <p class="sub">Ask anything. It knows UK prices, regs, your jobs, and how Mariusz prefers to be paid.</p>
+      </div>
+      <div class="screen-mock">
+        <div class="stencil mute">// GRAFTR AI</div>
+        <div class="card-row" style="background: var(--g-surface2); border: 0; padding: 8px 10px;">
+          <div class="body-row" style="color: var(--g-bone-dim);">What's the going rate for RSJs in N7?</div>
+        </div>
+        <div class="card-row" style="background: transparent; border: 1px solid var(--g-gold); padding: 8px 10px;">
+          <div class="row" style="gap: 4px; margin-bottom: 4px;"><span class="stencil">// GRAFTR</span></div>
+          <div class="body-row" style="font-size: 10px;">£420–540 per metre installed in N7 right now. Your last three RSJ jobs averaged <strong style="color: var(--g-gold);">£480/m</strong>. Want me to draft a line for it?</div>
+        </div>
+        <div class="card-row" style="background: var(--g-surface2); border: 0; padding: 8px 10px;">
+          <div class="body-row" style="color: var(--g-bone-dim);">Draft the chase for Patel — friendly but firm.</div>
+        </div>
+        <div class="card-row" style="background: transparent; border: 1px solid var(--g-gold); padding: 8px 10px;">
+          <div class="body-row" style="font-size: 10px;"><em style="color: var(--g-gold);">"Hi Sanjay — quick one, invoice INV-0188 hit 24 days yesterday. Anything I can sort to get this over the line? — Dave"</em></div>
+        </div>
+        <div class="hr-tape"></div>
+        <div class="row split"><span class="stencil mute">// 4 SUGGESTIONS TODAY</span><span class="chip green" style="font-size: 8px;">+£1,840 CASHED</span></div>
+      </div>
+    </div>
+
+    <!-- Shot 5: job site / diary -->
+    <div class="shot">
+      <div class="shot-time">9:41</div>
+      <div class="shot-signal"><span class="bars">●●●●</span><span class="batt"></span></div>
+      <div class="shot-copy">
+        <div class="kicker">// 05 · JOB SITE</div>
+        <h3>Every job, every <em>photo</em>, in one place.</h3>
+        <p class="sub">Daily photo log. Variation sign-off. Snags &amp; subbie hours. Customers see what they need to.</p>
+      </div>
+      <div class="screen-mock">
+        <div class="row split"><span class="stencil">// HENDERSON LOFT · D4</span><span class="chip green">ON TRACK</span></div>
+        <div class="row split">
+          <span class="ttl-big">Day 4 / 8</span>
+          <span class="stencil mute">50%</span>
+        </div>
+        <div style="height: 4px; background: var(--g-surface); border-radius: 2px; overflow: hidden;"><div style="width: 50%; height: 100%; background: var(--g-gold);"></div></div>
+        <div class="stencil mute" style="margin-top: 4px;">// TODAY'S PHOTO LOG · 33</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;">
+          <div style="aspect-ratio: 1; background: #5a4a38; border-radius: 2px;"></div>
+          <div style="aspect-ratio: 1; background: #d8c89e; border-radius: 2px;"></div>
+          <div style="aspect-ratio: 1; background: #7a8a8c; border-radius: 2px;"></div>
+          <div style="aspect-ratio: 1; background: #a09078; border-radius: 2px;"></div>
+          <div style="aspect-ratio: 1; background: #c8b894; border-radius: 2px;"></div>
+          <div style="aspect-ratio: 1; background: linear-gradient(135deg, var(--g-gold), var(--g-gold-deep)); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 13px; color: var(--g-bg);">+28</div>
+        </div>
+        <div class="stencil" style="margin-top: 4px;">// VARIATIONS · 1</div>
+        <div class="card-row" style="border-left: 3px solid var(--g-gold);">
+          <div class="row split"><span class="ttl" style="font-size: 12px;">VAR-01 · Roof rot</span><span class="ttl" style="font-size: 13px; color: var(--g-gold);">+£725</span></div>
+          <div class="sub-row" style="color: var(--g-green);">✓ TOM SIGNED 21 MAY · 11:08</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shot 6: brand close -->
+    <div class="shot" style="background: var(--g-bone);">
+      <div class="shot-time" style="color: var(--g-bg);">9:41</div>
+      <div class="shot-signal"><span class="bars" style="color: var(--g-bg);">●●●●</span><span class="batt" style="border-color: var(--g-bg);"></span></div>
+      <div class="shot-copy" style="color: var(--g-bg);">
+        <div class="kicker" style="color: var(--g-gold-deep);">// 06 · WHY GRAFTR</div>
+        <h3 style="color: var(--g-bg);">Built for <em style="color: var(--g-gold-deep);">graft.</em></h3>
+        <p class="sub" style="color: #6b6457;">Not desk work. Not SaaS for SaaS people. Built with sparkies, plumbers and chippies who'd rather be on site.</p>
+      </div>
+      <div class="screen-mock" style="background: var(--g-bone); border-color: #d8cfb8; box-shadow: none;">
+        <div style="text-align: center; padding: 18px 0;">
+          <div style="font-family: var(--font-display); font-weight: 800; font-size: 38px; color: var(--g-bg); line-height: 1; letter-spacing: -0.02em;">12,400+</div>
+          <div style="font-family: var(--font-mono); font-size: 9px; color: #6b6457; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 6px;">UK TRADESPEOPLE ON GRAFTR</div>
+        </div>
+        <div style="border-top: 1px dashed #d8cfb8; padding: 12px 0;">
+          <div style="font-family: var(--font-display); font-weight: 800; font-size: 28px; color: var(--g-bg); line-height: 1;">£84M</div>
+          <div style="font-family: var(--font-mono); font-size: 8px; color: #6b6457; letter-spacing: 0.14em; margin-top: 4px;">QUOTED IN 2025</div>
+        </div>
+        <div style="border-top: 1px dashed #d8cfb8; padding: 12px 0;">
+          <div style="font-family: var(--font-display); font-weight: 800; font-size: 28px; color: var(--g-bg); line-height: 1;">£0</div>
+          <div style="font-family: var(--font-mono); font-size: 8px; color: #6b6457; letter-spacing: 0.14em; margin-top: 4px;">PER QUOTE · FREE TIER FOR LIFE</div>
+        </div>
+        <div style="margin-top: auto; background: var(--g-bg); color: var(--g-gold); padding: 14px; text-align: center; border-radius: 8px; font-family: var(--font-display); font-weight: 800; font-size: 14px; letter-spacing: 0.06em;">
+          DOWNLOAD GRAFTR →
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROMO CARDS -->
+  <section class="promo">
+    <div class="promo-card">
+      <div class="head">
+        <div class="badge">★</div>
+        <div class="eyebrow">EDITOR'S CHOICE</div>
+      </div>
+      <div class="h">"The first SaaS that gets the worksite."</div>
+      <p>App Store, Apps We Love · May 2026</p>
+    </div>
+    <div class="promo-card">
+      <div class="head">
+        <div class="badge">🇬🇧</div>
+        <div class="eyebrow">FEATURED IN UK</div>
+      </div>
+      <div class="h">#2 in Business · #14 overall</div>
+      <p>Spent 4 weeks in Top 10 Business. Charting since Feb '26.</p>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION -->
+  <section class="desc">
+    <p><strong>Graftr is the quoting, invoicing and AI copilot for UK tradespeople.</strong> Built for builders, sparkies, plumbers, chippies, decorators and everyone in between — by people who've been on the tools and got tired of doing the books on a Sunday night.</p>
+    <ul class="desc-bullets">
+      <li><strong>90-second voice quotes.</strong> Speak the brief, get a priced quote your customer can sign off in a tap.</li>
+      <li><strong>Photo quotes.</strong> Snap the job, get a drafted scope &amp; price in 8 seconds — trained on 240k UK jobs.</li>
+      <li><strong>Pay-as-you-go links.</strong> Stripe-powered card &amp; Apple Pay on every invoice. Get paid same day.</li>
+      <li><strong>AI copilot for trades.</strong> Knows UK prices, regs, your past jobs, and the materials you used last time.</li>
+      <li><strong>Diary &amp; job site.</strong> Drag jobs into the week. Photo log, variation sign-off, snag list — all in one.</li>
+      <li><strong>Subbie mode.</strong> Pay the lads, track hours, CIS-ready statements ready for HMRC.</li>
+      <li><strong>Free forever.</strong> Five quotes a month, unlimited if you take payments via Graftr (2% fee, vs Stripe's 1.5%).</li>
+    </ul>
+    <p class="more">more</p>
+  </section>
+
+  <!-- DEVELOPER -->
+  <a class="dev-card" href="#">
+    <div class="left">
+      <div class="ic">G</div>
+      <div>
+        <div class="name">Graftr Ltd</div>
+        <div class="sub">Developer</div>
+      </div>
+    </div>
+    <div class="arrow">›</div>
+  </a>
+
+  <!-- RATINGS -->
+  <section class="ratings">
+    <div class="sect-row" style="margin-bottom: 16px;">
+      <h2 class="sect">Ratings &amp; Reviews</h2>
+      <a>See All</a>
+    </div>
+    <div class="ratings-top">
+      <div>
+        <div class="ratings-num">4.9<small> out of 5</small></div>
+        <div class="lbl">8.2K Ratings</div>
+      </div>
+      <div class="ratings-bars">
+        <div class="rating-bar">
+          <div class="stars"><span class="filled">★★★★★</span></div>
+          <div><div class="bar"><div style="width: 88%"></div></div></div>
+        </div>
+        <div class="rating-bar">
+          <div class="stars"><span class="filled">★★★★</span>★</div>
+          <div><div class="bar"><div style="width: 8%"></div></div></div>
+        </div>
+        <div class="rating-bar">
+          <div class="stars"><span class="filled">★★★</span>★★</div>
+          <div><div class="bar"><div style="width: 2%"></div></div></div>
+        </div>
+        <div class="rating-bar">
+          <div class="stars"><span class="filled">★★</span>★★★</div>
+          <div><div class="bar"><div style="width: 1%"></div></div></div>
+        </div>
+        <div class="rating-bar">
+          <div class="stars"><span class="filled">★</span>★★★★</div>
+          <div><div class="bar"><div style="width: 1%"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="head">
+        <span class="stars">★★★★★</span>
+        <span class="title">Stopped doing the books on Sundays</span>
+      </div>
+      <div class="by" style="margin-bottom: 6px;">Dave R · 22/05/26</div>
+      <div class="body">"Been on the tools 18 years. The voice quote thing is what sold me — drafted a 28k loft job in two minutes, customer signed it the same afternoon. Photo quotes feel like a cheat code. Got my Sundays back."</div>
+    </div>
+    <div class="review-card">
+      <div class="head">
+        <span class="stars">★★★★★</span>
+        <span class="title">Finally, software that gets it</span>
+      </div>
+      <div class="by" style="margin-bottom: 6px;">Sparks_NW3 · 19/05/26</div>
+      <div class="body">"Tried Tradify, Powered Now, Jobber. Graftr is the first one that doesn't feel like office software shrunk down. The AI knows my last 60 jobs and prices things how I would."</div>
+    </div>
+    <div class="review-card">
+      <div class="head">
+        <span class="stars">★★★★★</span>
+        <span class="title">£14k overdue collected in a week</span>
+      </div>
+      <div class="by" style="margin-bottom: 6px;">Lou (Plastering) · 14/05/26</div>
+      <div class="body">"Set up the auto-chase on a Friday. By the next Friday, £14k in overdue was in the bank. The pay links on invoices are the secret — half my customers paid the moment they got the text."</div>
+    </div>
+  </section>
+
+  <!-- INFORMATION -->
+  <section class="info">
+    <h2 class="sect">Information</h2>
+    <div class="info-row"><div class="l">Provider</div><div class="v">Graftr Ltd</div></div>
+    <div class="info-row"><div class="l">Size</div><div class="v">84.2 MB</div></div>
+    <div class="info-row"><div class="l">Category</div><div class="v">Business</div></div>
+    <div class="info-row"><div class="l">Compatibility</div><div class="v">iPhone, iPad, Apple Watch</div></div>
+    <div class="info-row"><div class="l">Languages</div><div class="v">English (UK)</div></div>
+    <div class="info-row"><div class="l">Age Rating</div><div class="v">4+</div></div>
+    <div class="info-row"><div class="l">In-App Purchases</div><div class="v">Yes →</div></div>
+    <div class="info-row"><div class="l">Copyright</div><div class="v">© 2026 Graftr Ltd</div></div>
+    <div class="info-row"><div class="l">Developer Website</div><div class="v"><a>graftr.app ›</a></div></div>
+    <div class="info-row"><div class="l">Privacy Policy</div><div class="v"><a>graftr.app/privacy ›</a></div></div>
+  </section>
+
+</div>
+
+<!-- Tab bar -->
+<div class="tabbar">
+  <div class="tab"><div class="ic">⌂</div><div class="lbl">Today</div></div>
+  <div class="tab"><div class="ic">♢</div><div class="lbl">Games</div></div>
+  <div class="tab active"><div class="ic">●</div><div class="lbl">Apps</div></div>
+  <div class="tab"><div class="ic">A</div><div class="lbl">Arcade</div></div>
+  <div class="tab"><div class="ic">🔍</div><div class="lbl">Search</div></div>
+</div>
+
+</body>
+</html>

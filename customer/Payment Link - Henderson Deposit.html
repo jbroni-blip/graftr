@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f5f1e6" />
+<title>Pay deposit · Rawlings Builds · £5,730</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<template id="__bundler_thumbnail" data-bg-color="#f5f1e6">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#f5f1e6"/>
+    <rect x="70" y="60" width="260" height="280" rx="10" fill="#fffbf0" stroke="#0e0e0c" stroke-width="3"/>
+    <rect x="86" y="60" width="228" height="4" fill="#b8881e"/>
+    <text x="200" y="160" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7a7468" letter-spacing="3">PAY DEPOSIT</text>
+    <text x="200" y="225" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="62" fill="#0e0e0c" letter-spacing="-2">£5,730</text>
+    <rect x="100" y="265" width="200" height="42" rx="4" fill="#0e0e0c"/>
+    <text x="200" y="291" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="14" fill="#fffbf0" letter-spacing="3">PAY NOW</text>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --bone: #f5f1e6;
+    --paper: #fffbf0;
+    --ink: #0e0e0c;
+    --ink-soft: #2a261f;
+    --ink-mute: #6b6457;
+    --ink-faint: #a39c8d;
+    --hairline: #d8cfb8;
+    --hairline-soft: #e8e0c8;
+    --gold: #b8881e;
+    --gold-bright: #e8b84b;
+    --gold-soft: rgba(184,136,30,0.08);
+    --green: #2d7a3e;
+    --green-soft: rgba(45,122,62,0.08);
+    --red: #b8281a;
+    --blue: #2451a4;
+    --shadow: 0 1px 0 rgba(0,0,0,0.04), 0 12px 32px rgba(40,30,10,0.08);
+    --font-display: 'Archivo Narrow', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bone); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  body {
+    background-image:
+      radial-gradient(rgba(120,90,30,0.04) 1px, transparent 1.5px),
+      radial-gradient(rgba(180,150,60,0.025) 1px, transparent 1.5px);
+    background-size: 4px 4px, 9px 9px;
+    background-position: 0 0, 2px 2px;
+    min-height: 100dvh;
+  }
+  button, input { font-family: inherit; }
+  .stencil { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .stencil.mute { color: var(--ink-mute); }
+
+  /* Trust strip */
+  .top {
+    background: var(--ink); color: var(--bone);
+    padding: 10px 16px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .top .lock {
+    width: 12px; height: 12px;
+    background: linear-gradient(180deg, transparent 0 5px, var(--gold-bright) 5px 12px);
+    position: relative;
+  }
+  .top .lock::before {
+    content: ''; position: absolute; top: 0; left: 2px; right: 2px; height: 6px;
+    border: 2px solid var(--gold-bright); border-bottom: 0; border-radius: 4px 4px 0 0;
+  }
+
+  /* Mini brand line */
+  .brand-line {
+    max-width: 520px; margin: 24px auto 0; padding: 0 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.1em;
+  }
+  .brand-line .logo-mark {
+    width: 22px; height: 22px; background: var(--ink); color: var(--gold-bright);
+    display: flex; align-items: center; justify-content: center; border-radius: 3px;
+    font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: -0.04em;
+  }
+  .brand-line strong { color: var(--ink); font-family: var(--font-display); font-weight: 800; }
+
+  .wrap { max-width: 520px; margin: 18px auto 0; padding: 0 20px 40px; }
+
+  /* Receipt header card */
+  .receipt {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 24px; box-shadow: var(--shadow); position: relative;
+  }
+  .receipt::before {
+    content: ''; position: absolute; top: 0; left: 16px; right: 16px; height: 4px;
+    background: repeating-linear-gradient(135deg, var(--gold) 0 10px, var(--ink) 10px 20px);
+    opacity: 0.85;
+  }
+  .from-row { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--hairline); }
+  .from-row .avatar {
+    width: 44px; height: 44px; background: var(--ink); color: var(--gold-bright); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 17px;
+    flex-shrink: 0;
+  }
+  .from-row .info { flex: 1; min-width: 0; }
+  .from-row .name { font-family: var(--font-display); font-weight: 800; font-size: 16px; line-height: 1.1; }
+  .from-row .sub { font-size: 12px; color: var(--ink-mute); margin-top: 2px; }
+  .verified { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: var(--green); margin-top: 4px; }
+  .verified::before { content: '✓'; }
+
+  .amount-block { text-align: left; }
+  .amount-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; color: var(--ink-mute); text-transform: uppercase; }
+  .amount {
+    display: flex; align-items: baseline; gap: 4px; line-height: 1;
+    margin: 6px 0 6px;
+  }
+  .amount .currency { font-family: var(--font-display); font-weight: 800; font-size: 28px; align-self: flex-start; padding-top: 10px; color: var(--ink); }
+  .amount .num { font-family: var(--font-display); font-weight: 800; font-size: 72px; letter-spacing: -0.03em; color: var(--ink); }
+  .amount-sub { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.06em; }
+  .amount-sub strong { color: var(--gold); font-weight: 700; }
+
+  .what-for {
+    margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--hairline);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  .what-for .label { font-family: var(--font-mono); font-size: 9px; color: var(--ink-mute); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+  .what-for .val { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+
+  /* Pay form card */
+  .pay-card {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 22px; box-shadow: var(--shadow); margin-top: 14px;
+  }
+  .pay-card .stencil { margin-bottom: 14px; }
+
+  .wallet-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .wallet {
+    height: 48px; border-radius: 4px; border: 1px solid var(--hairline);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--font-body); font-weight: 600; font-size: 14px;
+    background: var(--ink); color: var(--paper); cursor: pointer;
+    transition: transform 80ms;
+  }
+  .wallet.gpay { background: var(--paper); color: var(--ink); border: 1px solid var(--hairline); }
+  .wallet:active { transform: scale(0.98); }
+  .wallet .apple { font-size: 18px; line-height: 0; }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono); font-size: 9px; color: var(--ink-faint); letter-spacing: 0.14em;
+    margin: 6px 0 14px;
+  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--hairline-soft); }
+
+  .field { margin-bottom: 12px; }
+  .field label { font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.14em; color: var(--ink-mute); text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .field input {
+    width: 100%; padding: 12px 14px; border: 1px solid var(--hairline); border-radius: 4px;
+    background: var(--bone); font-size: 15px; color: var(--ink); outline: none;
+    transition: border-color 120ms;
+  }
+  .field input:focus { border-color: var(--gold); background: var(--paper); }
+  .field-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px; }
+  .field.card { position: relative; }
+  .field.card .badges {
+    position: absolute; right: 10px; top: 26px; display: flex; gap: 4px;
+    pointer-events: none;
+  }
+  .field.card .badges > span {
+    width: 26px; height: 17px; border-radius: 2px; background: var(--hairline-soft);
+    font-family: var(--font-display); font-weight: 800; font-size: 8px; letter-spacing: 0.05em;
+    display: flex; align-items: center; justify-content: center; color: var(--ink-mute);
+  }
+  .field.card .badges .visa { background: #1a1f71; color: #fff; }
+  .field.card .badges .mc { background: linear-gradient(90deg, #eb001b 0 50%, #f79e1b 50% 100%); color: #fff; }
+
+  .pay-btn {
+    width: 100%; height: 56px; margin-top: 6px;
+    background: var(--ink); color: var(--paper); border: 0; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase;
+    box-shadow: 0 6px 18px rgba(14,14,12,0.18);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    cursor: pointer; transition: transform 80ms, background 160ms;
+  }
+  .pay-btn:hover { background: #1c1a14; }
+  .pay-btn:active { transform: scale(0.99); }
+  .pay-btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+  .pay-btn .spin {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid rgba(245,241,230,0.3); border-top-color: var(--gold-bright);
+    animation: spin 700ms linear infinite;
+    display: none;
+  }
+  .pay-btn.loading .spin { display: block; }
+  .pay-btn.loading .label { opacity: 0.6; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .legal {
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.04em;
+    text-align: center; margin-top: 14px; line-height: 1.6;
+  }
+  .legal a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 2px; }
+
+  /* Trust row */
+  .trust {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin: 18px auto 0;
+    flex-wrap: wrap;
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .trust > div { display: flex; align-items: center; gap: 6px; }
+  .trust .stripe {
+    background: #635bff; color: #fff; padding: 3px 6px; border-radius: 3px;
+    font-family: var(--font-display); font-weight: 800; font-size: 10px; letter-spacing: 0.04em;
+  }
+
+  /* Footer */
+  .foot {
+    text-align: center; margin: 40px auto 24px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); letter-spacing: 0.14em;
+  }
+
+  /* Paid state */
+  body.paid .pay-card,
+  body.paid .receipt::before { display: none; }
+  body.paid .receipt { animation: paid-glow 700ms ease-out; }
+  @keyframes paid-glow {
+    from { box-shadow: var(--shadow); }
+    50% { box-shadow: var(--shadow), 0 0 0 6px var(--green-soft); }
+    to { box-shadow: var(--shadow); }
+  }
+
+  .paid-card {
+    display: none;
+    background: var(--paper); border: 1px solid var(--green); border-radius: 6px;
+    padding: 24px; margin-top: 14px; box-shadow: var(--shadow);
+    position: relative; overflow: hidden;
+  }
+  body.paid .paid-card { display: block; animation: paid-in 480ms cubic-bezier(.2,.8,.2,1); }
+  @keyframes paid-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .paid-card::before {
+    content: ''; position: absolute; top: 0; left: 16px; right: 16px; height: 4px;
+    background: repeating-linear-gradient(135deg, var(--green) 0 10px, var(--ink) 10px 20px);
+    opacity: 0.85;
+  }
+  .paid-stamp {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--font-display); font-weight: 800; font-size: 18px;
+    color: var(--green); border: 3px solid var(--green); padding: 4px 10px;
+    transform: rotate(8deg); letter-spacing: 0.06em;
+  }
+  .paid-card h2 { font-family: var(--font-display); font-weight: 800; font-size: 22px; margin: 8px 0 6px; letter-spacing: -0.01em; max-width: 320px; }
+  .paid-card .lede { font-size: 14px; color: var(--ink-mute); line-height: 1.55; margin: 0 0 18px; }
+  .receipt-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    padding: 14px 0; border-top: 1px dashed var(--hairline); border-bottom: 1px dashed var(--hairline); margin: 10px 0;
+  }
+  .receipt-grid .label { font-family: var(--font-mono); font-size: 9px; color: var(--ink-mute); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 3px; }
+  .receipt-grid .val { font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; }
+  .receipt-grid .val.mono { font-family: var(--font-mono); font-weight: 600; font-size: 12px; letter-spacing: 0.04em; }
+
+  .next-steps { margin-top: 14px; }
+  .next-steps .stencil { margin-bottom: 10px; }
+  .next-steps ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .next-steps li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: flex-start; }
+  .next-steps li .num {
+    width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 12px; color: var(--gold);
+    margin-top: 1px;
+  }
+  .next-steps li .body { font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+  .next-steps li .body strong { font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--ink); display: block; margin-bottom: 2px; }
+
+  .paid-actions { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ghost-btn {
+    height: 42px; border: 1px solid var(--hairline); border-radius: 4px; background: var(--bone);
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink); cursor: pointer;
+  }
+  .ghost-btn:hover { border-color: var(--gold); }
+
+  /* Mobile tweaks */
+  @media (max-width: 480px) {
+    .amount .num { font-size: 60px; }
+    .wallet { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span class="lock"></span>
+  <span>Secure payment · Powered by Stripe</span>
+</div>
+
+<div class="brand-line">
+  <div class="logo-mark">G</div>
+  <span>Via <strong>Graftr</strong> · for UK tradespeople</span>
+  <span style="margin-left:auto; letter-spacing: 0.08em;">GRAFTR.APP/PAY/QR-0226</span>
+</div>
+
+<div class="wrap">
+
+  <!-- Receipt header -->
+  <div class="receipt">
+    <div class="from-row">
+      <div class="avatar">DR</div>
+      <div class="info">
+        <div class="name">Rawlings Builds Ltd</div>
+        <div class="sub">Dave Rawlings · N7 London</div>
+        <div class="verified">Verified · 12 yrs on Graftr</div>
+      </div>
+    </div>
+
+    <div class="amount-block">
+      <div class="amount-label">// You're paying</div>
+      <div class="amount">
+        <span class="currency">£</span>
+        <span class="num">5,730</span>
+      </div>
+      <div class="amount-sub">20% DEPOSIT · <strong>£28,650 TOTAL CONTRACT</strong> · REFUNDABLE BEFORE MON 18</div>
+    </div>
+
+    <div class="what-for">
+      <div>
+        <div class="label">// For</div>
+        <div class="val">Loft conversion · 2-bed</div>
+      </div>
+      <div>
+        <div class="label">// Quote ref</div>
+        <div class="val">QR-0226</div>
+      </div>
+      <div>
+        <div class="label">// Start date</div>
+        <div class="val">Mon 18 May '26</div>
+      </div>
+      <div>
+        <div class="label">// Billed to</div>
+        <div class="val">Tom Henderson</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment form -->
+  <div class="pay-card">
+    <div class="stencil">// Pay £5,730 deposit</div>
+
+    <div class="wallet-row">
+      <button class="wallet" onclick="pay('apple-pay')">
+        <span class="apple">⌘</span> Pay with Apple Pay
+      </button>
+      <button class="wallet gpay" onclick="pay('google-pay')">
+        <span style="font-weight: 700; letter-spacing: 0;">G</span> Pay with Google Pay
+      </button>
+    </div>
+
+    <div class="divider">OR PAY BY CARD</div>
+
+    <div class="field">
+      <label for="email">Email · for receipt</label>
+      <input id="email" type="email" value="tom.h@gmail.com" autocomplete="email" />
+    </div>
+
+    <div class="field card">
+      <label for="cc">Card number</label>
+      <input id="cc" type="text" inputmode="numeric" placeholder="1234 1234 1234 1234" autocomplete="cc-number" />
+      <div class="badges"><span class="visa">VISA</span><span class="mc">MC</span><span>AMEX</span></div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="exp">Expiry</label>
+        <input id="exp" type="text" placeholder="MM / YY" autocomplete="cc-exp" />
+      </div>
+      <div class="field">
+        <label for="cvc">CVC</label>
+        <input id="cvc" type="text" inputmode="numeric" placeholder="123" autocomplete="cc-csc" />
+      </div>
+      <div class="field">
+        <label for="pc">Postcode</label>
+        <input id="pc" type="text" placeholder="N8 4SH" autocomplete="postal-code" />
+      </div>
+    </div>
+
+    <button class="pay-btn" id="payBtn" onclick="pay('card')">
+      <span class="spin"></span>
+      <span class="label">Pay £5,730 · Secure deposit</span>
+    </button>
+
+    <div class="legal">
+      By paying, you agree to Rawlings Builds' <a href="#">quote terms</a> and Graftr's <a href="#">payment terms</a>.<br/>
+      Held in escrow until Mon · refundable if Dave cancels.
+    </div>
+  </div>
+
+  <!-- Paid receipt state -->
+  <div class="paid-card">
+    <div class="paid-stamp">PAID</div>
+    <div class="stencil" style="color: var(--green); margin-bottom: 6px;">// Payment received</div>
+    <h2>Nice one, Tom. Your loft job is locked in.</h2>
+    <p class="lede">Dave's been notified. You'll get a WhatsApp from him tonight to lock down the start.</p>
+
+    <div class="receipt-grid">
+      <div>
+        <div class="label">// Paid</div>
+        <div class="val">£5,730.00</div>
+      </div>
+      <div>
+        <div class="label">// Method</div>
+        <div class="val">Visa · •• 4242</div>
+      </div>
+      <div>
+        <div class="label">// Date</div>
+        <div class="val">14 May 2026 · 19:42</div>
+      </div>
+      <div>
+        <div class="label">// Receipt ID</div>
+        <div class="val mono">RCP-QR-0226-D1</div>
+      </div>
+    </div>
+
+    <div class="next-steps">
+      <div class="stencil">// What happens next</div>
+      <ol>
+        <li>
+          <div class="num">1</div>
+          <div class="body">
+            <strong>Tonight</strong>
+            Dave WhatsApps you to confirm Monday's 8am start.
+          </div>
+        </li>
+        <li>
+          <div class="num">2</div>
+          <div class="body">
+            <strong>Mon 18 May · 8am</strong>
+            Skip arrives, scaffold goes up, strip-out begins. Daily photo log starts.
+          </div>
+        </li>
+        <li>
+          <div class="num">3</div>
+          <div class="body">
+            <strong>Wed 27 May</strong>
+            Practical completion. Final balance (£22,920) due on sign-off.
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="paid-actions">
+      <button class="ghost-btn" onclick="alert('Receipt downloaded')">↓ Save receipt</button>
+      <button class="ghost-btn" onclick="alert('Opening calendar')">+ Add to calendar</button>
+    </div>
+  </div>
+
+  <div class="trust">
+    <div><span class="stripe">stripe</span> Encrypted</div>
+    <div>◯ PCI-DSS Level 1</div>
+    <div>◯ FCA Authorised</div>
+  </div>
+
+  <div class="foot">
+    GRAFTR PAYMENTS · GRAFTR LTD · CO. 14882061<br/>
+    NEED HELP? <a href="#" style="color: var(--ink);">SUPPORT@GRAFTR.APP</a>
+  </div>
+
+</div>
+
+<script>
+function pay(method) {
+  const btn = document.getElementById('payBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  btn.querySelector('.label').textContent = method === 'card' ? 'Authorising…' : 'Confirming…';
+  setTimeout(() => {
+    document.body.classList.add('paid');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 1400);
+}
+</script>
+
+</body>
+</html>

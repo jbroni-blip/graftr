@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f5f1e6" />
+<title>Review Dave Rawlings · How did he do?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<template id="__bundler_thumbnail" data-bg-color="#f5f1e6">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#f5f1e6"/>
+    <text x="200" y="120" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7a7468" letter-spacing="3">REVIEW DAVE</text>
+    <g transform="translate(200 200)">
+      <g font-family="Archivo Narrow, sans-serif" fill="#e8b84b" font-size="64">
+        <text x="-130" y="20" text-anchor="middle">★</text>
+        <text x="-65" y="20" text-anchor="middle">★</text>
+        <text x="0" y="20" text-anchor="middle">★</text>
+        <text x="65" y="20" text-anchor="middle">★</text>
+        <text x="130" y="20" text-anchor="middle">★</text>
+      </g>
+    </g>
+    <text x="200" y="320" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="30" fill="#0e0e0c" letter-spacing="-1">HOW DID HE DO?</text>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --bone: #f5f1e6;
+    --paper: #fffbf0;
+    --ink: #0e0e0c;
+    --ink-soft: #2a261f;
+    --ink-mute: #6b6457;
+    --ink-faint: #a39c8d;
+    --hairline: #d8cfb8;
+    --hairline-soft: #e8e0c8;
+    --gold: #b8881e;
+    --gold-bright: #e8b84b;
+    --gold-soft: rgba(184,136,30,0.08);
+    --green: #2d7a3e;
+    --green-soft: rgba(45,122,62,0.08);
+    --red: #b8281a;
+    --blue: #2451a4;
+    --shadow: 0 1px 0 rgba(0,0,0,0.04), 0 12px 32px rgba(40,30,10,0.08);
+    --font-display: 'Archivo Narrow', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bone); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  body {
+    background-image:
+      radial-gradient(rgba(120,90,30,0.04) 1px, transparent 1.5px),
+      radial-gradient(rgba(180,150,60,0.025) 1px, transparent 1.5px);
+    background-size: 4px 4px, 9px 9px;
+    background-position: 0 0, 2px 2px;
+    min-height: 100dvh;
+  }
+  button, input, textarea { font-family: inherit; }
+  button { cursor: pointer; }
+  .stencil { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+  .stencil.mute { color: var(--ink-mute); }
+
+  /* Trust strip */
+  .notice {
+    background: var(--ink); color: var(--bone);
+    padding: 10px 16px;
+    display: flex; gap: 10px; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .notice .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-bright); box-shadow: 0 0 8px var(--gold-bright); }
+
+  .brand-line {
+    max-width: 640px; margin: 22px auto 0; padding: 0 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.1em;
+  }
+  .brand-line .logo-mark {
+    width: 22px; height: 22px; background: var(--ink); color: var(--gold-bright);
+    display: flex; align-items: center; justify-content: center; border-radius: 3px;
+    font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: -0.04em;
+  }
+  .brand-line strong { color: var(--ink); font-family: var(--font-display); font-weight: 800; }
+
+  .wrap { max-width: 640px; margin: 18px auto 0; padding: 0 20px 60px; }
+
+  /* Hero header */
+  .hero { padding-top: 18px; }
+  .from-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .avatar {
+    width: 64px; height: 64px; background: var(--ink); color: var(--gold-bright); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 26px;
+    flex-shrink: 0;
+  }
+  .from-row .info .name { font-family: var(--font-display); font-weight: 800; font-size: 20px; line-height: 1.1; letter-spacing: -0.01em; }
+  .from-row .info .sub { font-size: 13px; color: var(--ink-mute); margin-top: 3px; }
+  .from-row .info .verified { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--green); margin-top: 5px; }
+  .from-row .info .verified::before { content: '✓'; }
+
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(34px, 6vw, 52px); letter-spacing: -0.02em; line-height: 1.05;
+    margin: 0 0 14px;
+  }
+  .hero h1 em { font-style: normal; color: var(--gold); position: relative; }
+  .hero h1 em::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 4px;
+    height: 8px; background: var(--gold-soft);
+    z-index: -1;
+  }
+  .hero .lede { color: var(--ink-mute); font-size: 15px; line-height: 1.55; margin: 0 0 22px; }
+  .hero .lede strong { color: var(--ink); font-weight: 700; }
+
+  /* The big stars block */
+  .stars-card {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 28px; box-shadow: var(--shadow); position: relative; text-align: center;
+    margin-bottom: 14px;
+  }
+  .stars-card::before {
+    content: ''; position: absolute; top: 0; left: 16px; right: 16px; height: 4px;
+    background: repeating-linear-gradient(135deg, var(--gold) 0 10px, var(--ink) 10px 20px);
+    opacity: 0.85;
+  }
+  .stars-card .stencil { margin-bottom: 14px; }
+  .stars-row {
+    display: flex; gap: 6px; justify-content: center; margin: 8px 0 16px;
+  }
+  .stars-row .star {
+    width: 54px; height: 54px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 38px; color: var(--hairline); cursor: pointer;
+    transition: transform 120ms, color 120ms;
+    user-select: none;
+  }
+  .stars-row .star.on { color: var(--gold-bright); transform: scale(1.05); }
+  .stars-row .star:hover { transform: scale(1.15); }
+  @media (max-width: 480px) {
+    .stars-row .star { width: 48px; height: 48px; font-size: 34px; }
+  }
+  .stars-card .verdict {
+    font-family: var(--font-display); font-weight: 800; font-size: 24px; letter-spacing: -0.01em;
+    min-height: 30px;
+    transition: color 200ms;
+  }
+  .stars-card .verdict-sub { font-family: var(--font-mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.1em; margin-top: 4px; text-transform: uppercase; }
+
+  /* Categories */
+  .cats {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 22px; box-shadow: var(--shadow); margin-bottom: 14px;
+  }
+  .cats .stencil { margin-bottom: 14px; }
+  .cat-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid var(--hairline-soft);
+  }
+  .cat-row:last-child { border-bottom: 0; }
+  .cat-row .name { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; }
+  .cat-row .sub { font-size: 12px; color: var(--ink-mute); margin-top: 2px; }
+  .cat-row .pickers { display: flex; gap: 4px; }
+  .cat-row .pickers .s {
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--hairline-soft); font-size: 18px; cursor: pointer;
+    transition: color 100ms, transform 100ms;
+  }
+  .cat-row .pickers .s.on { color: var(--gold-bright); }
+  .cat-row .pickers .s:hover { transform: scale(1.15); }
+
+  /* Prompts + textarea */
+  .write {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 22px; box-shadow: var(--shadow); margin-bottom: 14px;
+  }
+  .write .stencil { margin-bottom: 14px; }
+  .prompts {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;
+  }
+  .prompt {
+    padding: 7px 11px; border: 1px solid var(--hairline); border-radius: 100px;
+    background: var(--bone); cursor: pointer;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    transition: all 120ms;
+  }
+  .prompt:hover { border-color: var(--gold); color: var(--ink); }
+  .prompt::before { content: '+ '; color: var(--gold); font-weight: 700; }
+  textarea {
+    width: 100%; min-height: 130px; max-height: 280px;
+    padding: 14px; border: 1px solid var(--hairline); border-radius: 4px;
+    background: var(--bone); font-size: 15px; color: var(--ink); outline: none;
+    line-height: 1.55;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 120ms;
+  }
+  textarea:focus { border-color: var(--gold); background: var(--paper); }
+  .word-count { font-family: var(--font-mono); font-size: 10px; color: var(--ink-faint); letter-spacing: 0.06em; margin-top: 8px; text-align: right; }
+  .word-count.warn { color: var(--gold); }
+
+  /* Photo upload */
+  .photo-block {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 22px; box-shadow: var(--shadow); margin-bottom: 14px;
+  }
+  .photo-block .stencil { margin-bottom: 12px; }
+  .photo-block .lede { font-size: 13px; color: var(--ink-mute); margin: 0 0 14px; }
+  .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  @media (max-width: 480px) { .photo-grid { grid-template-columns: repeat(3, 1fr); } }
+  .photo-slot {
+    aspect-ratio: 1; border: 1.5px dashed var(--hairline); border-radius: 4px;
+    background: var(--bone); display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-family: var(--font-display); font-weight: 800; font-size: 24px;
+    cursor: pointer;
+    transition: all 120ms;
+  }
+  .photo-slot:hover { border-color: var(--gold); background: var(--gold-soft); }
+  .photo-slot.filled {
+    border: 1px solid var(--hairline); position: relative; overflow: hidden; cursor: default; color: transparent;
+  }
+  .photo-slot.filled svg { width: 100%; height: 100%; display: block; }
+  .photo-slot.filled::after {
+    content: '×'; position: absolute; top: 4px; right: 4px;
+    width: 18px; height: 18px; background: var(--ink); color: var(--bone);
+    display: flex; align-items: center; justify-content: center; border-radius: 50%;
+    font-size: 14px; cursor: pointer;
+  }
+
+  /* Publish destinations */
+  .destinations {
+    background: var(--paper); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 22px; box-shadow: var(--shadow); margin-bottom: 14px;
+  }
+  .destinations .stencil { margin-bottom: 14px; }
+  .dest-row {
+    display: grid; grid-template-columns: 36px 1fr 50px; gap: 12px; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid var(--hairline-soft); cursor: pointer;
+  }
+  .dest-row:last-child { border-bottom: 0; }
+  .dest-row .ic {
+    width: 36px; height: 36px; border-radius: 6px; background: var(--bone); border: 1px solid var(--hairline);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 16px;
+  }
+  .dest-row.graftr .ic { background: var(--ink); color: var(--gold-bright); }
+  .dest-row.google .ic { background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335); color: white; }
+  .dest-row.tp .ic { background: #00b67a; color: white; }
+  .dest-row .name { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; }
+  .dest-row .desc { font-size: 12px; color: var(--ink-mute); margin-top: 2px; }
+  .toggle {
+    width: 42px; height: 24px; background: var(--hairline-soft); border-radius: 100px; position: relative;
+    transition: background 200ms;
+  }
+  .toggle::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 20px; height: 20px; background: var(--paper); border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: transform 200ms;
+  }
+  .toggle.on { background: var(--green); }
+  .toggle.on::after { transform: translateX(18px); }
+
+  /* Submit bar */
+  .submit-bar {
+    display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 4px;
+  }
+  .submit {
+    width: 100%; padding: 18px; background: var(--ink); color: var(--paper); border: 0; border-radius: 4px;
+    font-family: var(--font-display); font-weight: 800; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase;
+    box-shadow: 0 6px 18px rgba(14,14,12,0.18);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform 80ms, background 160ms;
+  }
+  .submit:hover { background: #1c1a14; }
+  .submit:active { transform: scale(0.99); }
+  .submit[disabled] { opacity: 0.5; cursor: not-allowed; }
+  .submit .arrow { transition: transform 120ms; }
+  .submit:hover .arrow { transform: translateX(4px); }
+
+  .legal {
+    font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.04em;
+    text-align: center; margin-top: 10px; line-height: 1.6;
+  }
+  .legal a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold); }
+
+  /* Success state */
+  body.sent .stars-card,
+  body.sent .cats,
+  body.sent .write,
+  body.sent .photo-block,
+  body.sent .destinations,
+  body.sent .submit-bar,
+  body.sent .legal { display: none; }
+  body.sent .hero { display: none; }
+  body.sent .success-block { display: block !important; }
+
+  .success-block {
+    display: none;
+    animation: pop-in 480ms cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes pop-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  .success-card {
+    background: var(--paper); border: 1px solid var(--green); border-radius: 6px;
+    padding: 32px; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    text-align: center;
+  }
+  .success-card::before {
+    content: ''; position: absolute; top: 0; left: 16px; right: 16px; height: 4px;
+    background: repeating-linear-gradient(135deg, var(--green) 0 10px, var(--ink) 10px 20px);
+  }
+  .success-tick {
+    width: 72px; height: 72px; margin: 0 auto 18px;
+    border-radius: 50%; background: var(--green); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; font-weight: 700;
+    box-shadow: 0 0 0 8px var(--green-soft);
+    animation: tick-pulse 600ms ease-out;
+  }
+  @keyframes tick-pulse {
+    from { transform: scale(0.3); box-shadow: 0 0 0 0 var(--green-soft); }
+    to   { transform: scale(1); box-shadow: 0 0 0 8px var(--green-soft); }
+  }
+  .success-card h2 { font-family: var(--font-display); font-weight: 800; font-size: 32px; letter-spacing: -0.02em; margin: 0 0 8px; line-height: 1.1; }
+  .success-card .lede { color: var(--ink-mute); font-size: 15px; line-height: 1.55; margin: 0 auto 24px; max-width: 440px; }
+
+  /* Preview of how the review will look on Dave's profile */
+  .preview-card {
+    text-align: left; margin: 0 auto 18px; max-width: 460px;
+    background: var(--bone); border: 1px solid var(--hairline); border-radius: 4px;
+    padding: 18px;
+  }
+  .preview-card .top { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .preview-card .top .av {
+    width: 36px; height: 36px; background: var(--ink); color: var(--gold-bright); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 14px;
+  }
+  .preview-card .top .who .nm { font-family: var(--font-display); font-weight: 700; font-size: 14px; line-height: 1.1; }
+  .preview-card .top .who .when { font-family: var(--font-mono); font-size: 10px; color: var(--ink-mute); letter-spacing: 0.06em; margin-top: 2px; }
+  .preview-card .stars-mini { display: flex; gap: 1px; margin-left: auto; }
+  .preview-card .stars-mini > span { color: var(--gold-bright); font-size: 14px; }
+  .preview-card .qt { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .preview-card .ftr { display: flex; gap: 6px; margin-top: 10px; }
+  .preview-card .ftr .tag {
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); padding: 3px 6px; border: 1px solid var(--gold); border-radius: 3px;
+  }
+  .preview-card .ftr .verified {
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: var(--green);
+    margin-left: auto;
+  }
+
+  .success-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .success-actions .btn {
+    padding: 12px 18px; border-radius: 4px; font-family: var(--font-display); font-weight: 800; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: all 120ms;
+  }
+  .success-actions .btn.primary { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+  .success-actions .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--hairline); }
+  .success-actions .btn.ghost:hover { border-color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="notice">
+  <span class="dot"></span>
+  <span>30-second review · only published with your OK</span>
+</div>
+
+<div class="brand-line">
+  <div class="logo-mark">G</div>
+  <span>Via <strong>Graftr</strong> · how was your job?</span>
+  <span style="margin-left: auto; letter-spacing: 0.08em;">QR-0226</span>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="from-row">
+      <div class="avatar">DR</div>
+      <div class="info">
+        <div class="name">Dave Rawlings</div>
+        <div class="sub">Rawlings Builds Ltd · 12 yrs · 4.9★ (37)</div>
+        <div class="verified">Verified · TrustMark</div>
+      </div>
+    </div>
+    <h1>How was working with <em>Dave</em>?</h1>
+    <p class="lede">
+      Your loft job wrapped <strong>Wed 27 May</strong>. A short review on Dave's Graftr profile means the world — it's literally how the next family finds him.
+    </p>
+  </section>
+
+  <!-- BIG STARS -->
+  <div class="stars-card">
+    <div class="stencil">// Overall rating</div>
+    <div class="stars-row" id="stars">
+      <span class="star" data-n="1">★</span>
+      <span class="star" data-n="2">★</span>
+      <span class="star" data-n="3">★</span>
+      <span class="star" data-n="4">★</span>
+      <span class="star" data-n="5">★</span>
+    </div>
+    <div class="verdict" id="verdict" style="color: var(--ink-mute);">Tap to rate</div>
+    <div class="verdict-sub" id="verdictSub">Honest is best — Dave'd rather know</div>
+  </div>
+
+  <!-- CATEGORY RATINGS -->
+  <div class="cats">
+    <div class="stencil">// Rate the bits</div>
+    <div class="cat-row" data-cat="quality">
+      <div>
+        <div class="name">Quality of work</div>
+        <div class="sub">Finish, attention to detail, no shortcuts</div>
+      </div>
+      <div class="pickers">
+        <span class="s" data-n="1">★</span><span class="s" data-n="2">★</span><span class="s" data-n="3">★</span><span class="s" data-n="4">★</span><span class="s" data-n="5">★</span>
+      </div>
+    </div>
+    <div class="cat-row" data-cat="communication">
+      <div>
+        <div class="name">Communication</div>
+        <div class="sub">Replied quickly, kept you in the loop</div>
+      </div>
+      <div class="pickers">
+        <span class="s" data-n="1">★</span><span class="s" data-n="2">★</span><span class="s" data-n="3">★</span><span class="s" data-n="4">★</span><span class="s" data-n="5">★</span>
+      </div>
+    </div>
+    <div class="cat-row" data-cat="cleanliness">
+      <div>
+        <div class="name">Cleanliness</div>
+        <div class="sub">Tidied up daily, dust contained, skips managed</div>
+      </div>
+      <div class="pickers">
+        <span class="s" data-n="1">★</span><span class="s" data-n="2">★</span><span class="s" data-n="3">★</span><span class="s" data-n="4">★</span><span class="s" data-n="5">★</span>
+      </div>
+    </div>
+    <div class="cat-row" data-cat="timeliness">
+      <div>
+        <div class="name">Timeliness</div>
+        <div class="sub">On site when said, finished on time</div>
+      </div>
+      <div class="pickers">
+        <span class="s" data-n="1">★</span><span class="s" data-n="2">★</span><span class="s" data-n="3">★</span><span class="s" data-n="4">★</span><span class="s" data-n="5">★</span>
+      </div>
+    </div>
+    <div class="cat-row" data-cat="value">
+      <div>
+        <div class="name">Value for money</div>
+        <div class="sub">Final price vs quoted, fairness of variations</div>
+      </div>
+      <div class="pickers">
+        <span class="s" data-n="1">★</span><span class="s" data-n="2">★</span><span class="s" data-n="3">★</span><span class="s" data-n="4">★</span><span class="s" data-n="5">★</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WRITE -->
+  <div class="write">
+    <div class="stencil">// Anything you'd tell a friend?</div>
+    <div class="prompts">
+      <span class="prompt" data-add="The quote was spot-on — no surprises at the end. ">Quote accuracy</span>
+      <span class="prompt" data-add="Dave dealt with a roof rot variation calmly and fairly. ">Handled variations</span>
+      <span class="prompt" data-add="Site was kept tidy — kids could still use the stairs. ">Site tidiness</span>
+      <span class="prompt" data-add="WhatsApp replies were always within an hour. ">Quick to reply</span>
+      <span class="prompt" data-add="The team — Marek and Mariusz — were brilliant too. ">The crew</span>
+    </div>
+    <textarea id="review" placeholder="What stood out? What would you tell your neighbour? (60+ characters helps)"></textarea>
+    <div class="word-count" id="wc">0 characters · 0 / 60 to publish</div>
+  </div>
+
+  <!-- PHOTO UPLOAD -->
+  <div class="photo-block">
+    <div class="stencil">// Add photos · optional</div>
+    <p class="lede">A couple of finished-room shots make a review really sing.</p>
+    <div class="photo-grid">
+      <div class="photo-slot filled" onclick="this.classList.remove('filled'); this.innerHTML='+'">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+          <rect width="100" height="100" fill="#e8b84b"/>
+          <rect x="20" y="20" width="60" height="60" fill="#0e0e0c"/>
+          <rect x="30" y="30" width="40" height="40" fill="#a8c8d8"/>
+        </svg>
+      </div>
+      <div class="photo-slot filled" onclick="this.classList.remove('filled'); this.innerHTML='+'">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+          <rect width="100" height="100" fill="#c4b89e"/>
+          <rect x="20" y="40" width="60" height="50" fill="#fff"/>
+          <rect x="30" y="20" width="40" height="20" fill="#a8c8d8"/>
+        </svg>
+      </div>
+      <div class="photo-slot" onclick="alert('Photo picker would open')">+</div>
+      <div class="photo-slot" onclick="alert('Photo picker would open')">+</div>
+    </div>
+  </div>
+
+  <!-- DESTINATIONS -->
+  <div class="destinations">
+    <div class="stencil">// Where to publish · pick any</div>
+    <div class="dest-row graftr" onclick="toggleDest(this)">
+      <div class="ic">G</div>
+      <div>
+        <div class="name">Dave's Graftr profile</div>
+        <div class="desc">Public to UK homeowners shopping for trades</div>
+      </div>
+      <div class="toggle on"></div>
+    </div>
+    <div class="dest-row google" onclick="toggleDest(this)">
+      <div class="ic">G</div>
+      <div>
+        <div class="name">Google Business</div>
+        <div class="desc">We'll pre-fill it · you tap publish in Google</div>
+      </div>
+      <div class="toggle on"></div>
+    </div>
+    <div class="dest-row tp" onclick="toggleDest(this)">
+      <div class="ic">★</div>
+      <div>
+        <div class="name">Trustpilot</div>
+        <div class="desc">Verified buyer · adds to Rawlings Builds' score</div>
+      </div>
+      <div class="toggle"></div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-bar">
+    <button class="submit" id="submitBtn" onclick="publish()">
+      <span>Publish review</span>
+      <span class="arrow">→</span>
+    </button>
+    <div class="legal">
+      By publishing, you confirm this review is your honest opinion. Your name is shown as <strong style="color: var(--ink);">Tom H · Crouch End</strong> — first name only.
+      <a href="#">Edit display</a>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-block">
+    <div class="success-card">
+      <div class="success-tick">✓</div>
+      <h2>Published. Cheers, Tom.</h2>
+      <p class="lede">Your review is live on Dave's Graftr profile and queued for Google. Here's how it'll show up:</p>
+
+      <div class="preview-card">
+        <div class="top">
+          <div class="av">TH</div>
+          <div class="who">
+            <div class="nm">Tom H · Crouch End</div>
+            <div class="when">17 MAY '26 · LOFT CONVERSION · £35K</div>
+          </div>
+          <div class="stars-mini" id="previewStars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+        </div>
+        <div class="qt" id="previewText">"Dave and the lads finished our loft on time, on budget, and with a level of care you don't see often. Quote was spot-on — no surprises at the end. When they found roof rot, Dave priced the fix fairly and we signed it off the same day. The crew kept the site tidy, the kids could still use the stairs. Would have them back in a heartbeat."</div>
+        <div class="ftr">
+          <span class="tag">QUOTE ACCURACY</span>
+          <span class="tag">THE CREW</span>
+          <span class="verified">✓ VERIFIED BUYER · QR-0226</span>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <button class="btn primary" onclick="alert('Opening Dave\\'s Graftr profile…')">↗ See on Dave's profile</button>
+        <button class="btn ghost" onclick="alert('Opening Google review…')">↗ Finish on Google</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const VERDICTS = {
+  0: { txt: 'Tap to rate', sub: "Honest is best — Dave'd rather know", color: 'var(--ink-mute)' },
+  1: { txt: 'Disappointing', sub: 'WE\\'LL ASK DAVE TO FOLLOW UP', color: 'var(--red)' },
+  2: { txt: 'Below expectations', sub: 'WE\\'LL ASK DAVE TO FOLLOW UP', color: 'var(--red)' },
+  3: { txt: 'OK, with reservations', sub: 'TELL US WHAT WOULD\\'VE MADE IT 5', color: 'var(--gold)' },
+  4: { txt: 'Really good', sub: 'CHEERS · ANY MORE DETAIL HELPS', color: 'var(--gold)' },
+  5: { txt: 'Absolute graft', sub: 'NICE ONE — DAVE\\'LL APPRECIATE THIS', color: 'var(--green)' },
+};
+
+let rating = 0;
+
+function setRating(n) {
+  rating = n;
+  document.querySelectorAll('#stars .star').forEach((s, i) => {
+    s.classList.toggle('on', i < n);
+  });
+  const v = VERDICTS[n];
+  const ve = document.getElementById('verdict');
+  ve.textContent = v.txt;
+  ve.style.color = v.color;
+  document.getElementById('verdictSub').textContent = v.sub;
+  // Auto-fill categories on first rate (5 stars)
+  if (n === 5) {
+    document.querySelectorAll('.cat-row').forEach(row => setCat(row, 5));
+  }
+}
+
+// Star rating handlers
+document.querySelectorAll('#stars .star').forEach(s => {
+  s.addEventListener('click', () => setRating(parseInt(s.dataset.n, 10)));
+  s.addEventListener('mouseenter', () => {
+    const n = parseInt(s.dataset.n, 10);
+    document.querySelectorAll('#stars .star').forEach((s2, i) => s2.classList.toggle('on', i < n));
+  });
+});
+document.getElementById('stars').addEventListener('mouseleave', () => {
+  document.querySelectorAll('#stars .star').forEach((s, i) => s.classList.toggle('on', i < rating));
+});
+
+// Category pickers
+function setCat(row, n) {
+  row.querySelectorAll('.s').forEach((s, i) => s.classList.toggle('on', i < n));
+  row.dataset.value = n;
+}
+document.querySelectorAll('.cat-row').forEach(row => {
+  row.querySelectorAll('.s').forEach(s => {
+    s.addEventListener('click', () => setCat(row, parseInt(s.dataset.n, 10)));
+  });
+});
+
+// Prompts
+document.querySelectorAll('.prompt').forEach(p => {
+  p.addEventListener('click', () => {
+    const ta = document.getElementById('review');
+    ta.value = (ta.value + p.dataset.add).trimStart();
+    ta.focus();
+    updateWC();
+    p.style.opacity = '0.4';
+    p.style.pointerEvents = 'none';
+  });
+});
+
+// Word count
+function updateWC() {
+  const t = document.getElementById('review').value.trim();
+  const wc = document.getElementById('wc');
+  const n = t.length;
+  if (n >= 60) {
+    wc.textContent = n + ' characters · good to go ✓';
+    wc.classList.remove('warn');
+  } else {
+    wc.textContent = n + ' characters · ' + n + ' / 60 to publish';
+    wc.classList.add('warn');
+  }
+}
+document.getElementById('review').addEventListener('input', updateWC);
+
+function toggleDest(row) {
+  row.querySelector('.toggle').classList.toggle('on');
+}
+
+function publish() {
+  // Update preview
+  const stars = document.querySelectorAll('#previewStars span');
+  stars.forEach((s, i) => s.style.color = i < rating ? 'var(--gold-bright)' : 'var(--hairline)');
+  const txt = document.getElementById('review').value.trim();
+  if (txt.length > 0) {
+    document.getElementById('previewText').textContent = '"' + txt + '"';
+  }
+  document.body.classList.add('sent');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Read URL ?stars=N (came from handover hero)
+const urlStars = parseInt(new URLSearchParams(location.search).get('stars'), 10);
+if (urlStars >= 1 && urlStars <= 5) {
+  setRating(urlStars);
+} else {
+  // Default: prefill 5 (most common, demo)
+  setRating(5);
+  // Pre-fill text for nice demo
+  document.getElementById('review').value = "Dave and the lads finished our loft on time, on budget, and with a level of care you don't see often. Quote was spot-on — no surprises. When they found roof rot, the fix was priced fairly and signed off same day. The crew kept the site tidy throughout.";
+  updateWC();
+}
+</script>
+
+</body>
+</html>

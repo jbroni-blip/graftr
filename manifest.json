@@ -1,0 +1,25 @@
+{
+  "name": "Graftr",
+  "short_name": "Graftr",
+  "description": "AI-powered quoting tool for UK tradespeople",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0e0e0c",
+  "theme_color": "#e8b84b",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%230e0e0c'/%3E%3Crect x='32' y='32' width='128' height='128' rx='18' fill='%23191815' stroke='%23e8b84b' stroke-width='3'/%3E%3Ctext x='96' y='126' text-anchor='middle' font-family='Helvetica' font-weight='900' font-size='96' fill='%23e8b84b'%3EG%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%230e0e0c'/%3E%3Crect x='86' y='86' width='340' height='340' rx='48' fill='%23191815' stroke='%23e8b84b' stroke-width='8'/%3E%3Ctext x='256' y='336' text-anchor='middle' font-family='Helvetica' font-weight='900' font-size='256' fill='%23e8b84b'%3EG%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

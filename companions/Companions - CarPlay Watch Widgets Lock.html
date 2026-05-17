@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#f0eee9" />
+<title>Graftr · Companions · CarPlay, Watch, Widgets, Lock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<template id="__bundler_thumbnail" data-bg-color="#f0eee9">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#f0eee9"/>
+    <rect x="40" y="100" width="200" height="120" rx="8" fill="#0e0e0c"/>
+    <text x="140" y="170" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="22" fill="#e8b84b">CARPLAY</text>
+    <circle cx="300" cy="160" r="55" fill="#0e0e0c"/>
+    <text x="300" y="170" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="14" fill="#e8b84b">WATCH</text>
+    <rect x="100" y="250" width="100" height="100" rx="10" fill="#0e0e0c"/>
+    <text x="150" y="305" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="12" fill="#e8b84b">WIDGET</text>
+    <rect x="230" y="250" width="80" height="100" rx="10" fill="#0e0e0c"/>
+    <text x="270" y="305" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-weight="800" font-size="11" fill="#e8b84b">LOCK</text>
+  </svg>
+</template>
+
+<style>
+  :root {
+    --bg: #f0eee9;
+    --grid: rgba(0,0,0,0.06);
+    --warm-ink: #2a2620;
+    --warm-mute: #6b6457;
+    --warm-faint: #a39c8d;
+    --hairline: #d8cfb8;
+
+    /* Graftr dark tokens for the companion surfaces */
+    --g-bg: #0e0e0c;
+    --g-bg-deep: #080807;
+    --g-surface: #191815;
+    --g-surface2: #23211d;
+    --g-surface-hi: #2c2924;
+    --g-hairline: #34302a;
+    --g-bone: #f5f1e6;
+    --g-bone-dim: #bdb7a8;
+    --g-muted: #7a7468;
+    --g-muted-deep: #4a4640;
+    --g-gold: #e8b84b;
+    --g-gold-deep: #b8881e;
+    --g-red: #ff5a3c;
+    --g-green: #7dd87f;
+
+    --font-display: 'Archivo Narrow', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--warm-ink);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+  /* Canvas wrapper */
+  .canvas { padding: 56px 48px; max-width: 1500px; margin: 0 auto; }
+  @media (max-width: 760px) { .canvas { padding: 32px 20px; } }
+
+  /* Top brand strip */
+  .cv-head {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 8px;
+  }
+  .cv-head .logo-mark {
+    width: 40px; height: 40px; background: var(--g-bg); color: var(--g-gold);
+    display: flex; align-items: center; justify-content: center; border-radius: 5px;
+    font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.04em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .cv-head .ttls .one {
+    font-family: var(--font-display); font-weight: 800; font-size: 32px;
+    letter-spacing: -0.02em; line-height: 1;
+  }
+  .cv-head .ttls .two {
+    font-family: var(--font-mono); font-size: 11px; color: var(--warm-mute);
+    letter-spacing: 0.16em; text-transform: uppercase; margin-top: 4px;
+  }
+  .cv-lede {
+    color: var(--warm-mute); font-size: 15px; line-height: 1.55;
+    max-width: 720px; margin: 14px 0 36px;
+  }
+  .cv-lede strong { color: var(--warm-ink); }
+
+  /* Sections */
+  .section { margin-bottom: 64px; }
+  .section-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 22px; flex-wrap: wrap; }
+  .section-head .num {
+    font-family: var(--font-mono); font-weight: 700; font-size: 12px;
+    color: var(--g-gold-deep); letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .section-head h2 {
+    font-family: var(--font-display); font-weight: 800; font-size: 24px;
+    letter-spacing: -0.02em; margin: 0; line-height: 1;
+  }
+  .section-head p {
+    color: var(--warm-mute); font-size: 14px; margin: 0; max-width: 540px;
+  }
+  .section-head .sep {
+    flex: 1; height: 1px; background: var(--hairline); align-self: center;
+    min-width: 40px;
+  }
+
+  /* Artboard wrapper */
+  .row { display: flex; flex-wrap: wrap; gap: 36px; align-items: flex-start; }
+  .ab { display: flex; flex-direction: column; gap: 10px; }
+  .ab-label {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    color: var(--warm-ink); letter-spacing: 0.04em;
+  }
+  .ab-label .sub { color: var(--warm-faint); font-weight: 600; margin-left: 6px; }
+  .ab-frame {
+    background: white;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 12px 28px rgba(40,30,10,0.06);
+  }
+  .ab-cap {
+    font-family: var(--font-mono); font-size: 10px; color: var(--warm-mute);
+    letter-spacing: 0.06em; max-width: 280px; line-height: 1.5;
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     CARPLAY · 800x480 dashboard
+     ──────────────────────────────────────────────────────────── */
+  .carplay {
+    width: 800px; height: 480px;
+    background: #000;
+    border-radius: 16px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 12px;
+    color: var(--g-bone);
+    font-family: -apple-system, var(--font-body);
+    position: relative;
+  }
+  /* CarPlay left rail (Apple's pattern) */
+  .cp-rail {
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+  }
+  .cp-rail .time { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .cp-rail .icn {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5); font-size: 18px;
+  }
+  .cp-rail .icn.active { color: var(--g-gold); background: rgba(232,184,75,0.12); }
+  .cp-rail .signal {
+    margin-top: auto; font-size: 12px; color: rgba(255,255,255,0.6);
+    display: flex; flex-direction: column; gap: 4px; align-items: center;
+    padding-bottom: 8px;
+  }
+
+  .cp-main {
+    background: var(--g-bg);
+    border-radius: 12px;
+    padding: 22px 26px;
+    display: grid; grid-template-rows: auto 1fr auto;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cp-main::before {
+    content: ''; position: absolute; top: 0; left: 22px; right: 22px; height: 4px;
+    background: repeating-linear-gradient(135deg, var(--g-gold) 0 10px, var(--g-bg-deep) 10px 20px);
+  }
+  .cp-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .cp-kicker {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    color: var(--g-gold); letter-spacing: 0.2em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cp-kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--g-gold); box-shadow: 0 0 8px var(--g-gold); animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .cp-eta {
+    font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    color: var(--g-bone); letter-spacing: 0.08em;
+    background: var(--g-surface); padding: 6px 10px; border-radius: 4px;
+  }
+  .cp-eta strong { color: var(--g-gold); }
+
+  .cp-job-name {
+    font-family: var(--font-display); font-weight: 800; font-size: 48px;
+    letter-spacing: -0.02em; line-height: 1; color: var(--g-bone);
+  }
+  .cp-job-addr {
+    font-family: var(--font-mono); font-size: 14px; color: var(--g-bone-dim);
+    letter-spacing: 0.04em; margin-top: 8px;
+  }
+  .cp-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; align-items: stretch; }
+  .cp-tile {
+    background: var(--g-surface); border: 1px solid var(--g-hairline);
+    border-radius: 8px; padding: 14px 16px; min-height: 88px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .cp-tile .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--g-muted); letter-spacing: 0.18em; text-transform: uppercase; }
+  .cp-tile .v { font-family: var(--font-display); font-weight: 800; font-size: 28px; letter-spacing: -0.01em; color: var(--g-bone); line-height: 1; }
+  .cp-tile .v.gold { color: var(--g-gold); }
+  .cp-tile .sub { font-family: var(--font-mono); font-size: 11px; color: var(--g-bone-dim); letter-spacing: 0.06em; }
+
+  .cp-actions { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 10px; }
+  .cp-btn {
+    height: 56px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: var(--font-display); font-weight: 800; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase;
+    border: 0; cursor: pointer;
+  }
+  .cp-btn.primary { background: var(--g-gold); color: var(--g-bg); box-shadow: 0 6px 18px rgba(232,184,75,0.32); }
+  .cp-btn.ghost { background: var(--g-surface); color: var(--g-bone); border: 1px solid var(--g-hairline); }
+  .cp-btn .ic { font-size: 20px; line-height: 0; }
+
+  /* ────────────────────────────────────────────────────────────
+     iOS LOCK SCREEN · 393x852
+     ──────────────────────────────────────────────────────────── */
+  .lockscreen {
+    width: 393px; height: 852px;
+    background: linear-gradient(180deg, #1a1612 0%, #0e0e0c 60%, #050504 100%);
+    border-radius: 56px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    font-family: -apple-system, var(--font-body);
+  }
+  .lockscreen::before {
+    /* Dynamic island */
+    content: ''; position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 36px; background: #000; border-radius: 20px;
+  }
+  .lock-time {
+    text-align: center; padding-top: 70px; font-weight: 200;
+    font-size: 96px; letter-spacing: -0.04em; line-height: 1;
+    font-family: -apple-system, 'SF Pro Display', var(--font-body);
+  }
+  .lock-date {
+    text-align: center; font-size: 21px; font-weight: 500; margin-top: -8px; opacity: 0.95;
+  }
+  .lock-widgets {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    margin-top: 24px;
+  }
+  .lock-w {
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(20px);
+    border-radius: 16px; padding: 10px 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .lock-w .ic {
+    width: 26px; height: 26px; border-radius: 6px;
+    background: var(--g-gold); color: var(--g-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 17px;
+    flex-shrink: 0;
+  }
+  .lock-w .v { font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -0.01em; line-height: 1; }
+  .lock-w .l { font-size: 10px; opacity: 0.8; margin-top: 1px; }
+
+  .lock-notifs { padding: 24px 0 0; display: flex; flex-direction: column; gap: 8px; }
+  .lock-notif {
+    background: rgba(40,30,20,0.55);
+    backdrop-filter: blur(20px);
+    border-radius: 16px; padding: 10px 12px;
+    display: grid; grid-template-columns: 38px 1fr auto; gap: 10px; align-items: flex-start;
+  }
+  .lock-notif .app-ic {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: var(--g-bg); color: var(--g-gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.04em;
+  }
+  .lock-notif .meta { font-size: 12px; line-height: 1.3; min-width: 0; }
+  .lock-notif .meta .head { display: flex; gap: 6px; align-items: baseline; font-weight: 600; opacity: 0.9; }
+  .lock-notif .meta .head .name { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .lock-notif .meta .head .time { opacity: 0.65; font-size: 11px; margin-left: auto; }
+  .lock-notif .meta .title { font-weight: 600; font-size: 13.5px; line-height: 1.3; margin-top: 2px; }
+  .lock-notif .meta .body { opacity: 0.85; font-size: 12.5px; line-height: 1.35; margin-top: 2px; }
+  .lock-notif .time { font-size: 11px; opacity: 0.6; white-space: nowrap; }
+  .lock-bottom {
+    position: absolute; bottom: 24px; left: 0; right: 0;
+    display: flex; justify-content: space-between; padding: 0 38px; align-items: center;
+  }
+  .lock-bottom .btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: white;
+  }
+  .lock-bottom .bar {
+    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 134px; height: 5px; background: white; border-radius: 3px;
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     APPLE WATCH face · 198x242 (44mm-ish)
+     ──────────────────────────────────────────────────────────── */
+  .watch-frame {
+    width: 220px; height: 270px;
+    background: #1a1a1a;
+    border-radius: 44px;
+    padding: 28px 16px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .watch-frame::after {
+    /* digital crown */
+    content: ''; position: absolute; right: -3px; top: 60px;
+    width: 6px; height: 22px; background: #2c2c2e; border-radius: 2px;
+  }
+  .watch-screen {
+    width: 100%; height: 100%; background: #000;
+    border-radius: 22px; padding: 14px 14px; color: var(--g-bone);
+    display: grid; grid-template-rows: auto 1fr auto; gap: 6px;
+    overflow: hidden;
+  }
+  .watch-top-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;
+  }
+  .watch-top-row .date { color: var(--g-gold); font-weight: 700; }
+  .watch-top-row .charge { color: var(--g-green); font-weight: 700; }
+  .watch-time {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 56px; letter-spacing: -0.04em; line-height: 1; text-align: center;
+    color: var(--g-bone);
+  }
+  .watch-comps {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    align-items: end;
+  }
+  .watch-comp {
+    background: var(--g-surface); border-radius: 6px;
+    padding: 5px 7px;
+    border: 0.5px solid var(--g-hairline);
+  }
+  .watch-comp .lbl {
+    font-family: var(--font-mono); font-size: 7px; color: var(--g-gold);
+    letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700;
+  }
+  .watch-comp .v {
+    font-family: var(--font-display); font-weight: 800; font-size: 13px;
+    letter-spacing: -0.01em; color: var(--g-bone); line-height: 1.1; margin-top: 1px;
+  }
+  .watch-comp .sub {
+    font-family: var(--font-mono); font-size: 7px; color: var(--g-bone-dim);
+    letter-spacing: 0.04em; margin-top: 1px;
+  }
+
+  /* Watch app view */
+  .watch-app {
+    display: grid; grid-template-rows: auto 1fr; gap: 6px;
+  }
+  .watch-app .kicker {
+    font-family: var(--font-mono); font-size: 8px; color: var(--g-gold);
+    letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .watch-app .ttl {
+    font-family: var(--font-display); font-weight: 800; font-size: 16px;
+    letter-spacing: -0.01em; line-height: 1.1; color: var(--g-bone);
+  }
+  .watch-app .sub {
+    font-family: var(--font-mono); font-size: 8px; color: var(--g-bone-dim);
+    letter-spacing: 0.06em; margin-top: 2px;
+  }
+  .watch-app .tile {
+    background: var(--g-surface); border: 0.5px solid var(--g-hairline);
+    border-radius: 6px; padding: 6px 8px;
+  }
+  .watch-app .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .watch-app .btn {
+    background: var(--g-surface); border: 0.5px solid var(--g-hairline);
+    border-radius: 6px; padding: 5px 6px; text-align: center;
+    font-family: var(--font-display); font-weight: 700; font-size: 9px;
+    color: var(--g-bone); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .watch-app .btn.gold { background: var(--g-gold); color: var(--g-bg); border-color: var(--g-gold); }
+
+  /* Live activity */
+  .live-act-frame {
+    width: 393px; height: 100px;
+    display: flex; align-items: flex-start; justify-content: center;
+    padding-top: 14px;
+    background: linear-gradient(180deg, #1a1612, #0e0e0c);
+    border-radius: 20px 20px 0 0;
+    position: relative;
+  }
+  .live-act {
+    background: #000;
+    border-radius: 22px;
+    padding: 8px 14px 8px 12px;
+    display: flex; align-items: center; gap: 12px;
+    color: white;
+    height: 36px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    min-width: 280px;
+  }
+  .live-act .left {
+    display: flex; align-items: center; gap: 6px;
+  }
+  .live-act .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--g-gold); box-shadow: 0 0 6px var(--g-gold);
+    animation: pulse 1.6s infinite;
+  }
+  .live-act .who {
+    font-family: var(--font-display); font-weight: 800; font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  .live-act .sub {
+    font-family: var(--font-mono); font-size: 9px; opacity: 0.7;
+    letter-spacing: 0.08em;
+  }
+  .live-act .right {
+    margin-left: auto; display: flex; align-items: center; gap: 8px;
+    background: rgba(232,184,75,0.15); padding: 4px 8px; border-radius: 12px;
+  }
+  .live-act .right .timer {
+    font-family: var(--font-mono); font-weight: 700; font-size: 11px;
+    color: var(--g-gold); letter-spacing: 0.04em;
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     HOME SCREEN WIDGETS · iOS sizes
+     · small  170×170
+     · medium 364×170
+     · large  364×382
+     ──────────────────────────────────────────────────────────── */
+  .widget {
+    background: var(--g-bg);
+    color: var(--g-bone);
+    border-radius: 22px;
+    padding: 16px 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    font-family: -apple-system, var(--font-body);
+  }
+  .widget .branding {
+    position: absolute; top: 12px; right: 14px;
+    width: 18px; height: 18px; background: var(--g-gold); color: var(--g-bg);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: -0.05em;
+  }
+  .widget .kicker {
+    font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+    color: var(--g-gold); letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .widget .big {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: 36px; letter-spacing: -0.02em; line-height: 1; margin-top: 6px;
+  }
+  .widget .delta {
+    font-family: var(--font-mono); font-size: 10px; color: var(--g-green); letter-spacing: 0.06em; margin-top: 4px;
+  }
+  .widget .label {
+    font-family: var(--font-mono); font-size: 9px; color: var(--g-bone-dim);
+    letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px;
+  }
+
+  .w-small { width: 170px; height: 170px; }
+  .w-medium { width: 364px; height: 170px; }
+  .w-large { width: 364px; height: 382px; }
+
+  .w-small .big { font-size: 34px; }
+  .w-medium .big { font-size: 40px; }
+  .w-large .big { font-size: 50px; }
+
+  /* Medium widget — next job */
+  .w-next-job .left { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; line-height: 1.05; max-width: 200px; margin-top: 8px; }
+  .w-next-job .time-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: auto;
+  }
+  .w-next-job .when {
+    font-family: var(--font-display); font-weight: 800; font-size: 32px;
+    color: var(--g-gold); line-height: 1; letter-spacing: -0.02em;
+  }
+  .w-next-job .when-lbl {
+    font-family: var(--font-mono); font-size: 9px; color: var(--g-bone-dim);
+    letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px;
+  }
+  .w-next-job .meta {
+    font-family: var(--font-mono); font-size: 10px; color: var(--g-bone-dim);
+    letter-spacing: 0.06em; text-align: right;
+  }
+
+  /* Large widget — day at glance */
+  .w-large .rows { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; flex: 1; }
+  .w-large .l-row {
+    background: var(--g-surface); border-radius: 8px;
+    padding: 10px 12px;
+    display: grid; grid-template-columns: 38px 1fr auto; gap: 10px; align-items: center;
+  }
+  .w-large .l-row .lt { font-family: var(--font-display); font-weight: 800; font-size: 16px; letter-spacing: -0.01em; line-height: 1; }
+  .w-large .l-row .lt small { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--g-bone-dim); letter-spacing: 0.06em; margin-top: 2px; font-weight: 400; }
+  .w-large .l-row .time-col {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    color: var(--g-gold); letter-spacing: 0.06em; text-align: center;
+    background: var(--g-surface2); padding: 5px 8px; border-radius: 4px;
+    min-width: 50px;
+  }
+  .w-large .l-row .chip {
+    font-family: var(--font-mono); font-size: 8px; font-weight: 800; letter-spacing: 0.14em;
+    padding: 3px 6px; background: var(--g-gold); color: var(--g-bg); border-radius: 3px;
+  }
+  .w-large .l-row .chip.muted { background: transparent; color: var(--g-muted); border: 1px solid var(--g-hairline); }
+  .w-large .l-row .chip.red { background: var(--g-red); color: var(--g-bg); }
+  .w-large .footer {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px dashed var(--g-hairline); padding-top: 10px; margin-top: 6px;
+  }
+  .w-large .footer .v { font-family: var(--font-display); font-weight: 800; font-size: 16px; }
+  .w-large .footer .l { font-family: var(--font-mono); font-size: 9px; color: var(--g-bone-dim); letter-spacing: 0.14em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+
+  <!-- HEADER -->
+  <div class="cv-head">
+    <div class="logo-mark">G</div>
+    <div class="ttls">
+      <div class="one">Graftr · Companions</div>
+      <div class="two">// 4 SURFACES · CARPLAY · LOCK · WATCH · WIDGETS</div>
+    </div>
+  </div>
+  <p class="cv-lede">
+    The app is where work gets logged, but the work itself happens with hands full — on a roof, in a van, halfway up a ladder. These surfaces give Graftr a presence in those moments: <strong>a CarPlay screen for the drive between jobs</strong>, <strong>lock-screen notifications &amp; widgets for the glance</strong>, <strong>a Watch complication for the wrist</strong>, and a <strong>Live Activity that turns the Dynamic Island into a job timer.</strong>
+  </p>
+
+  <!-- ── CARPLAY ─────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 01</span>
+      <h2>CarPlay · between jobs</h2>
+      <p>The drive from yard to site is dead time. CarPlay shows next job, ETA, customer, and a one-tap "I've arrived" that fires off a WhatsApp to the homeowner.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+      <div class="ab">
+        <div class="ab-label">CarPlay · 800×480 <span class="sub">native dashboard</span></div>
+        <div class="ab-frame" style="border-radius: 18px; padding: 4px; background: #2c2c2e;">
+          <div class="carplay">
+            <!-- CarPlay rail -->
+            <div class="cp-rail">
+              <div class="time">9:14</div>
+              <div class="icn">⌂</div>
+              <div class="icn active">▶</div>
+              <div class="icn">♫</div>
+              <div class="icn">☏</div>
+              <div class="signal"><div>●●●●</div><div style="font-size: 10px;">Wi-Fi</div></div>
+            </div>
+            <!-- main panel -->
+            <div class="cp-main">
+              <div class="cp-row">
+                <div class="cp-kicker"><span class="dot"></span> NEXT JOB · ON THE WAY</div>
+                <div class="cp-eta">ETA <strong>9:42</strong> · 14 MIN</div>
+              </div>
+
+              <div>
+                <div class="cp-job-name">Henderson loft · Day 4</div>
+                <div class="cp-job-addr">14 MOUNTVIEW RD · CROUCH END · N8 4SH</div>
+
+                <div class="cp-grid" style="margin-top: 18px;">
+                  <div class="cp-tile">
+                    <div class="lbl">// Today's plan</div>
+                    <div class="v">Plasterboard + skim</div>
+                    <div class="sub">MARIUSZ ON SITE FROM 9:30</div>
+                  </div>
+                  <div class="cp-tile">
+                    <div class="lbl">// Owed on this job</div>
+                    <div class="v gold">£20.5k</div>
+                    <div class="sub">DEP + STRUCT PAID · FINAL MAY 27</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cp-actions">
+                <button class="cp-btn primary"><span class="ic">→</span> I've arrived</button>
+                <button class="cp-btn ghost"><span class="ic">☏</span> Call Tom</button>
+                <button class="cp-btn ghost"><span class="ic">♫</span> BBC 6</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">"I've arrived" fires a templated WhatsApp to the customer + starts the job timer. One tap. Drive on.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LOCK SCREEN ──────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 02</span>
+      <h2>iOS Lock Screen · the glance</h2>
+      <p>Push notifications &amp; widgets that show today's number, next job, and any chases waiting on a tap — without unlocking.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+      <div class="ab">
+        <div class="ab-label">Lock screen · 393×852 <span class="sub">iPhone 15 Pro</span></div>
+        <div class="ab-frame" style="border-radius: 56px; padding: 0; background: transparent;">
+          <div class="lockscreen">
+            <div class="lock-time">9:14</div>
+            <div class="lock-date">Mon 18 May</div>
+
+            <!-- Lock widgets -->
+            <div class="lock-widgets">
+              <div class="lock-w">
+                <div class="ic">£</div>
+                <div>
+                  <div class="v">£18.4k</div>
+                  <div class="l">CASH THIS WEEK</div>
+                </div>
+              </div>
+              <div class="lock-w">
+                <div class="ic" style="background: var(--g-bone); color: var(--g-bg);">▶</div>
+                <div>
+                  <div class="v">9:30 · D4</div>
+                  <div class="l">HENDERSON LOFT</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notifications stack -->
+            <div class="lock-notifs">
+              <div class="lock-notif">
+                <div class="app-ic">G</div>
+                <div class="meta">
+                  <div class="head"><span class="name">GRAFTR</span><span class="time">9:12</span></div>
+                  <div class="title">Tom paid the structural milestone</div>
+                  <div class="body">£15,195 · Visa •• 4242 · cleared</div>
+                </div>
+              </div>
+              <div class="lock-notif">
+                <div class="app-ic">G</div>
+                <div class="meta">
+                  <div class="head"><span class="name">GRAFTR · AI</span><span class="time">8:58</span></div>
+                  <div class="title">3 chases ready to send</div>
+                  <div class="body">£4,820 sat in invoices &gt; 21 days. Tap to approve all.</div>
+                </div>
+              </div>
+              <div class="lock-notif">
+                <div class="app-ic">G</div>
+                <div class="meta">
+                  <div class="head"><span class="name">GRAFTR · DIARY</span><span class="time">8:00</span></div>
+                  <div class="title">Day 4 of Henderson · Plasterboard</div>
+                  <div class="body">Mariusz expected on site at 9:30. Materials delivered.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lock-bottom">
+              <div class="btn">⌕</div>
+              <div class="btn">⊙</div>
+              <div class="bar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">Three notification types: payment hits, AI-prepped chases, and the daily site brief at 8am.</div>
+      </div>
+
+      <!-- Live Activity / Dynamic Island -->
+      <div class="ab">
+        <div class="ab-label">Live Activity <span class="sub">on-site timer in the Dynamic Island</span></div>
+        <div class="ab-frame" style="border-radius: 22px 22px 0 0; padding: 0;">
+          <div class="live-act-frame">
+            <div class="live-act">
+              <div class="left">
+                <span class="dot"></span>
+                <div>
+                  <div class="who">ON SITE · HENDERSON</div>
+                  <div class="sub">DAY 4 · MARIUSZ + DAVE</div>
+                </div>
+              </div>
+              <div class="right">
+                <div class="timer">3:24:18</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">Tap the timer to log a break · long-press for the full job card. Stays put through the day.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WATCH ─────────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 03</span>
+      <h2>Apple Watch · the wrist glance</h2>
+      <p>Modular face complications + a stripped Watch app. Top-corner complication shows cash-today; bottom shows the next job time.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+
+      <div class="ab">
+        <div class="ab-label">Watch face <span class="sub">Modular · 44mm</span></div>
+        <div class="ab-frame" style="background: transparent; box-shadow: none;">
+          <div class="watch-frame">
+            <div class="watch-screen">
+              <div class="watch-top-row">
+                <span class="date">MON 18</span>
+                <span class="charge">87%</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1;">
+                <div class="watch-time">9:14</div>
+                <div style="font-family: var(--font-mono); font-size: 9px; color: var(--g-gold); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 4px;">▶ ON-SITE · 3:24</div>
+              </div>
+              <div class="watch-comps">
+                <div class="watch-comp">
+                  <div class="lbl">// CASH TODAY</div>
+                  <div class="v" style="color: var(--g-green);">£20,925</div>
+                  <div class="sub">+ DEP CLEARED</div>
+                </div>
+                <div class="watch-comp">
+                  <div class="lbl">// NEXT JOB</div>
+                  <div class="v">14:00</div>
+                  <div class="sub">MURRAY · SHOREDITCH</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">Modular face with two Graftr complications. Top: today's earned. Bottom: next job time + location.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Watch app · job <span class="sub">tap from complication</span></div>
+        <div class="ab-frame" style="background: transparent; box-shadow: none;">
+          <div class="watch-frame">
+            <div class="watch-screen">
+              <div class="watch-top-row">
+                <span class="date">9:14</span>
+                <span class="charge">87%</span>
+              </div>
+              <div class="watch-app">
+                <div>
+                  <div class="kicker"><span style="color: var(--g-gold);">●</span> ON SITE · D4</div>
+                  <div class="ttl">Henderson loft</div>
+                  <div class="sub">DAY 4 / 8 · ON TRACK</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                  <div class="tile">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div style="font-family: var(--font-mono); font-size: 8px; color: var(--g-bone-dim); letter-spacing: 0.12em;">TIMER</div>
+                      <div style="font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--g-gold);">3:24:18</div>
+                    </div>
+                  </div>
+                  <div class="btn-row">
+                    <div class="btn gold">+ PHOTO</div>
+                    <div class="btn">⏸ BREAK</div>
+                  </div>
+                  <div class="btn-row">
+                    <div class="btn">CALL TOM</div>
+                    <div class="btn">DONE ▸</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">+ PHOTO uses the Watch camera, then it lands on the job's photo log instantly.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Watch app · cash <span class="sub">complication tap</span></div>
+        <div class="ab-frame" style="background: transparent; box-shadow: none;">
+          <div class="watch-frame">
+            <div class="watch-screen">
+              <div class="watch-top-row">
+                <span class="date">9:14</span>
+                <span class="charge">87%</span>
+              </div>
+              <div class="watch-app">
+                <div>
+                  <div class="kicker">// THIS WEEK</div>
+                  <div class="ttl" style="color: var(--g-green);">£20,925</div>
+                  <div class="sub">+£3.2K VS LAST WEEK</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                  <div class="tile" style="display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: center;">
+                    <div>
+                      <div style="font-family: var(--font-display); font-weight: 700; font-size: 10px;">Tom · deposit</div>
+                      <div style="font-family: var(--font-mono); font-size: 7px; color: var(--g-bone-dim);">JUST NOW · VISA</div>
+                    </div>
+                    <div style="font-family: var(--font-display); font-weight: 800; font-size: 11px; color: var(--g-green);">+£5.7k</div>
+                  </div>
+                  <div class="tile" style="display: grid; grid-template-columns: 1fr auto; gap: 6px; align-items: center;">
+                    <div>
+                      <div style="font-family: var(--font-display); font-weight: 700; font-size: 10px;">Murray · final</div>
+                      <div style="font-family: var(--font-mono); font-size: 7px; color: var(--g-bone-dim);">YESTERDAY · BACS</div>
+                    </div>
+                    <div style="font-family: var(--font-display); font-weight: 800; font-size: 11px; color: var(--g-green);">+£4.2k</div>
+                  </div>
+                  <div class="btn gold">SEND 3 CHASES</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">Crown-scroll the payment list. The chase button digital-Crown clicks fire pre-approved templates.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── WIDGETS ──────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">// 04</span>
+      <h2>Home Screen Widgets · the day at a glance</h2>
+      <p>Three sizes: a tiny cash-today, a medium next-job, a large day-at-a-glance. Tap any tile to deep-link to that screen in the app.</p>
+      <span class="sep"></span>
+    </div>
+    <div class="row">
+
+      <div class="ab">
+        <div class="ab-label">Small · 170×170 <span class="sub">cash today</span></div>
+        <div class="ab-frame" style="background: transparent; box-shadow: none; border-radius: 22px;">
+          <div class="widget w-small">
+            <div class="branding">G</div>
+            <div class="kicker">// CASH · TODAY</div>
+            <div class="big">£20,925</div>
+            <div class="delta">+£8.9k VS YDAY</div>
+            <div class="label" style="margin-top: auto;">2 PAYMENTS LANDED</div>
+          </div>
+        </div>
+        <div class="ab-cap">Pulses gold for an hour when a payment hits. Long-press → cash screen.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Small · overdue <span class="sub">when there's something to chase</span></div>
+        <div class="ab-frame" style="background: transparent; box-shadow: none; border-radius: 22px;">
+          <div class="widget w-small" style="border-left: 3px solid var(--g-red);">
+            <div class="branding">G</div>
+            <div class="kicker" style="color: var(--g-red);">// OVERDUE</div>
+            <div class="big">£4,820</div>
+            <div class="delta" style="color: var(--g-red);">3 INVOICES · 21D+</div>
+            <div class="label" style="margin-top: auto;">TAP · SEND CHASES</div>
+          </div>
+        </div>
+        <div class="ab-cap">Only appears when something's late. Tap fires the AI-drafted chase queue.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Medium · 364×170 <span class="sub">next job</span></div>
+        <div class="ab-frame" style="background: transparent; box-shadow: none; border-radius: 22px;">
+          <div class="widget w-medium w-next-job">
+            <div class="branding">G</div>
+            <div class="kicker">// NEXT JOB · TODAY</div>
+            <div class="left">Henderson loft · Day 4</div>
+            <div class="time-row">
+              <div>
+                <div class="when">9:30</div>
+                <div class="when-lbl">START · 14 MIN ETA</div>
+              </div>
+              <div class="meta">
+                MOUNTVIEW RD · N8<br/>
+                MARIUSZ + DAVE<br/>
+                ▶ PLASTERBOARD
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">Drive-time aware: counts down to ETA. Long-press for one-tap directions in CarPlay.</div>
+      </div>
+
+      <div class="ab">
+        <div class="ab-label">Large · 364×382 <span class="sub">day at a glance</span></div>
+        <div class="ab-frame" style="background: transparent; box-shadow: none; border-radius: 22px;">
+          <div class="widget w-large">
+            <div class="branding">G</div>
+            <div class="kicker">// TODAY · MON 18 MAY</div>
+
+            <div class="rows">
+              <div class="l-row">
+                <div class="time-col">9:30</div>
+                <div class="lt">Henderson loft<small>D4 · MOUNTVIEW RD · ON SITE NOW</small></div>
+                <div class="chip">LIVE</div>
+              </div>
+              <div class="l-row">
+                <div class="time-col">14:00</div>
+                <div class="lt">Murray site visit<small>SHOREDITCH · NEW QUOTE</small></div>
+                <div class="chip muted">QUOTE</div>
+              </div>
+              <div class="l-row">
+                <div class="time-col">16:30</div>
+                <div class="lt">Patel chase call<small>£1.8K · 24D OVERDUE</small></div>
+                <div class="chip red">CASH</div>
+              </div>
+            </div>
+
+            <div class="footer">
+              <div>
+                <div class="v" style="color: var(--g-green);">+£20.9k</div>
+                <div class="l">CASH IN TODAY</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="v">3</div>
+                <div class="l">JOBS BOOKED</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ab-cap">The whole working day in one widget — jobs, money, what's overdue. Tap any row, lands you on it.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bottom note -->
+  <div style="border-top: 1px dashed var(--hairline); padding-top: 18px; font-family: var(--font-mono); font-size: 11px; color: var(--warm-mute); letter-spacing: 0.08em; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span>// GRAFTR COMPANIONS · 4 SURFACES · MAY 2026</span>
+    <span>NEXT: HOMEPOD &amp; SIRI · WIDGETSTACK · ANDROID</span>
+  </div>
+
+</div>
+</body>
+</html>
